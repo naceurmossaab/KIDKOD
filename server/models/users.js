@@ -21,10 +21,7 @@ const userSchema = mongoose.Schema(
 		badge: { type: String, default: "beginner" },
 		picture: { type: String, default: "https://www.bootdey.com/img/Content/avatar/avatar7.png" },
 	},
-	{
-		timestampe: true,
-		versionKey: false,
-	}
+	{ timestamps: true, versionKey: false }
 );
 
 userSchema.statics.login = async function (username, plainTextPassword) {
