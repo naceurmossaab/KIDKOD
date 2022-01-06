@@ -22,8 +22,7 @@ module.exports = {
                // jwt.verify(token, 'stack', (err, user) => console.log(User.findById(user)));
                res.status(201).json(foundUser);
           } catch (error) {
-               console.log(error.message);
-               res.send(error.message);
+               res.status(400).send(error);
           }
      },
      signup: async (req, res, next) => {
@@ -41,7 +40,7 @@ module.exports = {
 
                res.status(201).json(foundUser);
           } catch (error) {
-               res.send(error.message);
+               res.status(400).send(error);
           }
      },
      logout: async (req, res, next) => {

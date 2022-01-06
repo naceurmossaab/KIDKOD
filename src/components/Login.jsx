@@ -44,7 +44,7 @@ const Login = () => {
                          username: "",
                          email: "",
                          password: "",
-                         status: " " + data
+                         status: " "
                         //reset the signup state
                         //status : data => "username already exist" - "account created" 
                     })
@@ -53,21 +53,31 @@ const Login = () => {
      }
 
      const signinFN = () => {
-          console.log("signin ", signin);
-          axios.post('http://localhost:8000/users/signin', signin)
-               .then(( {data} ) => {
-                    console.log(data);
-                    setSignin({
-                         username: "",
-                         password: "",
-                         status: " logged as : " + data.username
-                         //reset the signup state
-                         //status : data => "username already exist" - "account created" 
-                    });
-                    localStorage.setItem("user", JSON.stringify(data));
-                    navigateTo("/");
-               })
-               .catch((err) => console.log("Authentification => signin error : ", err.message));
+          if(signin.username.length === 0){
+               let error = signin;
+               error.status = "  enter your username"
+               setSignin(error);
+          }else if (signin.password.length === 0) {
+               let error = signin;
+               error.status = "  enter your password"
+               setSignin(error);
+          }else{
+               axios.post('http://localhost:8000/users/signin', signin)
+                    .then(({ data }) => {
+                         console.log(data);
+                         setSignin({
+                              username: "",
+                              password: "",
+                              status: ""
+                              //reset the signup state
+                              //status : data => "username already exist" - "account created" 
+                         });
+                         localStorage.setItem("user", JSON.stringify(data));
+                         navigateTo("/");
+                    })
+                    .catch((err) => console.log("Authentification => signin error : ", err.message));
+          }
+          
      }
 
      return (
@@ -92,8 +102,8 @@ const Login = () => {
                          <input onChange={changeSignUp} name='email'    placeholder='email'    type='text' />
                          <div>
                               <button onClick={signupFN}> SignUp </button>
-                              <span style={{ fontSize: "20px", color: signup.status === "username already exist" ? "red" : "green" }} >
-                                   {signup.status}
+                              <span value={signup.status} style={{ fontSize: "20px", color: signup.status === "username already exist" ? "red" : "green" }} >
+                                   
                               </span>
                          </div>
                     </div>
@@ -110,9 +120,7 @@ const Login = () => {
                               <input onChange={changeSignIn} name='password' placeholder='password' type='password'/>
                          <div>
                               <button onClick={signinFN}> SignIn </button>
-                                   <span style={{ fontSize: "20px", color: signin.status.includes("logged") ? "green" : "red" }}>
-                                   {signin.status}
-                              </span>
+                                   <span value={signin.status} style={{ fontSize: "20px", color: "red" }}> </span>
                          </div>
                     </div>
                )}

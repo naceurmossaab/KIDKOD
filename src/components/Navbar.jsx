@@ -23,7 +23,7 @@ const Navbar = () => {
                <div className="spacer-right"></div>
                {user ? 
                (<div>
-                    <Link to="/profile"><span><img class="user-logo" src={user.picture} />{user.username}</span></Link>
+                    <Link to="/profile"><span><img className="user-logo" src={user.picture} />{user.username}</span></Link>
                     <Link to="/"><span className="navbar-title" onClick={()=>logout()}>Log Out</span></Link>
                </div>
                ) : (<Link to="/login"><span className="navbar-title">Sign In</span></Link>)}
