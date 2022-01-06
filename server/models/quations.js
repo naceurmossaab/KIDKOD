@@ -6,10 +6,7 @@ const quationSchema = mongoose.Schema(
 		choices: [String],
 		correct: String,
 	},
-	{
-		timestampe: true,
-		versionKey: false,
-	}
+	{ timestamps: true, versionKey: false }
 );
 
 module.exports = mongoose.model("Quations", quationSchema);

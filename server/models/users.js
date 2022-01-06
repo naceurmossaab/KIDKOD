@@ -20,10 +20,7 @@ const userSchema = mongoose.Schema(
 		badge: String,
 		picture: String,
 	},
-	{
-		timestampe: true,
-		versionKey: false,
-	}
+	{ timestamps: true, versionKey: false }
 );
 
 module.exports = mongoose.model("Users", userSchema);
