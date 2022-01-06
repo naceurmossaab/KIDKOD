@@ -6,10 +6,7 @@ const challengeSchema = mongoose.Schema(
 		course: { type: mongoose.Schema.Types.ObjectId, ref: "Courses" },
 		level: Number,
 	},
-	{
-		timestampe: true,
-		versionKey: false,
-	}
+	{ timestamps: true, versionKey: false }
 );
 
 module.exports = mongoose.model("Challenges", challengeSchema);
