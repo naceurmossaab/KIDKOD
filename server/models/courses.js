@@ -5,10 +5,7 @@ const courseSchema = mongoose.Schema(
 		text: String,
 		pictures: [String],
 	},
-	{
-		timestampe: true,
-		versionKey: false,
-	}
+	{ timestamps: true, versionKey: false }
 );
 
-module.exports = mongoose.model("Challenges", courseSchema);
+module.exports = mongoose.model("Courses", courseSchema);
