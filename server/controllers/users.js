@@ -11,7 +11,6 @@ module.exports = {
 
           try {
                const loggedInUser = await User.login(username, password);
-
                // i did not want to return user, because, I could not show the hashed password to the client
                // that's why I created a new variable called foundUser
                const foundUser = await User
@@ -22,7 +21,7 @@ module.exports = {
                // jwt.verify(token, 'stack', (err, user) => console.log(User.findById(user)));
                res.status(201).json(foundUser);
           } catch (error) {
-               res.status(400).send(error);
+               res.status(400).send(error.message);
           }
      },
      signup: async (req, res, next) => {
@@ -40,7 +39,8 @@ module.exports = {
 
                res.status(201).json(foundUser);
           } catch (error) {
-               res.status(400).send(error);
+               console.log("signup error : ", error.message);
+               res.status(400).send(error.message);
           }
      },
      logout: async (req, res, next) => {
