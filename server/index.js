@@ -19,9 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-/******************** Routes ********************/
-app.use("/users", users);
-
 /******************** Cookie Life ********************/
 app.use(
   cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
@@ -33,6 +30,8 @@ const courseRouter = require("./routers/courses");
 const challengeRouter = require("./routers/challenges");
 const answerRouter = require("./routers/answers");
 
+/******************** Routes ********************/
+app.use("/users", users);
 app.use("/api/quation", quationRouter);
 app.use("/api/course", courseRouter);
 app.use("/api/challenge", challengeRouter);

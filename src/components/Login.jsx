@@ -1,123 +1,228 @@
 import "../style/Login.css";
-import React, { useState } from "react";
-import { useNavigate  } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
 
 const Login = () => {
-     const navigateTo = useNavigate ();
-     const [view, setView] = useState("signin");
-     const [signup, setSignup] = useState({
-          username: "",
-          email   : "",
-          password: "",
-          status  : "",
-     });
-     const [signin, setSignin] = useState({
-          username: "",
-          password: "",
-          status  : "",
-     });
+  const navigateTo = useNavigate();
+  const [view, setView] = useState("signin");
+  const [signup, setSignup] = useState({
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+    status: "",
+  });
+  const [signin, setSignin] = useState({
+    username: "",
+    password: "",
+    status: "",
+  });
 
-     const changeSignUp = (e) => {
-          let key = e.target.name;
-          let value = e.target.value;
-          let obj = signup;
-          obj[key] = value;
-          setSignup(obj);
-     };
+  const reset = (state) => {
+    if (state === "signin")
+      setSignin({
+        username: "",
+        password: "",
+        status: "",
+      });
+    else
+      setSignup({
+        username: "",
+        email: "",
+        password: "",
+        password2: "",
+        status: "",
+      });
+  };
 
-     const changeSignIn = (e) => {
-          let key = e.target.name;
-          let value = e.target.value;
-          let obj = signin;
-          obj[key] = value;
-          setSignin(obj);
-     };
+  const signupFN = () => {
+    if (signup.username.length === 0) {
+      setSignup({ ...signup, status: "enter your username" });
+    } else if (!signup.email.includes("@")) {
+      if (signup.email.length === 0)
+        setSignup({ ...signup, status: "enter your email" });
+      else setSignup({ ...signup, status: "wrrong email" });
+    } else if (signup.password.length < 8) {
+      if (signup.password.length === 0)
+        setSignup({ ...signup, status: "enter your password" });
+      else setSignup({ ...signup, status: "short password" });
+    } else if (
+      signup.password.length >= 8 &&
+      signup.password !== signup.password2
+    ) {
+      setSignup({ ...signup, status: "password doesn't match" });
+    } else {
+      let { username, email, password } = signup;
+      axios
+        .post("http://localhost:8000/users/signup", {
+          username,
+          email,
+          password,
+        })
+        .then(({ data }) => {
+          // console.log("response signup :", data);
+          setSignup({
+            username: "",
+            email: "",
+            password: "",
+            password2: "",
+            status: "account created",
+            //reset the signup state
+            //status : data => "username already exist" - "account created"
+          });
+          navigateTo("/login");
+        })
+        .catch((error) => {
+          if (error.response.data.includes("E11000 duplicate key error"))
+            setSignup({ ...signup, status: "username already exist" });
+        });
+    }
+  };
 
-     const signupFN = () => {
-          console.log("signup ", signup);
-          axios.post('http://localhost:8000/users/signup', signup)
-               .then(({ data }) => {
-                    console.log(data);
-                    setSignup({
-                         username: "",
-                         email: "",
-                         password: "",
-                         status: " " + data
-                        //reset the signup state
-                        //status : data => "username already exist" - "account created" 
-                    })
-               })
-               .catch((err) => console.log("Login Component => signup error : ", err.message));
-     }
+  const signinFN = () => {
+    if (signin.username.length === 0) {
+      setSignin({ ...signin, status: "enter your username" });
+    } else if (signin.password.length < 8) {
+      if (signin.password.length === 0)
+        setSignin({ ...signin, status: "enter your password" });
+      else setSignin({ ...signin, status: "short password" });
+    } else {
+      axios
+        .post("http://localhost:8000/users/signin", signin)
+        .then(({ data }) => {
+          setSignin({
+            username: "",
+            password: "",
+            status: "",
+            //reset the signup state
+            //status : data => "username already exist" - "account created"
+          });
+          localStorage.setItem("user", JSON.stringify(data));
+          navigateTo("/");
+        })
+        .catch((error) =>
+          setSignin({ ...signin, status: error.response.data })
+        );
+    }
+  };
 
-     const signinFN = () => {
-          console.log("signin ", signin);
-          axios.post('http://localhost:8000/users/signin', signin)
-               .then(( {data} ) => {
-                    console.log(data);
-                    setSignin({
-                         username: "",
-                         password: "",
-                         status: " logged as : " + data.username
-                         //reset the signup state
-                         //status : data => "username already exist" - "account created" 
-                    });
-                    localStorage.setItem("user", JSON.stringify(data));
-                    navigateTo("/");
-               })
-               .catch((err) => console.log("Authentification => signin error : ", err.message));
-     }
-
-     return (
-          <div className='login'>
-               <div className='left-div'>
-                    <h1>Create an account</h1>
-                    <p>it's totally free and secure</p>
-                    <p>we don't share your </p>
-                    <p>informations with others</p>
-               </div>
-               {view === "signup" ? (
-                    <div className='contact'>
-                         <h3>Sign Up</h3>
-                         <span>
-                              Have an account ?
-                              <span className='cursor-pointer' onClick={() => setView("signin")}>
-                                   <u>Sign In</u>
-                              </span>
-                         </span>
-                         <input onChange={changeSignUp} name='username' placeholder='username' type='text' />
-                         <input onChange={changeSignUp} name='password' placeholder='password' type='text' />
-                         <input onChange={changeSignUp} name='email'    placeholder='email'    type='text' />
-                         <div>
-                              <button onClick={signupFN}> SignUp </button>
-                              <span style={{ fontSize: "20px", color: signup.status === "username already exist" ? "red" : "green" }} >
-                                   {signup.status}
-                              </span>
-                         </div>
-                    </div>
-               ) : (
-                    <div className='contact'>
-                         <h3>Sign In</h3>
-                         <span>
-                              Don't have an account ?
-                              <span className='cursor-pointer' onClick={() => setView("signup")} >
-                                   <u>Sign Up</u>
-                              </span>
-                         </span>
-                              <input onChange={changeSignIn} name='username' placeholder='username' type='text'    />
-                              <input onChange={changeSignIn} name='password' placeholder='password' type='password'/>
-                         <div>
-                              <button onClick={signinFN}> SignIn </button>
-                                   <span style={{ fontSize: "20px", color: signin.status.includes("logged") ? "green" : "red" }}>
-                                   {signin.status}
-                              </span>
-                         </div>
-                    </div>
-               )}
+  return (
+    <div>
+      <Navbar />
+      <div className="login">
+        <div className="left-div">
+          <h1>Create an account</h1>
+          <p>it's totally free and secure</p>
+          <p>we don't share your </p>
+          <p>informations with others</p>
+        </div>
+        {view === "signup" ? (
+          <div className="contact">
+            <h3>Sign Up</h3>
+            <span>
+              Have an account ? &nbsp;
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  reset("signup");
+                  setView("signin");
+                }}
+              >
+                <u>Sign In</u>
+              </span>
+            </span>
+            <input
+              value={signup.username}
+              onChange={(e) =>
+                setSignup({ ...signup, username: e.target.value })
+              }
+              name="username"
+              placeholder="username"
+              type="text"
+            />
+            <input
+              value={signup.email}
+              onChange={(e) => setSignup({ ...signup, email: e.target.value })}
+              name="email"
+              placeholder="email"
+              type="email"
+            />
+            <input
+              value={signup.password}
+              onChange={(e) =>
+                setSignup({ ...signup, password: e.target.value })
+              }
+              name="password"
+              placeholder="password"
+              type="password"
+            />
+            <input
+              value={signup.password2}
+              onChange={(e) =>
+                setSignup({ ...signup, password2: e.target.value })
+              }
+              name="password2"
+              placeholder="confirm password"
+              type="password"
+            />
+            <div>
+              <button onClick={signupFN}> SignUp </button>
+              <span
+                style={{
+                  fontSize: "20px",
+                  color: signup.status === "account created" ? "green" : "red",
+                }}
+              >
+                {signup.status}
+              </span>
+            </div>
           </div>
-     );
+        ) : (
+          <div className="contact">
+            <h3>Sign In</h3>
+            <span>
+              Don't have an account ? &nbsp;
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  reset("signin");
+                  setView("signup");
+                }}
+              >
+                <u>Sign Up</u>
+              </span>
+            </span>
+            <input
+              value={signin.username}
+              onChange={(e) =>
+                setSignin({ ...signin, username: e.target.value })
+              }
+              name="username"
+              placeholder="username"
+              type="text"
+            />
+            <input
+              value={signin.password}
+              onChange={(e) =>
+                setSignin({ ...signin, password: e.target.value })
+              }
+              name="password"
+              placeholder="password"
+              type="password"
+            />
+            <div>
+              <button onClick={signinFN}> SignIn </button>
+              <span style={{ fontSize: "20px", color: "red" }}>
+                {signin.status}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Login;
