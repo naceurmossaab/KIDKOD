@@ -41,7 +41,7 @@ const Home = () => {
           With KIDKOD you will be sure that your child is using technologies in
           a benefit way. Login to start the adventure !
         </p>
-        <Link to="/login">
+        <Link to="/Challenges">
           <button className="startGameBTN">Login</button>
         </Link>
       </div>
