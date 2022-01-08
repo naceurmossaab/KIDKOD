@@ -1,3 +1,52 @@
-h1{
-     margin: 2rem;
+body {
+  background-color: #f5edec;
+  margin-top: -3%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.rightImage {
+  margin-top: 15%;
+  margin-left: 50%;
+}
+
+.leftImage {
+  margin-left: -610%;
+  margin-top: -820%;
+}
+.mainPage {
+  margin-top: -60%;
+  margin-left: -39%;
+}
+.title {
+  color: #1b0238;
+  font-size: 52px;
+  margin-top: 2%;
+}
+.playLearn {
+  color: #ea512e;
+  font-size: 25px;
+}
+.Paragraph {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(99, 99, 99);
+  width: 40%;
+  margin-top: 2%;
+  font-size: larger;
+  line-height: 30px;
+}
+.startGameBTN {
+  margin-top: 22%;
+  padding: 1.5%;
+  color: rgb(255, 255, 255);
+  background-color: #ea512e;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-size: larger;
+}
+.startGameBTN:hover {
+  background-color: #f5890d;
 }
