@@ -16,10 +16,6 @@ const Vis = () => {
 
 
 		// Sound
-		const talk = new Audio("/src/components/static/Enregistrement.m4a");
-		
-		
-			
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		// Scene
@@ -332,6 +328,22 @@ const Vis = () => {
 		// 		playsound();
 		// 	}
 		// };
+		// document.onkeydown = function (e) {
+		// 	if (e.keyCode === 13) {
+		// 				playsound();
+		// 		 	}}
+		var oldman=false
+					 document.onkeyup = function (e) {
+						if (e.keyCode === 13 && oldman===false) {
+							
+							const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		
+							talk.play();
+							
+							oldman=true
+							if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+
+						 }}
 
 	
 		// Controls
