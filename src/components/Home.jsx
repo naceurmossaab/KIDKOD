@@ -21,27 +21,29 @@ const Home = () => {
           <th>
             <img
               className="rightImage"
-              src="https://media.discordapp.net/attachments/929085824262361128/929108754895626310/right.PNG?width=487&height=409"
+              src="https://cdni.iconscout.com/illustration/premium/thumb/little-kids-learning-mathematics-online-2769747-2302765.png"
             />
           </th>
           <th>
-            <img
+            {/* <img
               className="leftImage"
               src="https://media.discordapp.net/attachments/929085824262361128/929111085330628648/leftTop.PNG"
-            />
+            /> */}
           </th>
         </tr>
       </table>
       <div className="mainPage">
         <p className="playLearn">Play, Learn and Grow</p>
-        <h1 className="title">hello kidkod</h1>
+        <h1 className="title">What is KIDKOD ?</h1>
         <p className="Paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
-          suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
-          lacus vel facilisis.
+          KIDKOD is an E-learning plateform that allows our children to learn
+          and improve their problem solving skills by playing and having fun.
+          With KIDKOD you will be sure that your child is using technologies in
+          a benefit way. Login to start the adventure !
         </p>
-        <button className="startGameBTN">Login</button>
+        <Link to="/login">
+          <button className="startGameBTN">Login</button>
+        </Link>
       </div>
     </div>
   );

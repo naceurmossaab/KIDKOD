@@ -110,7 +110,6 @@ const Login = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="login">
         <div className="left-div">
           <h1>Create an account</h1>
@@ -130,7 +129,7 @@ const Login = () => {
                   setView("signin");
                 }}
               >
-                <u>Sign In</u>
+                <u>Login</u>
               </span>
             </span>
             <input
