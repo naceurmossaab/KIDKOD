@@ -27,11 +27,12 @@ class Challenges extends React.Component {
     return (
       <div>
         {/* <SingleQuiz questions={this.state.questions} /> */}
-        <div>
+        {/* <div>
           {this.props.questions.map((oneChall, index) => (
             <SingleQuiz key={index} oneChall={oneChall} />
           ))}
-        </div>
+        </div> */}
+        <h1>wassim</h1>
       </div>
     );
   }
