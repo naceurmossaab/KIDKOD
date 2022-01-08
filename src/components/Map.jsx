@@ -1,11 +1,12 @@
 import React from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import gsap from "gsap";
 import * as dat from "dat.gui";
 import { DoubleSide } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+import CANNON from 'cannon'
+
 
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
@@ -62,16 +63,16 @@ const Vis = () => {
 		);
 
 		//offroad car
-		loaderG.load(
-			"/src/components/static/models/offroadcar.fbx",
-			function (object) {
-				mixer2 = object;
-				object.position.copy(player.position);
-				// object.rotateY(-Math.PI/2)
-				object.scale.set(0.003, 0.003, 0.003);
-				scene.add(object);
-			}
-		);
+		// loaderG.load(
+		// 	"/src/components/static/models/offroadcar.fbx",
+		// 	function (object) {
+		// 		mixer2 = object;
+		// 		object.position.copy(player.position);
+		// 		// object.rotateY(-Math.PI/2)
+		// 		object.scale.set(0.003, 0.003, 0.003);
+		// 		scene.add(object);
+		// 	}
+		// );
 
 		//texture
 		const textureLoader = new THREE.TextureLoader();
@@ -204,7 +205,7 @@ const Vis = () => {
 
 		//door
 		const door = new THREE.Mesh(
-			new THREE.PlaneBufferGeometry(2.2, 2.2, 100, 100),
+			new THREE.PlaneBufferGeometry(2.2, 2.2, 1000, 1000),
 			new THREE.MeshStandardMaterial({
 				map: doorColorTexture,
 				transparent: true,
@@ -308,50 +309,31 @@ const Vis = () => {
 		scene.add(ghost1, ghost2, ghost3);
 
 		//player
-		const playerGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 0.4);
-		const playerMatrial = new THREE.MeshStandardMaterial({
-			color: "#89c854",
-		});
-		const player = new THREE.Mesh(playerGeometry, playerMatrial);
-		player.position.set(0, 3, 10);
-		scene.add(player);
+		// const playerGeometry = new THREE.BoxBufferGeometry(0.2, 0.2, 0.4);
+		// const playerMatrial = new THREE.MeshStandardMaterial({
+		// 	color: "#89c854",
+		// });
+		// const player = new THREE.Mesh(playerGeometry, playerMatrial);
+		// player.position.set(0, 3, 10);
+		// scene.add(player);
 
-		document.onkeydown = function (e) {
-			if (e.keyCode === 37) {
-				player.position.x -= 0.1;
-			} else if (e.keyCode === 39) {
-				player.position.x += 0.1;
-			} else if (e.keyCode === 38) {
-				player.position.z -= 0.1;
-			} else if (e.keyCode === 40) {
-				player.position.z += 0.1;
-			} else if (e.keyCode === 13) {
-				playsound();
-			}
-		};
+		// document.onkeydown = function (e) {
+		// 	if (e.keyCode === 37) {
+		// 		player.position.x -= 0.1;
+		// 	} else if (e.keyCode === 39) {
+		// 		player.position.x += 0.1;
+		// 	} else if (e.keyCode === 38) {
+		// 		player.position.z -= 0.1;
+		// 	} else if (e.keyCode === 40) {
+		// 		player.position.z += 0.1;
+		// 	} else if (e.keyCode === 13) {
+		// 		playsound();
+		// 	}
+		// };
 
-		/**
-		 * Camera
-		 */
-		//third person camera
-		var camera, goal;
-		var test = 5; //camera disctance from the car
-		var temp = new THREE.Vector3();
-		camera = new THREE.PerspectiveCamera(
-			75,
-			window.innerWidth / window.innerHeight,
-			0.1,
-			100
-		);
-		camera.position.set(0, test, -test);
-		camera.lookAt(scene.position);
-		goal = new THREE.Object3D();
-		player.add(goal);
-		goal.position.set(0, test, 8);
-
+	
 		// Controls
-		const controls = new OrbitControls(camera, renderer.domElement);
-		controls.enableDamping = true;
+		
 
 		const horses = [];
 		const storks = [];
@@ -454,6 +436,197 @@ const Vis = () => {
 			}
 		);
 
+			//physics
+			var world = new CANNON.World();
+			world.broadphase = new CANNON.SAPBroadphase(world);
+			world.gravity.set(0, -10, 0);
+			world.defaultContactMaterial.friction = 0;
+			var groundMaterial = new CANNON.Material('groundMaterial');
+			var wheelMaterial = new CANNON.Material('wheelMaterial');
+			var wheelGroundContactMaterial = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
+				friction: 0.3,
+				restitution: 0,
+				contactEquationStiffness: 1000,
+			});
+			
+			world.addContactMaterial(wheelGroundContactMaterial);
+			
+			// car physics body
+			var chassisShape = new CANNON.Box(new CANNON.Vec3(1, 0.3, 2));
+			var chassisBody = new CANNON.Body({mass: 150});
+			chassisBody.addShape(chassisShape);
+			chassisBody.position.set(0, 0.2, 0);
+			chassisBody.angularVelocity.set(0, 0, 0); // initial velocity
+			
+			// car visual body
+			var geometry = new THREE.BoxGeometry(1, 0.3, 2); // double chasis shape
+			var material = new THREE.MeshBasicMaterial({color: 0xffff00});
+			var box = new THREE.Mesh(geometry, material);
+			scene.add(box);
+			 
+			// parent vehicle object
+			var vehicle = new CANNON.RaycastVehicle({
+			  chassisBody: chassisBody,
+			  indexRightAxis: 0, // x
+			  indexUpAxis: 1, // y
+			  indexForwardAxis: 1, // z
+			});
+			
+			// wheel options
+			var options = {
+			  radius: 0.4,
+			  directionLocal: new CANNON.Vec3(0, -1, 0),
+			  suspensionStiffness: 45,
+			  suspensionRestLength: 0.4,
+			  frictionSlip: 5,
+			  dampingRelaxation: 2.3,
+			  dampingCompression: 4.5,
+			  maxSuspensionForce: 200000,
+			  rollInfluence:  0.01,
+			  axleLocal: new CANNON.Vec3(-1, 0, 0),
+			  chassisConnectionPointLocal: new CANNON.Vec3(1, 2, 0),
+			  maxSuspensionTravel: 0.25,
+			  customSlidingRotationalSpeed: -30,
+			  useCustomSlidingRotationalSpeed: true,
+			};
+			
+			var axlewidth = 0.7;
+			
+			//positioning the wheels
+			options.chassisConnectionPointLocal.set(axlewidth, 0, -1);
+			vehicle.addWheel(options);
+			
+			options.chassisConnectionPointLocal.set(-axlewidth, 0, -1);
+			vehicle.addWheel(options);
+			
+			options.chassisConnectionPointLocal.set(axlewidth, 0, 1);
+			vehicle.addWheel(options);
+			
+			options.chassisConnectionPointLocal.set(-axlewidth, 0, 1);
+			vehicle.addWheel(options);
+			
+			vehicle.addToWorld(world);
+			
+			// car wheels
+			var wheelBodies = [],
+				wheelVisuals = [];
+			vehicle.wheelInfos.forEach(function(wheel) {
+			  var shape = new CANNON.Cylinder(wheel.radius, wheel.radius, wheel.radius / 2, 20);
+			  var body = new CANNON.Body({mass: 1, material: wheelMaterial});
+			  var q = new CANNON.Quaternion();
+			  q.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
+			  body.addShape(shape, new CANNON.Vec3(), q);
+			  wheelBodies.push(body);
+			  // wheel visual body
+			  var geometry = new THREE.CylinderGeometry( wheel.radius, wheel.radius, 0.4, 32 );
+			  var material = new THREE.MeshPhongMaterial({
+				color: 0xd0901d,
+				emissive: 0xaa0000,
+				side: THREE.DoubleSide,
+				flatShading: true,
+			  });
+			  var cylinder = new THREE.Mesh(geometry, material);
+			  cylinder.geometry.rotateZ(Math.PI/2);
+			  wheelVisuals.push(cylinder);
+			  scene.add(cylinder);
+			});
+			
+			// update the wheels to match the physics
+			world.addEventListener('postStep', function() {
+			  for (var i=0; i<vehicle.wheelInfos.length; i++) {
+				vehicle.updateWheelTransform(i);
+				var t = vehicle.wheelInfos[i].worldTransform;
+				// update wheel physics
+				wheelBodies[i].position.copy(t.position);
+				wheelBodies[i].quaternion.copy(t.quaternion);
+				// update wheel visuals
+				wheelVisuals[i].position.copy(t.position);
+				wheelVisuals[i].quaternion.copy(t.quaternion);
+			  }
+			});
+
+			const floorShape= new CANNON.Plane()
+			const floorBody=new CANNON.Body()
+			// floorBody.material=defaultMaterial
+			floorBody.mass=0
+			floorBody.addShape(floorShape)
+			floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1,0,0),Math.PI/2)
+			world.addBody(floorBody)
+/**
+* Main
+**/
+
+function updatePhysics() {
+	world.step(1/60);
+	// update the chassis position
+	box.position.copy(chassisBody.position);
+	box.quaternion.copy(chassisBody.quaternion);
+  }
+
+
+function navigate(e) {
+	if (e.type != 'keydown' && e.type != 'keyup') ;
+	var keyup = e.type == 'keyup';
+  
+	//optionnal
+	vehicle.setBrake(0, 2);
+	vehicle.setBrake(0, 1);
+	vehicle.setBrake(0, 2);
+	vehicle.setBrake(0, 3);
+  
+	var engineForce = 500,
+		maxSteerVal = 0.7;
+	switch(e.keyCode) {
+  
+	  case 38: // forward
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
+		break;
+  
+	  case 40: // backward
+		vehicle.applyEngineForce(keyup ? 0 : engineForce, 2);
+		vehicle.applyEngineForce(keyup ? 0 : engineForce, 3);
+		break;
+  
+	  case 39: // right
+		vehicle.setSteeringValue(keyup ? 0 : -maxSteerVal, 2);
+		vehicle.setSteeringValue(keyup ? 0 : -maxSteerVal, 3);
+		break;
+  
+	  case 37: // left
+		vehicle.setSteeringValue(keyup ? 0 : maxSteerVal, 2);
+		vehicle.setSteeringValue(keyup ? 0 : maxSteerVal, 3);
+		break;
+	  // case 32:
+	  //   // vehicle.applyEngineForce(keyup ? 0 : -50, 2);
+		
+	}
+  
+  }	
+  window.addEventListener('keydown', navigate)
+window.addEventListener('keyup', navigate)		
+	/**
+		 * Camera
+		 */
+		//third person camera
+		var camera, goal;
+		var test = 5; //camera disctance from the car
+		var temp = new THREE.Vector3();
+		camera = new THREE.PerspectiveCamera(
+			75,
+			window.innerWidth / window.innerHeight,
+			0.1,
+			100
+		);
+		camera.position.set(0, test, -test);
+		camera.lookAt(scene.position);
+		goal = new THREE.Object3D();
+		box.add( goal );
+		goal.position.set(0, test, -test);
+		
+
+
+
 		/**
 		 * Renderer
 		 */
@@ -506,9 +679,9 @@ const Vis = () => {
 			ghost3.position.y =
 				Math.sin(elapsedTime * 5) + Math.sin(elapsedTime * 2);
 
-			if (mixer2) {
-				mixer2.position.copy(player.position);
-			}
+			// if (mixer2) {
+			// 	mixer2.position.copy(player.position);
+			// }
 
 			if (mixer) {
 				mixer.update(deltaTime);
@@ -557,15 +730,14 @@ const Vis = () => {
 				mixer1.update(deltaTime);
 			}
 			// Update controls
-			controls.update();
 			renderer.clear();
 
 			// Render
 			renderer.render(scene, camera);
 			temp.setFromMatrixPosition(goal.matrixWorld);
 			camera.position.lerp(temp, 0.2);
-			camera.lookAt(player.position);
-
+			camera.lookAt(box.position);
+			updatePhysics();
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
 		};
