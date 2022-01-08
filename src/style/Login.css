@@ -1,4 +1,10 @@
 /* Login Component */
+
+body {
+  background-color: #f5edec;
+  margin-top: -3%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 *,
 *::before,
 *::after {
@@ -25,7 +31,7 @@
   font-weight: 600;
   color: #fff;
   font-size: 20px;
-  top: 60px;
+  top: 0px;
   left: 0;
   position: absolute;
   display: flex;
@@ -59,7 +65,7 @@
   outline: none;
   padding-left: 0.5rem;
   margin: 0.5rem 0;
-  background-color: var(--input-bg);
+  background-color: #dddddd;
   border: none;
   align-items: center;
   border-radius: 7px;
@@ -80,13 +86,13 @@
   font-size: 20px;
   width: 100px;
   height: 40px;
+  color: rgb(255, 255, 255);
+  background-color: #ea512e;
+  border-radius: 10px;
+  cursor: pointer;
   border: none;
-  border-radius: 5px;
-  color: #fff;
-  /* background-color: var(--search-btn); */
-  background: linear-gradient(to right, #67b26b, #4ca2cb);
+  font-size: larger;
 }
 .contact button:hover {
-  /* background-color: var(--search-btn-hover); */
-  background: linear-gradient(to right, #4ca2cb, #67b26b);
+  background-color: #f5890d;
 }
