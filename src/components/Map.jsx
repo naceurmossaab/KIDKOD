@@ -2,7 +2,6 @@ import React from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
-import { DoubleSide } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
@@ -14,11 +13,14 @@ const Vis = () => {
 	// const controls = useRef(null);
 
 	useEffect(() => {
+
+
 		// Sound
 		const talk = new Audio("/src/components/static/Enregistrement.m4a");
-		const playsound = () => {
-			talk.play();
-		};
+		
+		
+			
+		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		// Scene
 		const scene = new THREE.Scene();
@@ -440,11 +442,11 @@ const Vis = () => {
 			var world = new CANNON.World();
 			world.broadphase = new CANNON.SAPBroadphase(world);
 			world.gravity.set(0, -10, 0);
-			world.defaultContactMaterial.friction = 0;
+			world.defaultContactMaterial.friction = 10;
 			var groundMaterial = new CANNON.Material('groundMaterial');
 			var wheelMaterial = new CANNON.Material('wheelMaterial');
 			var wheelGroundContactMaterial = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
-				friction: 0.3,
+				friction: 333,
 				restitution: 0,
 				contactEquationStiffness: 1000,
 			});
@@ -563,7 +565,7 @@ function updatePhysics() {
 	box.quaternion.copy(chassisBody.quaternion);
   }
 
-
+var musicStatus=false
 function navigate(e) {
 	if (e.type != 'keydown' && e.type != 'keyup') ;
 	var keyup = e.type == 'keyup';
@@ -574,13 +576,25 @@ function navigate(e) {
 	vehicle.setBrake(0, 2);
 	vehicle.setBrake(0, 3);
   
-	var engineForce = 500,
+	var engineForce = 100,
 		maxSteerVal = 0.7;
 	switch(e.keyCode) {
   
 	  case 38: // forward
-		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
-		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 0);
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 0);
+		if(musicStatus===false){
+			var music=new Audio("/src/components/static/soundTruck.mp3")
+
+			music.play()
+			music.Loop=true
+			musicStatus=true
+			if(musicStatus===true){
+				setTimeout(()=>{musicStatus=false},2222222)
+			}
+		}
+
+	
 		break;
   
 	  case 40: // backward
@@ -597,9 +611,13 @@ function navigate(e) {
 		vehicle.setSteeringValue(keyup ? 0 : maxSteerVal, 2);
 		vehicle.setSteeringValue(keyup ? 0 : maxSteerVal, 3);
 		break;
+
+
 	  // case 32:
 	  //   // vehicle.applyEngineForce(keyup ? 0 : -50, 2);
-		
+
+
+
 	}
   
   }	
@@ -624,6 +642,7 @@ window.addEventListener('keyup', navigate)
 		box.add( goal );
 		goal.position.set(0, test, -test);
 		
+//truck
 
 
 
@@ -682,6 +701,7 @@ window.addEventListener('keyup', navigate)
 			// if (mixer2) {
 			// 	mixer2.position.copy(player.position);
 			// }
+	
 
 			if (mixer) {
 				mixer.update(deltaTime);
