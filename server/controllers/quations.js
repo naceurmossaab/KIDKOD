@@ -12,6 +12,15 @@ module.exports = {
 			res.send(error);
 		}
 	},
+	add_many_quations: async (req, res) => {
+		try {
+			let quation = req.body.quations;
+			const savedQuations = await Quations.insertMany(quation);
+			res.send(savedQuations);
+		} catch (error) {
+			res.send(error);
+		}
+	},
 	find_one_quation: async (req, res) => {
 		try {
 			let id = req.params._id;
@@ -23,8 +32,8 @@ module.exports = {
 	},
 	find_many_quations: async (req, res) => {
 		try {
-			let ids = req.body.map((id) => mongoose.Types.ObjectId(id));
-			const quations = await model.find({
+			let ids = req.body.ids.map((id) => mongoose.Types.ObjectId(id));
+			const quations = await Quations.find({
 				_id: { $in: ids },
 			});
 			res.send(quations);
@@ -32,20 +41,15 @@ module.exports = {
 			res.send(error);
 		}
 	},
-	update_quation: async (req, res) => {
+	find_all_quations: async (req, res) => {
 		try {
-			let quation = req.body;
-			let id = req.params._id;
-			const updatedQuation = await Quations.findByIdAndUpdate(
-				id,
-				quation
-			);
-			res.send(updatedQuation);
+			const quations = await Quations.find();
+			res.send(quations);
 		} catch (error) {
 			res.send(error);
 		}
 	},
-	update_quation: async (req, res) => {
+	update_one_quation: async (req, res) => {
 		try {
 			let quation = req.body;
 			let id = req.params._id;
@@ -60,13 +64,9 @@ module.exports = {
 	},
 	delete_one_quation: async (req, res) => {
 		try {
-			let quation = req.body;
 			let id = req.params._id;
-			const updatedQuation = await Quations.findByIdAndUpdate(
-				id,
-				quation
-			);
-			res.send(updatedQuation);
+			const deletedQuation = await Quations.findByIdAndRemove(id);
+			res.send(deletedQuation);
 		} catch (error) {
 			res.send(error);
 		}
