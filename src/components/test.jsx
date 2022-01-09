@@ -53,7 +53,6 @@ const Vis = () => {
         gltfLoader.load(
             "/src/all models/House.gltf",
             function ( gltf ) {
-                console.log(gltf);
                 gltf.scene.position.set(-19,-5.5,-3.3)
                 gltf.scene.scale.set(0.68, 0.6, 0.64);
                 gltf.scene.rotation.set(0,2,0)
@@ -65,7 +64,6 @@ const Vis = () => {
         gltfLoader.load(
             "/src/all models/Road.gltf",
             function ( gltf ) {
-                console.log(gltf);
                 gltf.scene.position.set(1.6,-4.4,-2)
                 gltf.scene.scale.set(0.79, 2.02, 0.59);
                 gltf.scene.rotation.set(0,0.4,0)
@@ -76,7 +74,6 @@ const Vis = () => {
         gltfLoader.load(
             "/src/all models/Road.gltf",
             function ( gltf ) {
-                console.log(gltf);
                 gltf.scene.position.set(2.4,-4.3,7.3)
                 gltf.scene.scale.set(0.79, 2, 0.59);
                 gltf.scene.rotation.set(0,-0.04,0)
@@ -86,7 +83,6 @@ const Vis = () => {
         gltfLoader.load(
             "/src/all models/Road.gltf",
             function ( gltf ) {
-                console.log(gltf);
                 gltf.scene.position.set(3.1,-4.4,2.8)
                 gltf.scene.scale.set(0.79, 2.02, 0.59);
                 gltf.scene.rotation.set(0,0.11,0)
@@ -97,7 +93,6 @@ const Vis = () => {
         gltfLoader.load(
             "/src/all models/Road.gltf",
             function ( gltf ) {
-                console.log(gltf);
                 gltf.scene.position.set(-2,-4.3,3.7)
                 gltf.scene.scale.set(1.12, 2, 0.59);
                 gltf.scene.rotation.set(0,1.005,0)
@@ -107,14 +102,36 @@ const Vis = () => {
                 
             },
         );
-        //Rocks
         gltfLoader.load(
             "/src/all models/rock1.gltf",
             function ( gltf ) {
+                gltf.scene.position.set(-18, -10.5, 14.3);
+                gltf.scene.scale.set(0.7, 0.7, 0.7);     
+                scene.add( gltf.scene );
+
+            },
+        );
+        gltfLoader.load(
+            "/src/all models/rock2.gltf",
+            function ( gltf ) {
                 console.log(gltf);
-                gltf.scene.position.set(-2,-4.3,3.7)
-                gltf.scene.scale.set(1.12, 2, 0.59);
-                gltf.scene.rotation.set(0,1.005,0)
+				gltf.scene.position.set(-15, -3, 24.9);
+                gltf.scene.scale.set(0.8, 0.8, 0.8);  
+                gltf.scene.rotation.set(17, 6, 0);  
+
+                
+                scene.add( gltf.scene );
+                
+            },
+        );
+        gltfLoader.load(
+            "/src/all models/rock3.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-58, 0, -29.6);
+				gltf.scene.scale.set(3, 3, 3);
+
+                
                 scene.add( gltf.scene );
                 const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(gltf.scene.position, 'x')
@@ -135,6 +152,8 @@ const Vis = () => {
                 
             },
         );
+        //Rocks
+       
 		//house
 
 		//offroad car
