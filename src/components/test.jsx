@@ -54,11 +54,11 @@ const Vis = () => {
             "/src/all models/House.gltf",
             function ( gltf ) {
                 console.log(gltf);
-                gltf.scene.position.set(-16,-2.8,3.7)
-                gltf.scene.scale.set(0.3, 0.3, 0.3);
+                gltf.scene.position.set(-19,-5.5,-3.3)
+                gltf.scene.scale.set(0.68, 0.6, 0.64);
                 gltf.scene.rotation.set(0,2,0)
                 scene.add( gltf.scene );
-               
+            
             },
         );
         //Road
@@ -66,25 +66,73 @@ const Vis = () => {
             "/src/all models/Road.gltf",
             function ( gltf ) {
                 console.log(gltf);
-                gltf.scene.position.set(0,-0.6,0)
-                gltf.scene.scale.set(0.3, 0.3, 0.3);
-                gltf.scene.rotation.set(0,2,0)
+                gltf.scene.position.set(1.6,-4.4,-2)
+                gltf.scene.scale.set(0.79, 2.02, 0.59);
+                gltf.scene.rotation.set(0,0.4,0)
+                scene.add( gltf.scene );
+               
+            },
+        );
+        gltfLoader.load(
+            "/src/all models/Road.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(2.4,-4.3,7.3)
+                gltf.scene.scale.set(0.79, 2, 0.59);
+                gltf.scene.rotation.set(0,-0.04,0)
+                scene.add( gltf.scene );
+            },
+        );
+        gltfLoader.load(
+            "/src/all models/Road.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(3.1,-4.4,2.8)
+                gltf.scene.scale.set(0.79, 2.02, 0.59);
+                gltf.scene.rotation.set(0,0.11,0)
+                scene.add( gltf.scene );
+                
+            },
+        );
+        gltfLoader.load(
+            "/src/all models/Road.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-2,-4.3,3.7)
+                gltf.scene.scale.set(1.12, 2, 0.59);
+                gltf.scene.rotation.set(0,1.005,0)
+                scene.add( gltf.scene );
+               
+                
+                
+            },
+        );
+        //Rocks
+        gltfLoader.load(
+            "/src/all models/rock1.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-2,-4.3,3.7)
+                gltf.scene.scale.set(1.12, 2, 0.59);
+                gltf.scene.rotation.set(0,1.005,0)
                 scene.add( gltf.scene );
                 const cubeFolder1 = gui.addFolder('position')
-	cubeFolder1.add(gltf.scene.position, 'x')
-	cubeFolder1.add(gltf.scene.position, 'y')
-	cubeFolder1.add(gltf.scene.position, 'z')
-	cubeFolder1.open()
-    const cubeFolder = gui.addFolder('scale')
-	cubeFolder.add(gltf.scene.scale, 'x')
-	cubeFolder.add(gltf.scene.scale, 'y')
-	cubeFolder.add(gltf.scene.scale, 'z')
-	cubeFolder.open()
-    const cubeFolder2 = gui.addFolder('rotation')
-	cubeFolder2.add(gltf.scene.rotation, 'x')
-	cubeFolder2.add(gltf.scene.rotation, 'y')
-	cubeFolder2.add(gltf.scene.rotation, 'z')
-	cubeFolder2.open()
+                cubeFolder1.add(gltf.scene.position, 'x')
+                cubeFolder1.add(gltf.scene.position, 'y')
+                cubeFolder1.add(gltf.scene.position, 'z')
+                cubeFolder1.open()
+                const cubeFolder = gui.addFolder('scale')
+                cubeFolder.add(gltf.scene.scale, 'x')
+                cubeFolder.add(gltf.scene.scale, 'y')
+                cubeFolder.add(gltf.scene.scale, 'z')
+                cubeFolder.open()
+                const cubeFolder2 = gui.addFolder('rotation')
+                cubeFolder2.add(gltf.scene.rotation, 'x')
+                cubeFolder2.add(gltf.scene.rotation, 'y')
+                cubeFolder2.add(gltf.scene.rotation, 'z')
+                cubeFolder2.open()
+                
+                
             },
         );
 		//house
@@ -161,7 +209,7 @@ const Vis = () => {
 		const light = new THREE.AmbientLight("#b9d5ff", 0.7);
 
 		/////////directionnal
-		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.12);
+		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
 		scene.add(light, moonLight);
 
@@ -530,9 +578,9 @@ controls.enableDamping = true
 	/**
 		 * Camera
 		 */
-		//third person camera
+		// third person camera
 		// var camera, goal;
-		// var test = 10; //camera disctance from the car
+		// var test = 5; //camera disctance from the car
 		// var temp = new THREE.Vector3();
 		// camera = new THREE.PerspectiveCamera(
 		// 	75,
