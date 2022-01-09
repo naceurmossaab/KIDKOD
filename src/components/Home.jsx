@@ -21,7 +21,7 @@ const Home = () => {
           <th>
             <img
               className="rightImage"
-              src="https://media.discordapp.net/attachments/929085824262361128/929108754895626310/right.PNG?width=487&height=409"
+              src="https://media.discordapp.net/attachments/929085824262361128/929108754895626310/right.PNG?width=450&height=400"
             />
           </th>
           <th>
@@ -41,7 +41,7 @@ const Home = () => {
           suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
           lacus vel facilisis.
         </p>
-        <button className="startGameBTN">Login</button>
+        <Link to="/login"><button className="startGameBTN">Login</button></Link>
       </div>
     </div>
   );

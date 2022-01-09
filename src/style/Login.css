@@ -9,7 +9,7 @@
 }
 
 :root {
-  --input-bg: #f1eded;
+  --input-bg  : #cecbcb;
   --search-btn: #4ca2cb;
   --search-btn-hover: #67b26b;
 }
@@ -17,7 +17,7 @@
 .login {
   display: flex;
   justify-content: right;
-  margin-top: 4rem;
+  margin-top: 50%;
   margin-left: 0px;
 }
 
@@ -25,7 +25,7 @@
   font-weight: 600;
   color: #fff;
   font-size: 20px;
-  top: 60px;
+  top: 0;
   left: 0;
   position: absolute;
   display: flex;
