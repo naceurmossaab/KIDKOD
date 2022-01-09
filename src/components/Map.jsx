@@ -16,10 +16,6 @@ const Vis = () => {
 
 
 		// Sound
-		const talk = new Audio("/src/components/static/Enregistrement.m4a");
-		
-		
-			
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		// Scene
@@ -332,6 +328,22 @@ const Vis = () => {
 		// 		playsound();
 		// 	}
 		// };
+		// document.onkeydown = function (e) {
+		// 	if (e.keyCode === 13) {
+		// 				playsound();
+		// 		 	}}
+		var oldman=false
+					 document.onkeyup = function (e) {
+						if (e.keyCode === 13 && oldman===false) {
+							
+							const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		
+							talk.play();
+							
+							oldman=true
+							if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+
+						 }}
 
 	
 		// Controls
@@ -576,7 +588,7 @@ function navigate(e) {
 	vehicle.setBrake(0, 2);
 	vehicle.setBrake(0, 3);
   
-	var engineForce = 100,
+	var engineForce = 500,
 		maxSteerVal = 0.7;
 	switch(e.keyCode) {
   
@@ -613,8 +625,8 @@ function navigate(e) {
 		break;
 
 
-	  // case 32:
-	  //   // vehicle.applyEngineForce(keyup ? 0 : -50, 2);
+	  case 32:
+	    vehicle.setBrake(10,1)
 
 
 
@@ -641,6 +653,8 @@ window.addEventListener('keyup', navigate)
 		goal = new THREE.Object3D();
 		box.add( goal );
 		goal.position.set(0, test, -test);
+
+	
 		
 //truck
 
@@ -760,8 +774,9 @@ window.addEventListener('keyup', navigate)
 			updatePhysics();
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
-		};
+	
 
+		};
 		tick();
 
 		mount.current.appendChild(renderer.domElement);
