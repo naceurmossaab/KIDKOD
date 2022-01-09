@@ -89,4 +89,3 @@ var questions = [
 //   .then((res) => console.log("mongoose connected !"));
 //   Quations.insertMany(questions)
 //           .then((res)=>console.log("done"));
-
