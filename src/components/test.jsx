@@ -137,31 +137,68 @@ const Vis = () => {
       
             },
         );
+        //grass
+        const grass=new THREE.Group()
+                 scene.add(grass)
+                 for(let i=0;i<1000;i++){
+        gltfLoader.load(
+            "/src/all models/grass1.gltf",
+            function ( gltf ) {
+                const angle=Math.random()*Math.PI*80
+   const radius=3+Math.random()*100
+                gltf.scene.position.set(Math.sin(angle)*radius,
+                    0, Math.cos(angle)*radius);
+				gltf.scene.scale.set(0.5, 0.5, 0.5);
+                grass.add(gltf.scene)
+                const cubeFolder1 = gui.addFolder('position')
+                cubeFolder1.add(gltf.scene.position, 'x')
+                cubeFolder1.add(gltf.scene.position, 'y')
+                cubeFolder1.add(gltf.scene.position, 'z')
+                cubeFolder1.open()
+                const cubeFolder = gui.addFolder('scale')
+                cubeFolder.add(gltf.scene.scale, 'x')
+                cubeFolder.add(gltf.scene.scale, 'y')
+                cubeFolder.add(gltf.scene.scale, 'z')
+                cubeFolder.open()
+                const cubeFolder2 = gui.addFolder('rotation')
+                cubeFolder2.add(gltf.scene.rotation, 'x')
+                cubeFolder2.add(gltf.scene.rotation, 'y')
+                cubeFolder2.add(gltf.scene.rotation, 'z')
+                cubeFolder2.open()
+                
+                scene.add( gltf.scene );
+      
+            },
+        );}
+       
+//graves
+// const graves=new THREE.Group()
+// scene.add(graves)
+
+// const graveGeometry=new THREE.BoxBufferGeometry(0.6,0.8,0.2)
+// const graveMatrial= new THREE.MeshStandardMaterial({color:'#b2b6b1'})
+// for(let i=0;i<50;i++){
+//     const angle=Math.random()*Math.PI*2
+//     const radius=3+Math.random()*6
+//     const x=Math.sin(angle)*radius
+//     const z=Math.cos(angle)*radius
+//     const grave=new THREE.Mesh(graveGeometry,graveMatrial)
+//     grave.position.set(x,0.3,z)
+//     grave.rotation.y=(Math.random()-0.5)*0.4
+//     grave.rotation.z=(Math.random()-0.5)*0.4
+//     grave.castShadow=true
+
+//     graves.add(grave)
        // trees
        gltfLoader.load(
         "/src/all models/trees1.gltf",
         function ( gltf ) {
             console.log(gltf);
-            gltf.scene.position.set(0, 0, 3);
-            gltf.scene.scale.set(0.007, 0.007, 0.007);
+            gltf.scene.position.set(32, 0, 19.6);
+            gltf.scene.scale.set(1, 1, 1);
 
-            
-            scene.add( gltf.scene );
-            const cubeFolder1 = gui.addFolder('position')
-            cubeFolder1.add(gltf.scene.position, 'x')
-            cubeFolder1.add(gltf.scene.position, 'y')
-            cubeFolder1.add(gltf.scene.position, 'z')
-            cubeFolder1.open()
-            const cubeFolder = gui.addFolder('scale')
-            cubeFolder.add(gltf.scene.scale, 'x')
-            cubeFolder.add(gltf.scene.scale, 'y')
-            cubeFolder.add(gltf.scene.scale, 'z')
-            cubeFolder.open()
-            const cubeFolder2 = gui.addFolder('rotation')
-            cubeFolder2.add(gltf.scene.rotation, 'x')
-            cubeFolder2.add(gltf.scene.rotation, 'y')
-            cubeFolder2.add(gltf.scene.rotation, 'z')
-            cubeFolder2.open()
+                      scene.add( gltf.scene );
+
             
             
         },
