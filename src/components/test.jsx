@@ -79,8 +79,8 @@ const Vis = () => {
                 gltf.scene.rotation.set(0,-0.04,0)
                 scene.add( gltf.scene );
             },
-        );
-        gltfLoader.load(
+            );
+            gltfLoader.load(
             "/src/all models/Road.gltf",
             function ( gltf ) {
                 gltf.scene.position.set(3.1,-4.4,2.8)
@@ -102,6 +102,7 @@ const Vis = () => {
                 
             },
         );
+        //Rocks
         gltfLoader.load(
             "/src/all models/rock1.gltf",
             function ( gltf ) {
@@ -133,27 +134,38 @@ const Vis = () => {
 
                 
                 scene.add( gltf.scene );
-                const cubeFolder1 = gui.addFolder('position')
-                cubeFolder1.add(gltf.scene.position, 'x')
-                cubeFolder1.add(gltf.scene.position, 'y')
-                cubeFolder1.add(gltf.scene.position, 'z')
-                cubeFolder1.open()
-                const cubeFolder = gui.addFolder('scale')
-                cubeFolder.add(gltf.scene.scale, 'x')
-                cubeFolder.add(gltf.scene.scale, 'y')
-                cubeFolder.add(gltf.scene.scale, 'z')
-                cubeFolder.open()
-                const cubeFolder2 = gui.addFolder('rotation')
-                cubeFolder2.add(gltf.scene.rotation, 'x')
-                cubeFolder2.add(gltf.scene.rotation, 'y')
-                cubeFolder2.add(gltf.scene.rotation, 'z')
-                cubeFolder2.open()
-                
-                
+      
             },
         );
-        //Rocks
-       
+       // trees
+       gltfLoader.load(
+        "/src/all models/trees1.gltf",
+        function ( gltf ) {
+            console.log(gltf);
+            gltf.scene.position.set(0, 0, 3);
+            gltf.scene.scale.set(0.007, 0.007, 0.007);
+
+            
+            scene.add( gltf.scene );
+            const cubeFolder1 = gui.addFolder('position')
+            cubeFolder1.add(gltf.scene.position, 'x')
+            cubeFolder1.add(gltf.scene.position, 'y')
+            cubeFolder1.add(gltf.scene.position, 'z')
+            cubeFolder1.open()
+            const cubeFolder = gui.addFolder('scale')
+            cubeFolder.add(gltf.scene.scale, 'x')
+            cubeFolder.add(gltf.scene.scale, 'y')
+            cubeFolder.add(gltf.scene.scale, 'z')
+            cubeFolder.open()
+            const cubeFolder2 = gui.addFolder('rotation')
+            cubeFolder2.add(gltf.scene.rotation, 'x')
+            cubeFolder2.add(gltf.scene.rotation, 'y')
+            cubeFolder2.add(gltf.scene.rotation, 'z')
+            cubeFolder2.open()
+            
+            
+        },
+    );
 		//house
 
 		//offroad car
