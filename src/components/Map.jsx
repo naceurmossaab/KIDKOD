@@ -183,10 +183,7 @@ const Vis = () => {
 		const floor = new THREE.Mesh(
 			new THREE.PlaneBufferGeometry(1000, 1000),
 			new THREE.MeshStandardMaterial({
-				map: grassColorTexture,
-				aoMap: grassAmbientOcclusionexture,
-				normalMap: grassNormalTexture,
-				roughnessMap: grassRoughnessTexture,
+			color:0xA4BD55
 			})
 		);
 		floor.geometry.setAttribute(
@@ -588,7 +585,7 @@ function navigate(e) {
 	vehicle.setBrake(0, 2);
 	vehicle.setBrake(0, 3);
   
-	var engineForce = 100,
+	var engineForce = 500,
 		maxSteerVal = 0.7;
 	switch(e.keyCode) {
   
@@ -625,8 +622,8 @@ function navigate(e) {
 		break;
 
 
-	  // case 32:
-	  //   // vehicle.applyEngineForce(keyup ? 0 : -50, 2);
+	  case 32:
+	    vehicle.setBrake(10,1)
 
 
 
@@ -653,6 +650,8 @@ window.addEventListener('keyup', navigate)
 		goal = new THREE.Object3D();
 		box.add( goal );
 		goal.position.set(0, test, -test);
+
+	
 		
 //truck
 
@@ -772,8 +771,9 @@ window.addEventListener('keyup', navigate)
 			updatePhysics();
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
-		};
+	
 
+		};
 		tick();
 
 		mount.current.appendChild(renderer.domElement);
