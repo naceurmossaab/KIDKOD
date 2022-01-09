@@ -23,11 +23,11 @@ const Vis = () => {
 		// Scene
 		const scene = new THREE.Scene();
 		//Models
-		const gltfLoader1 = new GLTFLoader();
 
 		let mixer = null;
 		let mixer1 = null;
 		// Models
+        //adding the old man
 		const loader = new FBXLoader();
 		loader.load(
 			"/src/components/static/models/Look Around.fbx",
@@ -48,19 +48,46 @@ const Vis = () => {
 				scene.add(object);
 			}
 		);
+        //adding the house
+        const gltfLoader = new GLTFLoader();
+        gltfLoader.load(
+            "/src/all models/House.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-16,-2.8,3.7)
+                gltf.scene.scale.set(0.3, 0.3, 0.3);
+                gltf.scene.rotation.set(0,2,0)
+                scene.add( gltf.scene );
+               
+            },
+        );
+        //Road
+        gltfLoader.load(
+            "/src/all models/Road.gltf",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(0,-0.6,0)
+                gltf.scene.scale.set(0.3, 0.3, 0.3);
+                gltf.scene.rotation.set(0,2,0)
+                scene.add( gltf.scene );
+                const cubeFolder1 = gui.addFolder('position')
+	cubeFolder1.add(gltf.scene.position, 'x')
+	cubeFolder1.add(gltf.scene.position, 'y')
+	cubeFolder1.add(gltf.scene.position, 'z')
+	cubeFolder1.open()
+    const cubeFolder = gui.addFolder('scale')
+	cubeFolder.add(gltf.scene.scale, 'x')
+	cubeFolder.add(gltf.scene.scale, 'y')
+	cubeFolder.add(gltf.scene.scale, 'z')
+	cubeFolder.open()
+    const cubeFolder2 = gui.addFolder('rotation')
+	cubeFolder2.add(gltf.scene.rotation, 'x')
+	cubeFolder2.add(gltf.scene.rotation, 'y')
+	cubeFolder2.add(gltf.scene.rotation, 'z')
+	cubeFolder2.open()
+            },
+        );
 		//house
-		// loader.load(
-		// 	"/src/all models/House_01.fbx",
-		// 	function (object) {
-		// 		console.log(object);
-		// 		object.position.set(0, 0, 3);
-		// 		object.scale.set(0.007, 0.007, 0.007);
-		// 		scene.add(object);
-		// 	}
-		// );
-		
-
-
 
 		//offroad car
 		// loaderG.load(
@@ -278,43 +305,37 @@ world.addContactMaterial(defaultContactMaterial)
 world.defaultContactMaterial=defaultContactMaterial
 //box test
 
-	//house physics
-	const houseshape= new CANNON.Box(new CANNON.Vec3(0.3,5,0.3))
-    const housebody=new CANNON.Body({
-        mass:0,
-        position: new CANNON.Vec3(5,0,-10),
-        shape:houseshape,
-        material:defaultMaterial
-    })
-	world.addBody(housebody)
-	const gltfloader = new GLTFLoader();
-	const boxGeometry=new THREE.BoxBufferGeometry(1, 1, 1)
-	const boxMaterial=  new THREE.MeshStandardMaterial({ 
-		metalness:0.3,
-		roughness:0.4,
-	})
-	const boxtest = new THREE.Mesh(boxGeometry,boxMaterial )
-	boxtest.scale.set(0.3,0.3,0.3)
-	boxtest.castShadow=true
-	boxtest.position.copy(housebody.position)
-	const cubeFolder = gui.addFolder('Cube')
-	cubeFolder.add(boxtest.position, 'x')
-	cubeFolder.add(boxtest.position, 'y')
-	cubeFolder.add(boxtest.position, 'z')
-	cubeFolder.open()
-	scene.add(boxtest)
-	gltfloader.load(
-		"/src/all models/House.gltf",
-		function ( gltf ) {
-			console.log(gltf);
-			gltf.scene.position.set(0,-3,3)
-			gltf.scene.scale.set(0.3, 0.3, 0.3);
-			scene.add( gltf.scene );
+	//house physics (test)
+	// const houseshape= new CANNON.Box(new CANNON.Vec3(1.75,5,2.04))
+    // const housebody=new CANNON.Body({
+    //     mass:0,
+    //     position: new CANNON.Vec3(-11.5,0,2),
+    //     shape:houseshape,
+    //     material:defaultMaterial
+    // })
+	// world.addBody(housebody)
+	// const gltfloader = new GLTFLoader();
+	// const boxGeometry=new THREE.BoxBufferGeometry(1, 1, 1)
+	// const boxMaterial=  new THREE.MeshStandardMaterial({ 
+	// 	metalness:0.3,
+	// 	roughness:0.4,
+	// })
+	// const boxtest = new THREE.Mesh(boxGeometry,boxMaterial )
+	// boxtest.scale.set(1.75,2.04,3.27)
+	// boxtest.castShadow=true
+	// boxtest.position.copy(housebody.position)
+	// const cubeFolder1 = gui.addFolder('Cube')
+	// cubeFolder1.add(boxtest.position, 'x')
+	// cubeFolder1.add(boxtest.position, 'y')
+	// cubeFolder1.add(boxtest.position, 'z')
+	// cubeFolder1.open()
+    // const cubeFolder = gui.addFolder('scale')
+	// cubeFolder.add(boxtest.scale, 'x')
+	// cubeFolder.add(boxtest.scale, 'y')
+	// cubeFolder.add(boxtest.scale, 'z')
+	// cubeFolder.open()
+	// scene.add(boxtest)
 	
-		},
-	);
-
-
 			var groundMaterial = new CANNON.Material('groundMaterial');
 			var wheelMaterial = new CANNON.Material('wheelMaterial');
 			var wheelGroundContactMaterial = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
