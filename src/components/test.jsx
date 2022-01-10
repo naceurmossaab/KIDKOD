@@ -5,7 +5,7 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
 
 
@@ -103,6 +103,32 @@ const Vis = () => {
                 // cubeFolder2.open()
 			}
 		);
+        //grass
+        // gltfLoader.load(
+        //     "/src/all models/floor.glb",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(0, 0.2, 3);
+        //         gltf.scene.scale.set(1, 1, 1);
+        //         const cubeFolder1 = gui.addFolder('position')
+        //         cubeFolder1.add(gltf.scene.position, 'x')
+        //         cubeFolder1.add(gltf.scene.position, 'y')
+        //         cubeFolder1.add(gltf.scene.position, 'z')
+        //         cubeFolder1.open()
+        //         const cubeFolder = gui.addFolder('scale')
+        //         cubeFolder.add(gltf.scene.scale, 'x')
+        //         cubeFolder.add(gltf.scene.scale, 'y')
+        //         cubeFolder.add(gltf.scene.scale, 'z')
+        //         cubeFolder.open()
+        //         const cubeFolder2 = gui.addFolder('rotation')
+        //         cubeFolder2.add(gltf.scene.rotation, 'x')
+        //         cubeFolder2.add(gltf.scene.rotation, 'y')
+        //         cubeFolder2.add(gltf.scene.rotation, 'z')
+        //         cubeFolder2.open()
+        //         scene.add( gltf.scene );
+    
+        //     },)
+        //village
+      
         //Road
         gltfLoader.load(
             "/src/all models/Road.gltf",
@@ -180,12 +206,26 @@ const Vis = () => {
       
             },
         );
+        //mountain
+        gltfLoader.load(
+            "/src/all models/mountain.glb",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-55, 2, 39.5);
+				gltf.scene.scale.set(1, 1, 1);
+                gltf.scene.rotation.set(0,13,0)
+    
+                
+                scene.add( gltf.scene );
+      
+            },
+        );
         //grass
         const grass=new THREE.Group()
                  scene.add(grass)
                  for(let i=0;i<1000;i++){
         gltfLoader.load(
-            "/src/all models/grass1.gltf",
+            "/src/all models/grass.gltf",
             function ( gltf ) {
                 const angle=Math.random()*Math.PI*80
    const radius=3+Math.random()*100
@@ -243,6 +283,31 @@ grass.add(gltf.scene)
                       scene.add( gltf.scene );
         },
     );
+
+    gltfLoader.load(
+        "/src/all models/trees2.glb",
+        function ( gltf ) {
+            gltf.scene.position.set(0, 0, 3);
+            gltf.scene.scale.set(1, 1, 1);
+
+            scene.add( gltf.scene );
+            //           const cubeFolder1 = gui.addFolder('position')
+            // cubeFolder1.add(gltf.scene.position, 'x')
+            // cubeFolder1.add(gltf.scene.position, 'y')
+            // cubeFolder1.add(gltf.scene.position, 'z')
+            // cubeFolder1.open()
+            // const cubeFolder = gui.addFolder('scale')
+            // cubeFolder.add(gltf.scene.scale, 'x')
+            // cubeFolder.add(gltf.scene.scale, 'y')
+            // cubeFolder.add(gltf.scene.scale, 'z')
+            // cubeFolder.open()
+            // const cubeFolder2 = gui.addFolder('rotation')
+            // cubeFolder2.add(gltf.scene.rotation, 'x')
+            // cubeFolder2.add(gltf.scene.rotation, 'y')
+            // cubeFolder2.add(gltf.scene.rotation, 'z')
+            // cubeFolder2.open()
+           
+        },)
 		//a little scene
         gltfLoader.load(
             "/src/all models/littleScene.glb",
@@ -287,12 +352,20 @@ grass.add(gltf.scene)
 		/**
 		 * Object
 		 */
-		
+         const textureLoader = new THREE.TextureLoader();
+
+         const grassNormalTexture = textureLoader.load(
+			"/src/all models/wassim.jfif"
+		);
+        // grassNormalTexture.repeat.set(1000, 1000);
+		// grassNormalTexture.wrapT = THREE.RepeatWrapping;
+		// grassNormalTexture.wrapS = THREE.RepeatWrapping;
+
 		//floor
 		const floor = new THREE.Mesh(
 			new THREE.PlaneBufferGeometry(1000, 1000),
 			new THREE.MeshStandardMaterial({
-			color:0xA4BD55
+            map: grassNormalTexture,
 			})
 		);
 		floor.geometry.setAttribute(
@@ -334,7 +407,7 @@ grass.add(gltf.scene)
 		//light
 
 		////////ambiant
-		const light = new THREE.AmbientLight("#b9d5ff", 0.7);
+		const light = new THREE.AmbientLight("#b9d5ff", 1);
 
 		/////////directionnal
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
@@ -693,33 +766,35 @@ window.addEventListener('keyup', navigate)
 // * Camera
 // */
 // Base camera
-// const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-// camera.position.set  (-3,3,3)
-// scene.add(camera)
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+camera.position.set  (-3,3,3)
+scene.add(camera)
 
 // Controls
-// const controls = new OrbitControls(camera,renderer.domElement)
-// controls.enableDamping = true
+const controls = new OrbitControls(camera,renderer.domElement)
+controls.enableDamping = true
 
 	/**
 		 * Camera
 		 */
 		// third person camera
-		var camera, goal;
-		var test = 5; //camera disctance from the car
-		var temp = new THREE.Vector3();
-		camera = new THREE.PerspectiveCamera(
-			75,
-			window.innerWidth / window.innerHeight,
-			0.1,
-			100
-		);
-		camera.position.set(0, test, -test);
-		camera.lookAt(scene.position);
-		goal = new THREE.Object3D();
-		box.add( goal );
-		goal.position.set(0, test, -test);
+        // var camera, goal;
+		// var test = 5; //camera disctance from the car
+		// var temp = new THREE.Vector3();
+		// camera = new THREE.PerspectiveCamera(
+		// 	75,
+		// 	window.innerWidth / window.innerHeight,
+		// 	0.1,
+		// 	100
+		// );
+		// camera.position.set(0, test, -test);
+		// camera.lookAt(scene.position);
+		// goal = new THREE.Object3D();
+		// box.add( goal );
+		// goal.position.set(0, test, -test);
 
+	
+		
 	
 		
 //truck
@@ -792,16 +867,16 @@ window.addEventListener('keyup', navigate)
             }
             if (mixer2) {
 				mixer2.position.copy(box.position);
-                mixer2.rotation.y=box.rotation.y;
+                mixer2.rotation.copy(box.rotation);
 
 			}
             // Update controls
 			renderer.clear();
-			// controls.update()
+			controls.update()
 			// Render
 			renderer.render(scene, camera);
-			temp.setFromMatrixPosition(goal.matrixWorld);
-			camera.position.lerp(temp, 0.2);
+			// temp.setFromMatrixPosition(goal.matrixWorld);
+			// camera.position.lerp(temp, 0.2);
 			camera.lookAt(box.position);
 			updatePhysics();
 			// Call tick again on the next frame
