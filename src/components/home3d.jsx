@@ -29,8 +29,8 @@ const Home3D = () => {
     const aspect = width / height;
     const distance = 15;
 
-    const axe = new THREE.AxesHelper(10);
-    scene.add(axe);
+    // const axe = new THREE.AxesHelper(10);
+    // scene.add(axe);
     const camera = new THREE.OrthographicCamera(
       -distance * aspect,
       distance * aspect,
@@ -128,7 +128,8 @@ const Home3D = () => {
             shape: new C.Box(new C.Vec3(50, 0.1, 50)),
             position: new C.Vec3(0, i * margin - offset, 0),
           });
-
+          
+          world.addBody(words.ground);
           // ... and parse each letter to generate a mesh
           Array.from(innerText).forEach((letter, j) => {
             const material = new THREE.MeshPhongMaterial({ color: 0x97df5e });
@@ -195,10 +196,7 @@ const Home3D = () => {
 
         // calculate objects intersecting the picking ray
         // It will return an array with intersecting objects
-        const intersects = raycaster.intersectObjects(
-          scene.children,
-          true
-        );
+        const intersects = raycaster.intersectObjects(scene.children, true);
 
         if (intersects.length > 0) {
           const obj = intersects[0];
@@ -210,17 +208,29 @@ const Home3D = () => {
             .copy(face.normal)
             .negate()
             .multiplyScalar(force);
-
+          // console.log(impulse);
           wordss.forEach((word, i) => {
             word.children.forEach((letter) => {
               const { body } = letter;
-
               if (letter !== object) return;
 
               // We apply the vector 'impulse' on the base of our body
               body.applyLocalImpulse(impulse, new C.Vec3());
+
+              letter.position.copy(body.position);
+              letter.quaternion.copy(body.quaternion);
+              // console.log(letter.position);
+              // window.requestAnimationFrame(onClick);
             });
           });
+          // wordss.forEach((word) => {
+          //   for (let i = 0; i < word.children.length; i++) {
+          //   const letter = word.children[i];
+
+          //   letter.position.copy(letter.body.position);
+          //   letter.quaternion.copy(letter.body.quaternion);
+          //   }
+          // });
         }
       };
 
@@ -236,45 +246,52 @@ const Home3D = () => {
     const world = new C.World();
     world.gravity.set(0, -50, 0);
 
-    // const updatePhysics = () => {
-    //   // We need to synchronize three meshes and Cannon.js rigid bodies
-    
-    //   // As simple as that!
-    //     world.update();
-    //   world.step(1 / 60);
-    // };
+    const update = () => {
+      if (!wordss) return;
+
+      wordss.forEach((word) => {
+        for (let i = 0; i < word.children.length; i++) {
+          const letter = word.children[i];
+
+          letter.position.copy(letter.body.position);
+          letter.quaternion.copy(letter.body.quaternion);
+        }
+      });
+    };
+
+    const updatePhysics=() =>{
+      update();
+      world.step(1 / 60);
+    }
+
+    const draw=()=> {
+      updatePhysics();
+      renderer.render(scene, camera);
+    }
+
+    renderer.setAnimationLoop(() => {
+      draw();
+    });
+
 
     var oldElaspsedTime = 0;
 
-    const tick = () => {
-      const elapsedTime = clock.getElapsedTime();
-      var deltaTime = elapsedTime - oldElaspsedTime;
-      oldElaspsedTime = elapsedTime;
+    // const tick = () => {
+    //   const elapsedTime = clock.getElapsedTime();
+    //   var deltaTime = elapsedTime - oldElaspsedTime;
+    //   oldElaspsedTime = elapsedTime;
 
-      world.step(1 / 60, deltaTime, 3);
 
-      // for(const object of objectToUpdate){
-      // 	object.mesh.position.copy(object.body.position)
-      // 	object.mesh.quaternion.copy(object.body.quaternion)
-      // }
+    //   // for(const object of objectToUpdate){
+    //   // 	object.mesh.position.copy(object.body.position)
+    //   // 	object.mesh.quaternion.copy(object.body.quaternion)
+    //   // }
 
-      if (!wordss) return;
-
-      wordss.forEach((word, j) => {
-        for (let i = 0; i < word.children.length; i++) {
-      	const letter = word.children[i];
-
-      	letter.position.copy(letter.body.position);
-      	letter.quaternion.copy(letter.body.quaternion);
-
-        }
-      });
-
-      // Call tick again on the next frame
-      window.requestAnimationFrame(tick);
-    };
-
-    tick();
+    //   // Call tick again on the next frame
+    //   window.requestAnimationFrame(tick);
+    //   // draw()
+    // };
+    // tick();
 
     mount.current.appendChild(renderer.domElement);
     window.addEventListener("resize", handleResize);
