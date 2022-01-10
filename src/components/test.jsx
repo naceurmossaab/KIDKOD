@@ -151,7 +151,6 @@ const Vis = () => {
 				gltf.scene.scale.set(0.5, 0.5, 0.5);
                 grass.add(gltf.scene)
     
-                scene.add( gltf.scene );
       
             },
         );}
@@ -168,27 +167,41 @@ const radius=3+Math.random()*100
           0, Math.cos(angle)*radius);
       gltf.scene.scale.set(0.5, 0.5, 0.5);
       grass.add(gltf.scene)
-      const cubeFolder1 = gui.addFolder('position')
-      cubeFolder1.add(gltf.scene.position, 'x')
-      cubeFolder1.add(gltf.scene.position, 'y')
-      cubeFolder1.add(gltf.scene.position, 'z')
-      cubeFolder1.open()
-      const cubeFolder = gui.addFolder('scale')
-      cubeFolder.add(gltf.scene.scale, 'x')
-      cubeFolder.add(gltf.scene.scale, 'y')
-      cubeFolder.add(gltf.scene.scale, 'z')
-      cubeFolder.open()
-      const cubeFolder2 = gui.addFolder('rotation')
-      cubeFolder2.add(gltf.scene.rotation, 'x')
-      cubeFolder2.add(gltf.scene.rotation, 'y')
-      cubeFolder2.add(gltf.scene.rotation, 'z')
-      cubeFolder2.open()
-      
-      scene.add( gltf.scene );
 
   },
 );}
+//mushroms
+const mushroms=new THREE.Group()
+scene.add(mushroms)
+for(let i=0;i<300;i++){
+gltfLoader.load(
+"/src/all models/mushrom.gltf",
+function ( gltf ) {
+const angle=Math.random()*Math.PI*80
+const radius=3+Math.random()*100
+gltf.scene.position.set(Math.sin(angle)*radius,
+   0, Math.cos(angle)*radius);
+gltf.scene.scale.set(0.3, 0.3, 0.3);
+grass.add(gltf.scene)
+const cubeFolder1 = gui.addFolder('position')
+cubeFolder1.add(gltf.scene.position, 'x')
+cubeFolder1.add(gltf.scene.position, 'y')
+cubeFolder1.add(gltf.scene.position, 'z')
+cubeFolder1.open()
+const cubeFolder = gui.addFolder('scale')
+cubeFolder.add(gltf.scene.scale, 'x')
+cubeFolder.add(gltf.scene.scale, 'y')
+cubeFolder.add(gltf.scene.scale, 'z')
+cubeFolder.open()
+const cubeFolder2 = gui.addFolder('rotation')
+cubeFolder2.add(gltf.scene.rotation, 'x')
+cubeFolder2.add(gltf.scene.rotation, 'y')
+cubeFolder2.add(gltf.scene.rotation, 'z')
+cubeFolder2.open()
 
+
+},
+);}
 //graves
 // const graves=new THREE.Group()
 // scene.add(graves)
