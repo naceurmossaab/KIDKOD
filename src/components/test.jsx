@@ -5,7 +5,7 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
 
 
@@ -206,7 +206,18 @@ grass.add(gltf.scene)
             function ( gltf ) {
                 console.log(gltf);
                 gltf.scene.position.set(4, 0, -24.8);
-				gltf.scene.scale.set(0.007, 0.007, 0.007);
+				gltf.scene.scale.set(1, 1, 1);
+            
+                          scene.add( gltf.scene );
+            },
+        );
+        //ruins
+        gltfLoader.load(
+            "/src/all models/ruins.glb",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-15, 0, 58.1);
+				gltf.scene.scale.set(1, 1, 1);
                 const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(gltf.scene.position, 'x')
                 cubeFolder1.add(gltf.scene.position, 'y')
@@ -655,32 +666,32 @@ window.addEventListener('keyup', navigate)
 // * Camera
 // */
 // Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set  (-3,3,3)
-scene.add(camera)
+// const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+// camera.position.set  (-3,3,3)
+// scene.add(camera)
 
 // Controls
-const controls = new OrbitControls(camera,renderer.domElement)
-controls.enableDamping = true
+// const controls = new OrbitControls(camera,renderer.domElement)
+// controls.enableDamping = true
 
 	/**
 		 * Camera
 		 */
 		// third person camera
-		// var camera, goal;
-		// var test = 5; //camera disctance from the car
-		// var temp = new THREE.Vector3();
-		// camera = new THREE.PerspectiveCamera(
-		// 	75,
-		// 	window.innerWidth / window.innerHeight,
-		// 	0.1,
-		// 	100
-		// );
-		// camera.position.set(0, test, -test);
-		// camera.lookAt(scene.position);
-		// goal = new THREE.Object3D();
-		// box.add( goal );
-		// goal.position.set(0, test, -test);
+		var camera, goal;
+		var test = 5; //camera disctance from the car
+		var temp = new THREE.Vector3();
+		camera = new THREE.PerspectiveCamera(
+			75,
+			window.innerWidth / window.innerHeight,
+			0.1,
+			100
+		);
+		camera.position.set(0, test, -test);
+		camera.lookAt(scene.position);
+		goal = new THREE.Object3D();
+		box.add( goal );
+		goal.position.set(0, test, -test);
 
 	
 		
@@ -754,11 +765,11 @@ controls.enableDamping = true
 			}
 			// Update controls
 			renderer.clear();
-			controls.update()
+			// controls.update()
 			// Render
 			renderer.render(scene, camera);
-			// temp.setFromMatrixPosition(goal.matrixWorld);
-			// camera.position.lerp(temp, 0.2);
+			temp.setFromMatrixPosition(goal.matrixWorld);
+			camera.position.lerp(temp, 0.2);
 			camera.lookAt(box.position);
 			updatePhysics();
 			// Call tick again on the next frame
