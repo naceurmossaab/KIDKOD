@@ -4,7 +4,6 @@ import "../style/Home3D.css";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import C from "cannon";
-import * as dat from "dat.gui"
 
 const Home3D = () => {
   const { useRef, useEffect, useState } = React;
@@ -30,8 +29,8 @@ const Home3D = () => {
     const aspect = width / height;
     const distance = 15;
 
-    const axe = new THREE.AxesHelper(10);
-    scene.add(axe);
+    // const axe = new THREE.AxesHelper(10);
+    // scene.add(axe);
     const camera = new THREE.OrthographicCamera(
       -distance * aspect,
       distance * aspect,
@@ -74,7 +73,7 @@ const Home3D = () => {
       height = mount.current.clientHeight;
       renderer.setSize(width, height);
       camera.aspect = width / height;
-      // camera.updateProjectionMatrix();
+      camera.updateProjectionMatrix();
       renderScene();
     };
 
@@ -128,58 +127,14 @@ const Home3D = () => {
             mass: 0,
             shape: new C.Box(new C.Vec3(50, 0.1, 50)),
             position: new C.Vec3(0, i * margin - offset, 0),
-            material: groundMat,
+            material:groundMat
           });
 
           world.addBody(words.ground);
-
-          const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-          // color palet
-          const colors = [
-            {
-              from: new THREE.Color("#ff699f"),
-              to: new THREE.Color("#a769ff"),
-            },
-            {
-              from: new THREE.Color("#683fee"),
-              to: new THREE.Color("#527ee1"),
-            },
-            {
-              from: new THREE.Color("#ee663f"),
-              to: new THREE.Color("#f5678d"),
-            },
-            {
-              from: new THREE.Color("#ee9ca7"),
-              to: new THREE.Color("#ffdde1"),
-            },
-            {
-              from: new THREE.Color("#f7971e"),
-              to: new THREE.Color("#ffd200"),
-            },
-            {
-              from: new THREE.Color("#56ccf2"),
-              to: new THREE.Color("#2f80ed"),
-            },
-            {
-              from: new THREE.Color("#fc5c7d"),
-              to: new THREE.Color("#6a82fb"),
-            },
-            {
-              from: new THREE.Color("#dce35b"),
-              to: new THREE.Color("#45b649"),
-            },
-          ];
-
-          const randomColor = pick(colors);
-
           // ... and parse each letter to generate a mesh
+          const material = new THREE.MeshPhongMaterial({ color: 0x97df5e });
           Array.from(innerText).forEach((letter, j) => {
-            const progress = j / (innerText.length - 1);
-            const material = new THREE.MeshPhongMaterial({
-              color: randomColor.from.clone().lerp(randomColor.to, progress),
-            });
-
+            
             const geometry = new TextGeometry(letter, fontOption);
             geometry.computeBoundingBox();
             geometry.computeBoundingSphere();
@@ -196,15 +151,14 @@ const Home3D = () => {
               // We divide the totalmass by the length of the string to have a common weight for each words.
               mass: totalMass / innerText.length,
               position: new C.Vec3(words.letterOff, getOffsetY(i), 0),
-              material: letterMat,
+              material: letterMat
             });
             const { center } = mesh.geometry.boundingSphere;
             mesh.body.addShape(box, new C.Vec3(center.x, center.y, center.z));
             // Add the body to our world
             world.addBody(mesh.body);
             words.add(mesh);
-
-            //pivot constraint
+            
           });
           // Recenter each body based on the whole string.
           words.children.forEach((letter) => {
@@ -224,6 +178,7 @@ const Home3D = () => {
         });
 
       renderScene();
+    
 
       // A new constant for our global force on click
       const force = 25;
@@ -235,7 +190,6 @@ const Home3D = () => {
         // We set the normalized coordinate of the mouse
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        // console.log(mouse);
       };
 
       // handel click eve,t with Raycaster
@@ -257,7 +211,7 @@ const Home3D = () => {
             .copy(face.normal)
             .negate()
             .multiplyScalar(force);
-
+          
           wordss.forEach((word, i) => {
             word.children.forEach((letter) => {
               const { body } = letter;
@@ -268,7 +222,7 @@ const Home3D = () => {
 
               letter.position.copy(body.position);
               letter.quaternion.copy(body.quaternion);
-
+             
               // window.requestAnimationFrame(onClick);
             });
           });
@@ -294,39 +248,6 @@ const Home3D = () => {
     // Init Physics world
     const world = new C.World();
     world.gravity.set(0, -50, 0);
-    var x= 100
-    const cube = new C.Body({
-      mass: 0,
-      shape: new C.Box(new C.Vec3(x, x, x)),
-      position: new C.Vec3(0, 0, 0),
-    });
-    // world.add( cube );
-
-
-    const edge1 = new C.Body({
-      mass: 0,
-      shape: new C.Plane(new C.Vec3(50, 0.1, 50)),
-      position: new C.Vec3(0,0, -18),
-    });
-    world.addBody(edge1);
-
-    const geometry = new THREE.PlaneGeometry(20,20);
-    const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-    const plane = new THREE.Mesh( geometry, material );
-    console.log(plane);
-    plane.translateZ(-10)
-    plane.rotateY(25)
-    // scene.add( plane );
-
-    const controller = new dat.GUI()
-    controller.add(plane.position,"x").min(-50).max(50).step(0.1)
-    controller.add(plane.position,"y").min(-50).max(50).step(0.1)
-    controller.add(plane.position,"z").min(-50).max(50).step(0.1)
-
-    controller.add(plane.quaternion,"x").min(-Math.PI).max(Math.PI).step(0.01)
-    controller.add(plane.quaternion,"y").min(-Math.PI).max(Math.PI).step(0.01)
-    controller.add(plane.quaternion,"z").min(-Math.PI).max(Math.PI).step(0.01)
-
 
     const update = () => {
       if (!wordss) return;
@@ -353,18 +274,18 @@ const Home3D = () => {
 
     renderer.setAnimationLoop(() => {
       draw();
-      setConstraints();
+      setConstraints()
     });
 
     //cantact materail
     const groundMat = new C.Material();
-    const letterMat = new C.Material();
+const letterMat = new C.Material();
 
-    const contactMaterial = new C.ContactMaterial(groundMat, letterMat, {
-      friction: 0.01,
-    });
+const contactMaterial = new C.ContactMaterial(groundMat, letterMat, {
+    friction: 0.01
+});
 
-    world.addContactMaterial(contactMaterial);
+world.addContactMaterial(contactMaterial);
 
     // set constraines to make the letter attached together
     const setConstraints = () => {
@@ -390,8 +311,8 @@ const Home3D = () => {
         }
       });
     };
-
-    ///constraint pivot
+    
+   
 
     mount.current.appendChild(renderer.domElement);
     window.addEventListener("resize", handleResize);
