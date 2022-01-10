@@ -63,15 +63,29 @@ const Vis = () => {
                     // 	}
                     // );
                     
-                    //adding the house
+                    //adding the scene
                     const gltfLoader = new GLTFLoader();
                     gltfLoader.load(
-                        "/src/all models/House.gltf",
+                        "/src/all models/wholescene.glb",
                         function ( gltf ) {
-                            gltf.scene.position.set(-19,-5.5,-3.3)
-                            gltf.scene.scale.set(0.68, 0.6, 0.64);
-                            gltf.scene.rotation.set(0,2,0)
+                            gltf.scene.position.set(0, 0, 3);
+                            gltf.scene.scale.set(1, 1, 1);
                             scene.add( gltf.scene );
+                             const cubeFolder1 = gui.addFolder('position')
+                cubeFolder1.add(gltf.scene.position, 'x')
+                cubeFolder1.add(gltf.scene.position, 'y')
+                cubeFolder1.add(gltf.scene.position, 'z')
+                cubeFolder1.open()
+                const cubeFolder = gui.addFolder('scale')
+                cubeFolder.add(gltf.scene.rotation, 'x')
+                cubeFolder.add(gltf.scene.rotation, 'y')
+                cubeFolder.add(gltf.scene.rotation, 'z')
+                cubeFolder.open()
+                const cubeFolder2 = gui.addFolder('rotation')
+                cubeFolder2.add(gltf.scene.rotation, 'x')
+                cubeFolder2.add(gltf.scene.rotation, 'y')
+                cubeFolder2.add(gltf.scene.rotation, 'z')
+                cubeFolder2.open()
                             
                         },
                         );
@@ -128,98 +142,120 @@ const Vis = () => {
     
         //     },)
         //village
-      
+        //  gltfLoader.load(
+        //     "/src/all models/village.glb",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(65, 0, 0);
+        //         gltf.scene.scale.set(0.5, 0.5, 0.5);
+        //         const cubeFolder1 = gui.addFolder('position')
+        //         cubeFolder1.add(gltf.scene.position, 'x')
+        //         cubeFolder1.add(gltf.scene.position, 'y')
+        //         cubeFolder1.add(gltf.scene.position, 'z')
+        //         cubeFolder1.open()
+        //         const cubeFolder = gui.addFolder('scale')
+        //         cubeFolder.add(gltf.scene.scale, 'x')
+        //         cubeFolder.add(gltf.scene.scale, 'y')
+        //         cubeFolder.add(gltf.scene.scale, 'z')
+        //         cubeFolder.open()
+        //         const cubeFolder2 = gui.addFolder('rotation')
+        //         cubeFolder2.add(gltf.scene.rotation, 'x')
+        //         cubeFolder2.add(gltf.scene.rotation, 'y')
+        //         cubeFolder2.add(gltf.scene.rotation, 'z')
+        //         cubeFolder2.open()
+        //         scene.add( gltf.scene );
+    
+        //     },)
         //Road
-        gltfLoader.load(
-            "/src/all models/Road.gltf",
-            function ( gltf ) {
-                gltf.scene.position.set(1.6,-4.4,-2)
-                gltf.scene.scale.set(0.79, 2.02, 0.59);
-                gltf.scene.rotation.set(0,0.4,0)
-                scene.add( gltf.scene );
+        // gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(1.6,-4.4,-2)
+        //         gltf.scene.scale.set(0.79, 2.02, 0.59);
+        //         gltf.scene.rotation.set(0,0.4,0)
+        //         scene.add( gltf.scene );
                
-            },
-        );
-        gltfLoader.load(
-            "/src/all models/Road.gltf",
-            function ( gltf ) {
-                gltf.scene.position.set(2.4,-4.3,7.3)
-                gltf.scene.scale.set(0.79, 2, 0.59);
-                gltf.scene.rotation.set(0,-0.04,0)
-                scene.add( gltf.scene );
-            },
-            );
-            gltfLoader.load(
-            "/src/all models/Road.gltf",
-            function ( gltf ) {
-                gltf.scene.position.set(3.1,-4.4,2.8)
-                gltf.scene.scale.set(0.79, 2.02, 0.59);
-                gltf.scene.rotation.set(0,0.11,0)
-                scene.add( gltf.scene );
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(2.4,-4.3,7.3)
+        //         gltf.scene.scale.set(0.79, 2, 0.59);
+        //         gltf.scene.rotation.set(0,-0.04,0)
+        //         scene.add( gltf.scene );
+        //     },
+        //     );
+        //     gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(3.1,-4.4,2.8)
+        //         gltf.scene.scale.set(0.79, 2.02, 0.59);
+        //         gltf.scene.rotation.set(0,0.11,0)
+        //         scene.add( gltf.scene );
                 
-            },
-        );
-        gltfLoader.load(
-            "/src/all models/Road.gltf",
-            function ( gltf ) {
-                gltf.scene.position.set(-2,-4.3,3.7)
-                gltf.scene.scale.set(1.12, 2, 0.59);
-                gltf.scene.rotation.set(0,1.005,0)
-                scene.add( gltf.scene );
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(-2,-4.3,3.7)
+        //         gltf.scene.scale.set(1.12, 2, 0.59);
+        //         gltf.scene.rotation.set(0,1.005,0)
+        //         scene.add( gltf.scene );
                
                 
                 
-            },
-        );
-        //Rocks
-        gltfLoader.load(
-            "/src/all models/rock1.gltf",
-            function ( gltf ) {
-                gltf.scene.position.set(-18, -10.5, 14.3);
-                gltf.scene.scale.set(0.7, 0.7, 0.7);     
-                scene.add( gltf.scene );
+        //     },
+        // );
+        // //Rocks
+        // gltfLoader.load(
+        //     "/src/all models/rock1.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(-18, -10.5, 14.3);
+        //         gltf.scene.scale.set(0.7, 0.7, 0.7);     
+        //         scene.add( gltf.scene );
 
-            },
-        );
-        gltfLoader.load(
-            "/src/all models/rock2.gltf",
-            function ( gltf ) {
-                console.log(gltf);
-				gltf.scene.position.set(-15, -3, 24.9);
-                gltf.scene.scale.set(0.8, 0.8, 0.8);  
-                gltf.scene.rotation.set(17, 6, 0);  
-
-                
-                scene.add( gltf.scene );
-                
-            },
-        );
-        gltfLoader.load(
-            "/src/all models/rock3.gltf",
-            function ( gltf ) {
-                console.log(gltf);
-                gltf.scene.position.set(-58, 0, -29.6);
-				gltf.scene.scale.set(3, 3, 3);
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/rock2.gltf",
+        //     function ( gltf ) {
+        //         console.log(gltf);
+		// 		gltf.scene.position.set(-15, -3, 24.9);
+        //         gltf.scene.scale.set(0.8, 0.8, 0.8);  
+        //         gltf.scene.rotation.set(17, 6, 0);  
 
                 
-                scene.add( gltf.scene );
+        //         scene.add( gltf.scene );
+                
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/rock3.gltf",
+        //     function ( gltf ) {
+        //         console.log(gltf);
+        //         gltf.scene.position.set(-58, 0, -29.6);
+		// 		gltf.scene.scale.set(3, 3, 3);
+
+                
+        //         scene.add( gltf.scene );
       
-            },
-        );
-        //mountain
-        gltfLoader.load(
-            "/src/all models/mountain.glb",
-            function ( gltf ) {
-                console.log(gltf);
-                gltf.scene.position.set(-55, 2, 39.5);
-				gltf.scene.scale.set(1, 1, 1);
-                gltf.scene.rotation.set(0,13,0)
+        //     },
+        // );
+        // //mountain
+        // gltfLoader.load(
+        //     "/src/all models/mountain.glb",
+        //     function ( gltf ) {
+        //         console.log(gltf);
+        //         gltf.scene.position.set(-55, 2, 39.5);
+		// 		gltf.scene.scale.set(1, 1, 1);
+        //         gltf.scene.rotation.set(0,13,0)
     
                 
-                scene.add( gltf.scene );
+        //         scene.add( gltf.scene );
       
-            },
-        );
+        //     },
+        // );
         //grass
         const grass=new THREE.Group()
                  scene.add(grass)
@@ -716,7 +752,7 @@ function navigate(e) {
 	vehicle.setBrake(0, 2);
 	vehicle.setBrake(0, 3);
   
-	var engineForce = 500,
+	var engineForce = 1000,
 		maxSteerVal = 0.7;
 	switch(e.keyCode) {
   
@@ -764,8 +800,8 @@ function navigate(e) {
   window.addEventListener('keydown', navigate)
 window.addEventListener('keyup', navigate)	
 // * Camera
-// */
-// Base camera
+// // */
+// // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.set  (-3,3,3)
 scene.add(camera)
@@ -774,9 +810,9 @@ scene.add(camera)
 const controls = new OrbitControls(camera,renderer.domElement)
 controls.enableDamping = true
 
-	/**
-		 * Camera
-		 */
+// 	/**
+		//  * Camera
+		//  */
 		// third person camera
         // var camera, goal;
 		// var test = 5; //camera disctance from the car
