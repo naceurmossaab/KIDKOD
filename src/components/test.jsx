@@ -26,6 +26,8 @@ const Vis = () => {
 
 		let mixer = null;
 		let mixer1 = null;
+        let mixer2=null
+        
 		// Models
         //adding the old man
 		const loader = new FBXLoader();
@@ -33,7 +35,6 @@ const Vis = () => {
 			"/src/components/static/models/Look Around.fbx",
 			function (object) {
 				mixer1 = new THREE.AnimationMixer(object);
-
 				const action = mixer1.clipAction(object.animations[0]);
 				action.play();
 
@@ -48,18 +49,60 @@ const Vis = () => {
 				scene.add(object);
 			}
 		);
-        //adding the house
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.load(
-            "/src/all models/House.gltf",
-            function ( gltf ) {
-                gltf.scene.position.set(-19,-5.5,-3.3)
-                gltf.scene.scale.set(0.68, 0.6, 0.64);
-                gltf.scene.rotation.set(0,2,0)
-                scene.add( gltf.scene );
-            
-            },
-        );
+        // function passmesh(mesh){
+            //     mixer2.push(mesh)
+            //     console.log(mixer2);}
+            // loader.load(
+                // 	"/src/components/static/models/offroadcar.fbx",
+                // 	function (object) {	
+                    //         mixer2=object
+                    //         object.scale.set(0.007, 0.007, 0.007);
+                    //         mixer2=object
+                    // 		scene.add(object);
+                    //         passmesh(object)
+                    // 	}
+                    // );
+                    
+                    //adding the house
+                    const gltfLoader = new GLTFLoader();
+                    gltfLoader.load(
+                        "/src/all models/House.gltf",
+                        function ( gltf ) {
+                            gltf.scene.position.set(-19,-5.5,-3.3)
+                            gltf.scene.scale.set(0.68, 0.6, 0.64);
+                            gltf.scene.rotation.set(0,2,0)
+                            scene.add( gltf.scene );
+                            
+                        },
+                        );
+                        //adding the car
+                        gltfLoader.load(
+                            "/src/components/static/models/car.glb",
+                            function (gltf) {
+                                mixer2 = gltf.scene;
+                                gltf.scene.position.copy(box.position);
+                gltf.scene.rotation.y=102.1
+
+				// object.rotateY(-Math.PI/2)
+				gltf.scene.scale.set(1, 1, 1 );
+				scene.add(gltf.scene);
+                // const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(object.position, 'x')
+                // cubeFolder1.add(object.position, 'y')
+                // cubeFolder1.add(object.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(object.rotation, 'x')
+                // cubeFolder.add(object.rotation, 'y')
+                // cubeFolder.add(object.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(object.rotation, 'x')
+                // cubeFolder2.add(object.rotation, 'y')
+                // cubeFolder2.add(object.rotation, 'z')
+                // cubeFolder2.open()
+			}
+		);
         //Road
         gltfLoader.load(
             "/src/all models/Road.gltf",
@@ -218,21 +261,7 @@ grass.add(gltf.scene)
                 console.log(gltf);
                 gltf.scene.position.set(-15, 0, 58.1);
 				gltf.scene.scale.set(1, 1, 1);
-                const cubeFolder1 = gui.addFolder('position')
-                cubeFolder1.add(gltf.scene.position, 'x')
-                cubeFolder1.add(gltf.scene.position, 'y')
-                cubeFolder1.add(gltf.scene.position, 'z')
-                cubeFolder1.open()
-                const cubeFolder = gui.addFolder('scale')
-                cubeFolder.add(gltf.scene.scale, 'x')
-                cubeFolder.add(gltf.scene.scale, 'y')
-                cubeFolder.add(gltf.scene.scale, 'z')
-                cubeFolder.open()
-                const cubeFolder2 = gui.addFolder('rotation')
-                cubeFolder2.add(gltf.scene.rotation, 'x')
-                cubeFolder2.add(gltf.scene.rotation, 'y')
-                cubeFolder2.add(gltf.scene.rotation, 'z')
-                cubeFolder2.open()
+           
                           scene.add( gltf.scene );
             },
         );
@@ -331,55 +360,55 @@ grass.add(gltf.scene)
 		
 
 		// const horses = [];
-		// const storks = [];
-		// const flamingos = [];
-		// const parrots = [];
-		// mixer = new THREE.AnimationMixer(scene);
-		// function addMorph(
-		// 	mesh,
-		// 	clip,
-		// 	speed,
-		// 	duration,
-		// 	x,
-		// 	y,
-		// 	z,
-		// 	fudgeColor,
-		// 	type
-		// ) {
-		// 	mesh = mesh.clone();
-		// 	mesh.material = mesh.material.clone();
+		const storks = [];
+		const flamingos = [];
+		const parrots = [];
+		mixer = new THREE.AnimationMixer(scene);
+		function addMorph(
+			mesh,
+			clip,
+			speed,
+			duration,
+			x,
+			y,
+			z,
+			fudgeColor,
+			type
+		) {
+			mesh = mesh.clone();
+			mesh.material = mesh.material.clone();
 
-		// 	if (fudgeColor) {
-		// 		mesh.material.color.offsetHSL(
-		// 			0,
-		// 			Math.random() * 0.5 - 0.25,
-		// 			Math.random() * 0.5 - 0.25
-		// 		);
-		// 	}
+			if (fudgeColor) {
+				mesh.material.color.offsetHSL(
+					0,
+					Math.random() * 0.5 - 0.25,
+					Math.random() * 0.5 - 0.25
+				);
+			}
 
-		// 	mesh.speed = speed;
+			mesh.speed = speed;
 
-		// 	mixer
-		// 		.clipAction(clip, mesh)
-		// 		.setDuration(duration)
-		// 		// to shift the playback out of phase:
-		// 		.startAt(-duration * Math.random())
-		// 		.play();
-		// 	mesh.scale.set(0.01, 0.01, 0.01);
-		// 	mesh.position.set(x, y, z);
-		// 	mesh.rotation.y = Math.PI / 2;
+			mixer
+				.clipAction(clip, mesh)
+				.setDuration(duration)
+				// to shift the playback out of phase:
+				.startAt(-duration * Math.random())
+				.play();
+			mesh.scale.set(0.01, 0.01, 0.01);
+			mesh.position.set(x, y, z);
+			mesh.rotation.y = Math.PI / 2;
 
-		// 	mesh.castShadow = true;
-		// 	mesh.receiveShadow = true;
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
 
-		// 	scene.add(mesh);
-		// 	if (type === "horses") horses.push(mesh);
-		// 	if (type === "flamingos") flamingos.push(mesh);
-		// 	if (type === "storks") storks.push(mesh);
-		// 	if (type === "parrots") parrots.push(mesh);
-		// }
+			scene.add(mesh);
+			if (type === "horses") horses.push(mesh);
+			if (type === "flamingos") flamingos.push(mesh);
+			if (type === "storks") storks.push(mesh);
+			if (type === "parrots") parrots.push(mesh);
+		}
 
-		// const gltfloader = new GLTFLoader();
+		const gltfloader = new GLTFLoader();
 
 		// gltfloader.load(
 		// 	"/src/components/static/models/Horse.glb",
@@ -394,42 +423,40 @@ grass.add(gltf.scene)
 		// 	}
 		// );
 
-		// gltfloader.load(
-		// 	"/src/components/static/models/Flamingo.glb",
-		// 	function (gltf) {
-		// 		const mesh = gltf.scene.children[0];
-		// 		const clip = gltf.animations[0];
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "flamingos");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
-		// 		addMorph(mesh, clip, 7, 1, 4, 6.4, 6, true, "flamingos");
-		// 		// addMorph( mesh, clip, 7, 1, 0, 6, 2,true );
-		// 		// addMorph( mesh, clip, 7, 1, 2, 7, 0.5,true );
-		// 	}
-		// );
+		gltfloader.load(
+			"/src/components/static/models/Flamingo.glb",
+			function (gltf) {
+				const mesh = gltf.scene.children[0];
+				const clip = gltf.animations[0];
+				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "flamingos");
+				addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
+				addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
+				// addMorph( mesh, clip, 7, 1, 0, 6, 2,true );
+				// addMorph( mesh, clip, 7, 1, 2, 7, 0.5,true );
+			}
+		);
 
-		// gltfloader.load(
-		// 	"/src/components/static/models/Stork.glb",
-		// 	function (gltf) {
-		// 		const mesh = gltf.scene.children[0];
-		// 		const clip = gltf.animations[0];
-		// 		addMorph(mesh, clip, 7, 1, 3, 5, 3, true, "storks");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
-		// 		addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "storks");
-		// 	}
-		// );
+		gltfloader.load(
+			"/src/components/static/models/Stork.glb",
+			function (gltf) {
+				const mesh = gltf.scene.children[0];
+				const clip = gltf.animations[0];
+				addMorph(mesh, clip, 7, 1, 3, 5, 3, true, "storks");
+				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
+				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
+			}
+		);
 
-		// gltfloader.load(
-		// 	"/src/components/static/models/Parrot.glb",
-		// 	function (gltf) {
-		// 		const mesh = gltf.scene.children[0];
-		// 		const clip = gltf.animations[0];
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
-		// 		addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "parrots");
-		// 	}
-		// );
+		gltfloader.load(
+			"/src/components/static/models/Parrot.glb",
+			function (gltf) {
+				const mesh = gltf.scene.children[0];
+				const clip = gltf.animations[0];
+				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
+				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
+				addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "parrots");
+			}
+		);
 
 			//physics
 			var world = new CANNON.World();
@@ -717,10 +744,10 @@ window.addEventListener('keyup', navigate)
 			var deltaTime = elapsedTime - oldElaspsedTime;
 			oldElaspsedTime = elapsedTime;
 
-			// if (mixer) {
-			// 	mixer.update(deltaTime);
-			// }
-			// mixer.update(deltaTime);
+			if (mixer) {
+				mixer.update(deltaTime);
+			}
+			mixer.update(deltaTime);
 
 			// for (let i = 0; i < horses.length; i++) {
 			// 	const horse = horses[i];
@@ -731,39 +758,44 @@ window.addEventListener('keyup', navigate)
 			// 		horse.position.x = -200;
 			// 	}
 			// }
-			// for (let i = 0; i < flamingos.length; i++) {
-			// 	const flamingo = flamingos[i];
+			for (let i = 0; i < flamingos.length; i++) {
+				const flamingo = flamingos[i];
 
-			// 	flamingo.position.x += flamingo.speed * deltaTime;
+				flamingo.position.x += flamingo.speed * deltaTime;
 
-			// 	if (flamingo.position.x > 80) {
-			// 		flamingo.position.x = -80;
-			// 	}
-			// }
-			// for (let i = 0; i < storks.length; i++) {
-			// 	const stork = storks[i];
+				if (flamingo.position.x > 80) {
+					flamingo.position.x = -80;
+				}
+			}
+			for (let i = 0; i < storks.length; i++) {
+				const stork = storks[i];
 
-			// 	stork.position.x += stork.speed * deltaTime;
-			// 	stork.position.z = 5;
+				stork.position.x += stork.speed * deltaTime;
+				stork.position.z = 5;
 
-			// 	if (stork.position.x > 150) {
-			// 		stork.position.x = -150;
-			// 	}
-			// }
-			// for (let i = 0; i < parrots.length; i++) {
-			// 	const parrot = parrots[i];
+				if (stork.position.x > 150) {
+					stork.position.x = -150;
+				}
+			}
+			for (let i = 0; i < parrots.length; i++) {
+				const parrot = parrots[i];
 
-			// 	parrot.position.x += parrot.speed * deltaTime;
-			// 	parrot.position.z = -5;
+				parrot.position.x += parrot.speed * deltaTime;
+				parrot.position.z = -5;
 
-			// 	if (parrot.position.x > 100) {
-			// 		parrot.position.x = -100;
-			// 	}
-			// }
+				if (parrot.position.x > 100) {
+					parrot.position.x = -100;
+				}
+			}
 			if (mixer1) {
 				mixer1.update(deltaTime);
+            }
+            if (mixer2) {
+				mixer2.position.copy(box.position);
+                mixer2.rotation.y=box.rotation.y;
+
 			}
-			// Update controls
+            // Update controls
 			renderer.clear();
 			// controls.update()
 			// Render
