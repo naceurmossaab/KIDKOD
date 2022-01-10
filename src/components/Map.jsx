@@ -183,10 +183,7 @@ const Vis = () => {
 		const floor = new THREE.Mesh(
 			new THREE.PlaneBufferGeometry(1000, 1000),
 			new THREE.MeshStandardMaterial({
-				map: grassColorTexture,
-				aoMap: grassAmbientOcclusionexture,
-				normalMap: grassNormalTexture,
-				roughnessMap: grassRoughnessTexture,
+			color:0xA4BD55
 			})
 		);
 		floor.geometry.setAttribute(
