@@ -1,4 +1,4 @@
-const res = require("express/lib/response");
+// const res = require("express/lib/response");
 const mongoose = require("mongoose");
 const Quations = require("../models/quations");
 

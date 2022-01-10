@@ -35,7 +35,7 @@ app.use("/users", users);
 app.use("/api/quation", quationRouter);
 app.use("/api/course", courseRouter);
 app.use("/api/challenge", challengeRouter);
-app.use("/api/challenge", answerRouter);
+app.use("/api/answer", answerRouter);
 
 app.listen(port, () => {
   console.log(`listening on port http://localhost:${port} !`);
