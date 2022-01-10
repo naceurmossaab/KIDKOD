@@ -127,12 +127,14 @@ const Home3D = () => {
             mass: 0,
             shape: new C.Box(new C.Vec3(50, 0.1, 50)),
             position: new C.Vec3(0, i * margin - offset, 0),
+            material:groundMat
           });
-          
+
           world.addBody(words.ground);
           // ... and parse each letter to generate a mesh
+          const material = new THREE.MeshPhongMaterial({ color: 0x97df5e });
           Array.from(innerText).forEach((letter, j) => {
-            const material = new THREE.MeshPhongMaterial({ color: 0x97df5e });
+            
             const geometry = new TextGeometry(letter, fontOption);
             geometry.computeBoundingBox();
             geometry.computeBoundingSphere();
@@ -149,13 +151,14 @@ const Home3D = () => {
               // We divide the totalmass by the length of the string to have a common weight for each words.
               mass: totalMass / innerText.length,
               position: new C.Vec3(words.letterOff, getOffsetY(i), 0),
+              material: letterMat
             });
             const { center } = mesh.geometry.boundingSphere;
             mesh.body.addShape(box, new C.Vec3(center.x, center.y, center.z));
             // Add the body to our world
             world.addBody(mesh.body);
             words.add(mesh);
-            // console.log(words);
+            
           });
           // Recenter each body based on the whole string.
           words.children.forEach((letter) => {
@@ -175,7 +178,7 @@ const Home3D = () => {
         });
 
       renderScene();
-      // console.log(wordss);
+    
 
       // A new constant for our global force on click
       const force = 25;
@@ -208,7 +211,7 @@ const Home3D = () => {
             .copy(face.normal)
             .negate()
             .multiplyScalar(force);
-          // console.log(impulse);
+          
           wordss.forEach((word, i) => {
             word.children.forEach((letter) => {
               const { body } = letter;
@@ -219,7 +222,7 @@ const Home3D = () => {
 
               letter.position.copy(body.position);
               letter.quaternion.copy(body.quaternion);
-              // console.log(letter.position);
+             
               // window.requestAnimationFrame(onClick);
             });
           });
@@ -259,39 +262,57 @@ const Home3D = () => {
       });
     };
 
-    const updatePhysics=() =>{
+    const updatePhysics = () => {
       update();
       world.step(1 / 60);
-    }
+    };
 
-    const draw=()=> {
+    const draw = () => {
       updatePhysics();
       renderer.render(scene, camera);
-    }
+    };
 
     renderer.setAnimationLoop(() => {
       draw();
+      setConstraints()
     });
 
+    //cantact materail
+    const groundMat = new C.Material();
+const letterMat = new C.Material();
 
-    var oldElaspsedTime = 0;
+const contactMaterial = new C.ContactMaterial(groundMat, letterMat, {
+    friction: 0.01
+});
 
-    // const tick = () => {
-    //   const elapsedTime = clock.getElapsedTime();
-    //   var deltaTime = elapsedTime - oldElaspsedTime;
-    //   oldElaspsedTime = elapsedTime;
+world.addContactMaterial(contactMaterial);
 
+    // set constraines to make the letter attached together
+    const setConstraints = () => {
+      wordss.forEach((word) => {
+        for (let i = 0; i < word.children.length; i++) {
+          // We get the current letter and the next letter (if it's not the penultimate)
+          const letter = word.children[i];
+          const nextLetter =
+            i === word.children.length - 1 ? null : word.children[i + 1];
 
-    //   // for(const object of objectToUpdate){
-    //   // 	object.mesh.position.copy(object.body.position)
-    //   // 	object.mesh.quaternion.copy(object.body.quaternion)
-    //   // }
+          if (!nextLetter) continue;
 
-    //   // Call tick again on the next frame
-    //   window.requestAnimationFrame(tick);
-    //   // draw()
-    // };
-    // tick();
+          // I choosed ConeTwistConstraint because it's more rigid that other constraints and it goes well for my purpose
+          const c = new C.ConeTwistConstraint(letter.body, nextLetter.body, {
+            pivotA: new C.Vec3(letter.size.x, 0, 0),
+            pivotB: new C.Vec3(0, 0, 0),
+          });
+
+          // Optionnal but it gives us a more realistic render in my opinion
+          c.collideConnected = true;
+
+          world.addConstraint(c);
+        }
+      });
+    };
+    
+   
 
     mount.current.appendChild(renderer.domElement);
     window.addEventListener("resize", handleResize);
@@ -309,17 +330,17 @@ const Home3D = () => {
         <ul className="mainNav__list">
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              CAB
+              Grow more ...
             </a>
           </li>
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              Aaaaaa
+              Learn more
             </a>
           </li>
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              Caramel
+              play more
             </a>
           </li>
         </ul>
