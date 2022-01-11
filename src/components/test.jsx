@@ -20,6 +20,8 @@ const Vis = () => {
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.shadowMap.enabled=true
+        renderer.shadowMap.type=THREE.PCFSoftShadowMap
 		// Scene
 		const scene = new THREE.Scene();
 		//Models
@@ -70,6 +72,7 @@ const Vis = () => {
                         function ( gltf ) {
                             gltf.scene.position.set(0, 0, 3);
                             gltf.scene.scale.set(1, 1, 1);
+                            gltf.scene.castshadow=true
                             scene.add( gltf.scene );
                              const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(gltf.scene.position, 'x')
@@ -86,6 +89,7 @@ const Vis = () => {
                 cubeFolder2.add(gltf.scene.rotation, 'y')
                 cubeFolder2.add(gltf.scene.rotation, 'z')
                 cubeFolder2.open()
+
                             
                         },
                         );
@@ -96,7 +100,7 @@ const Vis = () => {
                                 mixer2 = gltf.scene;
                                 gltf.scene.position.copy(box.position);
                 gltf.scene.rotation.y=102.1
-
+                                
 				// object.rotateY(-Math.PI/2)
 				gltf.scene.scale.set(1, 1, 1 );
 				scene.add(gltf.scene);
@@ -399,7 +403,7 @@ grass.add(gltf.scene)
 
 		//floor
 		const floor = new THREE.Mesh(
-			new THREE.PlaneBufferGeometry(1000, 1000),
+			new THREE.PlaneBufferGeometry(380, 380),
 			new THREE.MeshStandardMaterial({
             map: grassNormalTexture,
 			})
@@ -414,6 +418,7 @@ grass.add(gltf.scene)
 
 		floor.rotation.x = -Math.PI / 2;
 		floor.position.y = 0;
+        floor.receiveShadow=true
 		scene.add(floor);
 
 		//bushes
@@ -448,6 +453,7 @@ grass.add(gltf.scene)
 		/////////directionnal
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
+        moonLight.castShadow=true
 		scene.add(light, moonLight);
 
 
@@ -538,8 +544,8 @@ grass.add(gltf.scene)
 				const mesh = gltf.scene.children[0];
 				const clip = gltf.animations[0];
 				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "flamingos");
-				addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
-				addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
+				// addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
+				// addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
 				// addMorph( mesh, clip, 7, 1, 0, 6, 2,true );
 				// addMorph( mesh, clip, 7, 1, 2, 7, 0.5,true );
 			}
@@ -551,8 +557,8 @@ grass.add(gltf.scene)
 				const mesh = gltf.scene.children[0];
 				const clip = gltf.animations[0];
 				addMorph(mesh, clip, 7, 1, 3, 5, 3, true, "storks");
-				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
-				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
+				// addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
+				// addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
 			}
 		);
 
@@ -561,8 +567,8 @@ grass.add(gltf.scene)
 			function (gltf) {
 				const mesh = gltf.scene.children[0];
 				const clip = gltf.animations[0];
-				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
-				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
+				// addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
+				// addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
 				addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "parrots");
 			}
 		);
@@ -810,19 +816,19 @@ window.addEventListener('keyup', navigate)
 		//  */
 		// third person camera
         var camera, goal;
-		var test = 5; //camera disctance from the car
+		var test =2; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
 			window.innerWidth / window.innerHeight,
-			0.1,
-			100
+			0.5,
+			1000
 		);
-		camera.position.set(0, test, -test);
+		camera.position.set(0, test, -10);
 		camera.lookAt(scene.position);
 		goal = new THREE.Object3D();
 		box.add( goal );
-		goal.position.set(0, test, -test);
+		goal.position.set(0, test, -10);
 
 	
 		
@@ -869,8 +875,8 @@ window.addEventListener('keyup', navigate)
 
 				flamingo.position.x += flamingo.speed * deltaTime;
 
-				if (flamingo.position.x > 80) {
-					flamingo.position.x = -80;
+				if (flamingo.position.x > 150) {
+					flamingo.position.x = -150;
 				}
 			}
 			for (let i = 0; i < storks.length; i++) {
@@ -879,8 +885,8 @@ window.addEventListener('keyup', navigate)
 				stork.position.x += stork.speed * deltaTime;
 				stork.position.z = 5;
 
-				if (stork.position.x > 150) {
-					stork.position.x = -150;
+				if (stork.position.x > 300) {
+					stork.position.x = -300;
 				}
 			}
 			for (let i = 0; i < parrots.length; i++) {
@@ -889,8 +895,8 @@ window.addEventListener('keyup', navigate)
 				parrot.position.x += parrot.speed * deltaTime;
 				parrot.position.z = -5;
 
-				if (parrot.position.x > 100) {
-					parrot.position.x = -100;
+				if (parrot.position.x > 500) {
+					parrot.position.x = -500;
 				}
 			}
 			if (mixer1) {
