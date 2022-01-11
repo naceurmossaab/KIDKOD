@@ -571,7 +571,7 @@ grass.add(gltf.scene)
 			var world = new CANNON.World();
 			world.broadphase = new CANNON.SAPBroadphase(world);
 			world.gravity.set(0, -10, 0);
-			world.defaultContactMaterial.friction = 10;
+			world.defaultContactMaterial.friction = 0;
 					//Material
 
 const defaultMaterial= new CANNON.Material('default')
@@ -580,12 +580,12 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
     defaultMaterial,
     defaultMaterial,
     {
-        friction:0.1,
+        friction:0.3,
         restitution:0.7
     }
 )
-world.addContactMaterial(defaultContactMaterial)
-world.defaultContactMaterial=defaultContactMaterial
+// world.addContactMaterial(defaultContactMaterial)
+// world.defaultContactMaterial=defaultContactMaterial
 //box test
 
 	//house physics (test)
@@ -622,7 +622,7 @@ world.defaultContactMaterial=defaultContactMaterial
 			var groundMaterial = new CANNON.Material('groundMaterial');
 			var wheelMaterial = new CANNON.Material('wheelMaterial');
 			var wheelGroundContactMaterial = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
-				friction: 333,
+				friction: 0.3,
 				restitution: 0,
 				contactEquationStiffness: 1000,
 			});
@@ -729,6 +729,7 @@ world.defaultContactMaterial=defaultContactMaterial
 			floorBody.mass=0
 			floorBody.addShape(floorShape)
 			floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1,0,0),Math.PI/2)
+			// floorBody.material(groundMaterial)
 			world.addBody(floorBody)
 /**
 * Main
@@ -752,7 +753,7 @@ function navigate(e) {
 	vehicle.setBrake(0, 2);
 	vehicle.setBrake(0, 3);
   
-	var engineForce = 1000,
+	var engineForce = 800,
 		maxSteerVal = 0.7;
 	switch(e.keyCode) {
   
