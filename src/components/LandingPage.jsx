@@ -6,7 +6,7 @@ import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import C from "cannon";
 import * as dat from "dat.gui"
 
-const Home3D = () => {
+const LandingPage = () => {
   const { useRef, useEffect, useState } = React;
   const mount = useRef(null);
   const [isAnimating, setAnimating] = useState(true);
@@ -30,8 +30,8 @@ const Home3D = () => {
     const aspect = width / height;
     const distance = 15;
 
-    const axe = new THREE.AxesHelper(10);
-    scene.add(axe);
+    // const axe = new THREE.AxesHelper(10);
+    // scene.add(axe);
     const camera = new THREE.OrthographicCamera(
       -distance * aspect,
       distance * aspect,
@@ -268,6 +268,7 @@ const Home3D = () => {
 
               letter.position.copy(body.position);
               letter.quaternion.copy(body.quaternion);
+              body.allowSleep=true
 
               // window.requestAnimationFrame(onClick);
             });
@@ -293,13 +294,15 @@ const Home3D = () => {
     };
     // Init Physics world
     const world = new C.World();
+    world.allowSleep=true
+    
     world.gravity.set(0, -50, 0);
     var x= 100
-    const cube = new C.Body({
-      mass: 0,
-      shape: new C.Box(new C.Vec3(x, x, x)),
-      position: new C.Vec3(0, 0, 0),
-    });
+    // const cube = new C.Body({
+    //   mass: 0,
+    //   shape: new C.Box(new C.Vec3(x, x, x)),
+    //   position: new C.Vec3(0, 0, 0),
+    // });
     // world.add( cube );
 
 
@@ -310,22 +313,22 @@ const Home3D = () => {
     });
     world.addBody(edge1);
 
-    const geometry = new THREE.PlaneGeometry(20,20);
-    const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-    const plane = new THREE.Mesh( geometry, material );
-    console.log(plane);
-    plane.translateZ(-10)
-    plane.rotateY(25)
+    // const geometry = new THREE.PlaneGeometry(20,20);
+    // const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+    // const plane = new THREE.Mesh( geometry, material );
+    // console.log(plane);
+    // plane.translateZ(-10)
+    // plane.rotateY(25)
     // scene.add( plane );
 
-    const controller = new dat.GUI()
-    controller.add(plane.position,"x").min(-50).max(50).step(0.1)
-    controller.add(plane.position,"y").min(-50).max(50).step(0.1)
-    controller.add(plane.position,"z").min(-50).max(50).step(0.1)
+    // const controller = new dat.GUI()
+    // controller.add(plane.position,"x").min(-50).max(50).step(0.1)
+    // controller.add(plane.position,"y").min(-50).max(50).step(0.1)
+    // controller.add(plane.position,"z").min(-50).max(50).step(0.1)
 
-    controller.add(plane.quaternion,"x").min(-Math.PI).max(Math.PI).step(0.01)
-    controller.add(plane.quaternion,"y").min(-Math.PI).max(Math.PI).step(0.01)
-    controller.add(plane.quaternion,"z").min(-Math.PI).max(Math.PI).step(0.01)
+    // controller.add(plane.quaternion,"x").min(-Math.PI).max(Math.PI).step(0.01)
+    // controller.add(plane.quaternion,"y").min(-Math.PI).max(Math.PI).step(0.01)
+    // controller.add(plane.quaternion,"z").min(-Math.PI).max(Math.PI).step(0.01)
 
 
     const update = () => {
@@ -377,7 +380,7 @@ const Home3D = () => {
 
           if (!nextLetter) continue;
 
-          // I choosed ConeTwistConstraint because it's more rigid that other constraints and it goes well for my purpose
+          // ConeTwistConstraint because it's more rigid that other constraints 
           const c = new C.ConeTwistConstraint(letter.body, nextLetter.body, {
             pivotA: new C.Vec3(letter.size.x, 0, 0),
             pivotB: new C.Vec3(0, 0, 0),
@@ -409,17 +412,17 @@ const Home3D = () => {
         <ul className="mainNav__list">
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              Grow more ...
+              Grow...
             </a>
           </li>
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              Learn more
+              Learn
             </a>
           </li>
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              play more
+              play
             </a>
           </li>
         </ul>
@@ -428,4 +431,4 @@ const Home3D = () => {
   );
 };
 
-export default Home3D;
+export default LandingPage;
