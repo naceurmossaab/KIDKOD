@@ -46,9 +46,11 @@ const FirstExercice = () => {
         counter++;
       }
     }
+    var challengeID = "61da00024cc951fb1aa31012";
+    var userID = "61dc987ae63acf3b4959f473";
     if (counter === 0) {
       axios
-        .get("http://localhost:8000/api/answer//:challengeId/:userId")
+        .get(`http://localhost:8000/api/answer/${challengeID}/${userID}`)
         .then(({ data }) => console.log("response data", data));
       console.log("truee");
     } else {
