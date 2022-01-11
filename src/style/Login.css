@@ -1,10 +1,5 @@
 /* Login Component */
 
-body {
-  background-color: #f5edec;
-  margin-top: -3%;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 *,
 *::before,
 *::after {
@@ -20,18 +15,24 @@ body {
   --search-btn-hover: #67b26b;
 }
 
+body {
+  background-color: #f5edec;
+  margin-top: -3%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
 .login {
   display: flex;
-  justify-content: right;
-  margin-top: 50%;
-  margin-left: 0px;
+  justify-content: center;
+  margin-top : 10rem;
+  margin-left: 10rem;
 }
 
 .left-div {
   font-weight: 600;
   color: #fff;
   font-size: 20px;
-  top: 0;
+  top : 0;
   left: 0;
   position: absolute;
   display: flex;
@@ -56,11 +57,11 @@ body {
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  width: 400px;
+  width : 700px;
 }
 .contact input {
   font-size: 17px;
-  width: 300px;
+  width : 300px;
   height: 40px;
   outline: none;
   padding-left: 0.5rem;
@@ -95,4 +96,56 @@ body {
 }
 .contact button:hover {
   background-color: #f5890d;
+}
+
+#pictures{
+  margin-top: 1rem;
+  display: flex;
+}
+
+.random-pictures{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.random-pictures img{
+  width: 120px;
+  transition: .5s ease-in-out;
+}
+.random-pictures img:hover{
+  transform: scale(120%);
+}
+
+#preview{
+  margin-left : 1rem;
+  display: flex;
+  width  : 100%;
+}
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checked-radio {
+  outline: 2px solid #f5890d;
+}
+
+.connexion-method{
+  display: flex;
+}
+.connexion-method label{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin: 1rem;
+}
+.connexion-method img{
+  width: 100px;
 }

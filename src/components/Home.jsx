@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [user, setUser] = useState(null);
 
-  const session = () => {
-    let user = JSON.parse(localStorage.getItem("user"));
-    user ? setUser(user) : setUser(null);
-    // return user ? true : false;
-  };
+  const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  }
 
   useEffect(() => session(), []);
 
@@ -42,9 +43,18 @@ const Home = () => {
           With KIDKOD you will be sure that your child is using technologies in
           a benefit way. Login to start the adventure !
         </p>
-        <Link to="/login">
-          <button className="startGameBTN">Login</button>
-        </Link>
+        {user ? (
+          <div>
+            <Link to="/">
+              <button onClick={logout}>Logout</button>
+            </Link>
+            <img src={user.picture} alt="" /> {user.username}
+          </div>
+        ):(
+          <Link to="/login">
+            <button className="startGameBTN">Login</button>
+          </Link>
+        )}
       </div>
     </div>
   );
