@@ -20,8 +20,8 @@ const Vis = () => {
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.shadowMap.enabled=true
-        renderer.shadowMap.type=THREE.PCFSoftShadowMap
+		renderer.shadowMap.enabled = true;
+		renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap	
 		// Scene
 		const scene = new THREE.Scene();
 		//Models
@@ -72,7 +72,7 @@ const Vis = () => {
                         function ( gltf ) {
                             gltf.scene.position.set(0, 0, 3);
                             gltf.scene.scale.set(1, 1, 1);
-                            gltf.scene.castshadow=true
+							gltf.scene.castShadow=true
                             scene.add( gltf.scene );
                              const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(gltf.scene.position, 'x')
@@ -406,6 +406,7 @@ grass.add(gltf.scene)
 			new THREE.PlaneBufferGeometry(380, 380),
 			new THREE.MeshStandardMaterial({
             map: grassNormalTexture,
+			receiveShadow:true
 			})
 		);
 		floor.geometry.setAttribute(
@@ -453,7 +454,7 @@ grass.add(gltf.scene)
 		/////////directionnal
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
-        moonLight.castShadow=true
+		moonLight.castShadow=true
 		scene.add(light, moonLight);
 
 
