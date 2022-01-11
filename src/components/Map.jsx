@@ -60,17 +60,16 @@ const Vis = () => {
 			}
 		);
 
-		//offroad car
-		// loaderG.load(
-		// 	"/src/components/static/models/offroadcar.fbx",
-		// 	function (object) {
-		// 		mixer2 = object;
-		// 		object.position.copy(player.position);
-		// 		// object.rotateY(-Math.PI/2)
-		// 		object.scale.set(0.003, 0.003, 0.003);
-		// 		scene.add(object);
-		// 	}
-		// );
+		loaderG.load(
+			"/src/components/static/models/offroadcar.fbx",
+			function (object) {
+				mixer2 = object;
+				object.position.copy(box.position);
+				// object.rotateY(-Math.PI/2)
+				object.scale.set(0.003, 0.003, 0.003);
+				scene.add(object);
+			}
+		);
 
 		//texture
 		const textureLoader = new THREE.TextureLoader();
@@ -709,9 +708,9 @@ window.addEventListener('keyup', navigate)
 			ghost3.position.y =
 				Math.sin(elapsedTime * 5) + Math.sin(elapsedTime * 2);
 
-			// if (mixer2) {
-			// 	mixer2.position.copy(player.position);
-			// }
+			if (mixer2) {
+				mixer2.position.copy(box.position);
+			}
 	
 
 			if (mixer) {
