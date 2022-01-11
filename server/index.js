@@ -29,13 +29,15 @@ const quationRouter = require("./routers/quations");
 const courseRouter = require("./routers/courses");
 const challengeRouter = require("./routers/challenges");
 const answerRouter = require("./routers/answers");
+const randomPictures = require("./routers/random-pictures");
 
 /******************** Routes ********************/
-app.use("/users", users);
+app.use("/api/users", users);
 app.use("/api/quation", quationRouter);
 app.use("/api/course", courseRouter);
 app.use("/api/challenge", challengeRouter);
 app.use("/api/answer", answerRouter);
+app.use("/api/random-pictures", randomPictures);
 
 app.listen(port, () => {
 	console.log(`listening on port http://localhost:${port} !`);
