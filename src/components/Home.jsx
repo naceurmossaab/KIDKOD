@@ -44,9 +44,9 @@ const Home = () => {
           a benefit way. Login to start the adventure !
         </p>
         {user ? (
-          <div>
+          <div className="profile">
             <Link to="/">
-              <button onClick={logout}>Logout</button>
+              <button className="startGameBTN" onClick={logout}>Logout</button>
             </Link>
             <img src={user.picture} alt="" /> {user.username}
           </div>
