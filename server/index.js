@@ -9,8 +9,8 @@ var cors = require("cors");
 /******************** Mongoose ********************/
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb://localhost/kidkod")
-  .then((res) => console.log("mongoose connected !"));
+	.connect("mongodb://localhost/kidkodnewVersion")
+	.then((res) => console.log("mongoose connected !"));
 
 /******************** Middleware ********************/
 let app = express();
@@ -21,7 +21,7 @@ app.use(cors());
 
 /******************** Cookie Life ********************/
 app.use(
-  cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
+	cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
 ); // 1 year in milliseconds})
 
 // Routers
@@ -38,5 +38,5 @@ app.use("/api/challenge", challengeRouter);
 app.use("/api/answer", answerRouter);
 
 app.listen(port, () => {
-  console.log(`listening on port http://localhost:${port} !`);
+	console.log(`listening on port http://localhost:${port} !`);
 });
