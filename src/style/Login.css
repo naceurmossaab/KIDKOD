@@ -25,7 +25,7 @@ body {
   display: flex;
   justify-content: center;
   margin-top : 5rem;
-  margin-left: 30%;
+  margin-left: 50%;
 }
 
 .left-div {
@@ -38,11 +38,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10rem 2rem;
+  padding: 10rem 1rem;
   background-image: url("https://source.unsplash.com/800x1000/?kids");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 30vw;
+  width: 35vw;
   height: 100vh;
 }
 .left-div h1 {
@@ -56,7 +56,7 @@ body {
 .contact {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  margin: 1rem 0;
   width : 700px;
 }
 .contact input {
@@ -101,6 +101,7 @@ body {
 #pictures{
   margin-top: 1rem;
   display: flex;
+  width: 500px;
 }
 
 .random-pictures{
@@ -109,7 +110,7 @@ body {
   gap: 0.1rem;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 0;
 }
 .random-pictures img{
   width: 120px;
@@ -123,6 +124,7 @@ body {
   margin-left : 1rem;
   display: flex;
   width  : 100%;
+  max-width: 100%;
 }
 
 [type=radio] { 

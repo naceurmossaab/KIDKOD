@@ -102,9 +102,10 @@ const Login = () => {
           }else {
                if(view === "signin") {
                     setView("signin-2");
+                    setSignin({ ...signin, status: ""});
                     axios.post("http://localhost:8000/api/users/loginpic", {username: signin.username})
                          .then(({data})=> console.log("get secret picture : ", data[0].loginpic))
-                         .catch((err) => console.log("get secret picture error : ", err));
+                         .catch((err)  => console.log("get secret picture error : ", err));
                }
                else{
                     let { username, password, loginpic } = signin;
@@ -113,6 +114,8 @@ const Login = () => {
                     setSignin({ ...signin, status: "enter a password"})
                     else if (signin.password.length < 8 && signin.method === "password")
                     setSignin({ ...signin, status: "password too short"})
+                    else if (!signin.loginpic.length && signin.method === "picture")
+                    setSignin({ ...signin, status: "select a picture"})
                     else{
                          axios.post("http://localhost:8000/api/users/signin", { username, password, loginpic })
                          .then(({ data }) => {
@@ -215,12 +218,17 @@ const Login = () => {
                                              <img src={signin.loginpic} alt="" />
                                         </div>
                                    </div>
-                                   <button onClick={signinFN}>Sign In</button>
+                                   <div>
+                                        <button onClick={signinFN}>Sign In</button>
+                                        <span style={{ fontSize: "20px", color: "red" }}> {signin.status} </span>
+                                   </div>
                               </div>) : (
                               <div className="contact">
                                    <input value={signin.password} onChange={(e) => setSignin({ ...signin, password: e.target.value }) } name="password" placeholder="password" type="password" />
-                                   <button onClick={signinFN}>Sign In</button>
-                                   <span style={{ fontSize: "20px", color: "red" }}> {signin.status} </span>
+                                   <div>
+                                        <button onClick={signinFN}>Sign In</button>
+                                        <span style={{ fontSize: "20px", color: "red" }}> {signin.status} </span>
+                                   </div>
                               </div>
                               )
                          )}
