@@ -5,7 +5,7 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
 
 
@@ -23,17 +23,18 @@ const Vis = () => {
 		// Scene
 		const scene = new THREE.Scene();
 		//Models
-		const gltfLoader1 = new GLTFLoader();
 
 		let mixer = null;
 		let mixer1 = null;
+        let mixer2=null
+        
 		// Models
+        //adding the old man
 		const loader = new FBXLoader();
 		loader.load(
 			"/src/components/static/models/Look Around.fbx",
 			function (object) {
 				mixer1 = new THREE.AnimationMixer(object);
-
 				const action = mixer1.clipAction(object.animations[0]);
 				action.play();
 
@@ -48,20 +49,323 @@ const Vis = () => {
 				scene.add(object);
 			}
 		);
-		//house
-		// loader.load(
-		// 	"/src/all models/House_01.fbx",
-		// 	function (object) {
-		// 		console.log(object);
-		// 		object.position.set(0, 0, 3);
-		// 		object.scale.set(0.007, 0.007, 0.007);
-		// 		scene.add(object);
-		// 	}
-		// );
-		
+        // function passmesh(mesh){
+            //     mixer2.push(mesh)
+            //     console.log(mixer2);}
+            // loader.load(
+                // 	"/src/components/static/models/offroadcar.fbx",
+                // 	function (object) {	
+                    //         mixer2=object
+                    //         object.scale.set(0.007, 0.007, 0.007);
+                    //         mixer2=object
+                    // 		scene.add(object);
+                    //         passmesh(object)
+                    // 	}
+                    // );
+                    
+                    //adding the scene
+                    const gltfLoader = new GLTFLoader();
+                    gltfLoader.load(
+                        "/src/all models/wholescene.glb",
+                        function ( gltf ) {
+                            gltf.scene.position.set(0, 0, 3);
+                            gltf.scene.scale.set(1, 1, 1);
+                            scene.add( gltf.scene );
+                             const cubeFolder1 = gui.addFolder('position')
+                cubeFolder1.add(gltf.scene.position, 'x')
+                cubeFolder1.add(gltf.scene.position, 'y')
+                cubeFolder1.add(gltf.scene.position, 'z')
+                cubeFolder1.open()
+                const cubeFolder = gui.addFolder('scale')
+                cubeFolder.add(gltf.scene.rotation, 'x')
+                cubeFolder.add(gltf.scene.rotation, 'y')
+                cubeFolder.add(gltf.scene.rotation, 'z')
+                cubeFolder.open()
+                const cubeFolder2 = gui.addFolder('rotation')
+                cubeFolder2.add(gltf.scene.rotation, 'x')
+                cubeFolder2.add(gltf.scene.rotation, 'y')
+                cubeFolder2.add(gltf.scene.rotation, 'z')
+                cubeFolder2.open()
+                            
+                        },
+                        );
+                        //adding the car
+                        gltfLoader.load(
+                            "/src/components/static/models/car.glb",
+                            function (gltf) {
+                                mixer2 = gltf.scene;
+                                gltf.scene.position.copy(box.position);
+                gltf.scene.rotation.y=102.1
+
+				// object.rotateY(-Math.PI/2)
+				gltf.scene.scale.set(1, 1, 1 );
+				scene.add(gltf.scene);
+                // const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(object.position, 'x')
+                // cubeFolder1.add(object.position, 'y')
+                // cubeFolder1.add(object.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(object.rotation, 'x')
+                // cubeFolder.add(object.rotation, 'y')
+                // cubeFolder.add(object.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(object.rotation, 'x')
+                // cubeFolder2.add(object.rotation, 'y')
+                // cubeFolder2.add(object.rotation, 'z')
+                // cubeFolder2.open()
+			}
+		);
+        //grass
+        // gltfLoader.load(
+        //     "/src/all models/floor.glb",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(0, 0.2, 3);
+        //         gltf.scene.scale.set(1, 1, 1);
+        //         const cubeFolder1 = gui.addFolder('position')
+        //         cubeFolder1.add(gltf.scene.position, 'x')
+        //         cubeFolder1.add(gltf.scene.position, 'y')
+        //         cubeFolder1.add(gltf.scene.position, 'z')
+        //         cubeFolder1.open()
+        //         const cubeFolder = gui.addFolder('scale')
+        //         cubeFolder.add(gltf.scene.scale, 'x')
+        //         cubeFolder.add(gltf.scene.scale, 'y')
+        //         cubeFolder.add(gltf.scene.scale, 'z')
+        //         cubeFolder.open()
+        //         const cubeFolder2 = gui.addFolder('rotation')
+        //         cubeFolder2.add(gltf.scene.rotation, 'x')
+        //         cubeFolder2.add(gltf.scene.rotation, 'y')
+        //         cubeFolder2.add(gltf.scene.rotation, 'z')
+        //         cubeFolder2.open()
+        //         scene.add( gltf.scene );
+    
+        //     },)
+        //village
+        //  gltfLoader.load(
+        //     "/src/all models/village.glb",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(65, 0, 0);
+        //         gltf.scene.scale.set(0.5, 0.5, 0.5);
+        //         const cubeFolder1 = gui.addFolder('position')
+        //         cubeFolder1.add(gltf.scene.position, 'x')
+        //         cubeFolder1.add(gltf.scene.position, 'y')
+        //         cubeFolder1.add(gltf.scene.position, 'z')
+        //         cubeFolder1.open()
+        //         const cubeFolder = gui.addFolder('scale')
+        //         cubeFolder.add(gltf.scene.scale, 'x')
+        //         cubeFolder.add(gltf.scene.scale, 'y')
+        //         cubeFolder.add(gltf.scene.scale, 'z')
+        //         cubeFolder.open()
+        //         const cubeFolder2 = gui.addFolder('rotation')
+        //         cubeFolder2.add(gltf.scene.rotation, 'x')
+        //         cubeFolder2.add(gltf.scene.rotation, 'y')
+        //         cubeFolder2.add(gltf.scene.rotation, 'z')
+        //         cubeFolder2.open()
+        //         scene.add( gltf.scene );
+    
+        //     },)
+        //Road
+        // gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(1.6,-4.4,-2)
+        //         gltf.scene.scale.set(0.79, 2.02, 0.59);
+        //         gltf.scene.rotation.set(0,0.4,0)
+        //         scene.add( gltf.scene );
+               
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(2.4,-4.3,7.3)
+        //         gltf.scene.scale.set(0.79, 2, 0.59);
+        //         gltf.scene.rotation.set(0,-0.04,0)
+        //         scene.add( gltf.scene );
+        //     },
+        //     );
+        //     gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(3.1,-4.4,2.8)
+        //         gltf.scene.scale.set(0.79, 2.02, 0.59);
+        //         gltf.scene.rotation.set(0,0.11,0)
+        //         scene.add( gltf.scene );
+                
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/Road.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(-2,-4.3,3.7)
+        //         gltf.scene.scale.set(1.12, 2, 0.59);
+        //         gltf.scene.rotation.set(0,1.005,0)
+        //         scene.add( gltf.scene );
+               
+                
+                
+        //     },
+        // );
+        // //Rocks
+        // gltfLoader.load(
+        //     "/src/all models/rock1.gltf",
+        //     function ( gltf ) {
+        //         gltf.scene.position.set(-18, -10.5, 14.3);
+        //         gltf.scene.scale.set(0.7, 0.7, 0.7);     
+        //         scene.add( gltf.scene );
+
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/rock2.gltf",
+        //     function ( gltf ) {
+        //         console.log(gltf);
+		// 		gltf.scene.position.set(-15, -3, 24.9);
+        //         gltf.scene.scale.set(0.8, 0.8, 0.8);  
+        //         gltf.scene.rotation.set(17, 6, 0);  
+
+                
+        //         scene.add( gltf.scene );
+                
+        //     },
+        // );
+        // gltfLoader.load(
+        //     "/src/all models/rock3.gltf",
+        //     function ( gltf ) {
+        //         console.log(gltf);
+        //         gltf.scene.position.set(-58, 0, -29.6);
+		// 		gltf.scene.scale.set(3, 3, 3);
+
+                
+        //         scene.add( gltf.scene );
+      
+        //     },
+        // );
+        // //mountain
+        // gltfLoader.load(
+        //     "/src/all models/mountain.glb",
+        //     function ( gltf ) {
+        //         console.log(gltf);
+        //         gltf.scene.position.set(-55, 2, 39.5);
+		// 		gltf.scene.scale.set(1, 1, 1);
+        //         gltf.scene.rotation.set(0,13,0)
+    
+                
+        //         scene.add( gltf.scene );
+      
+        //     },
+        // );
+        //grass
+        const grass=new THREE.Group()
+                 scene.add(grass)
+                 for(let i=0;i<1000;i++){
+        gltfLoader.load(
+            "/src/all models/grass.gltf",
+            function ( gltf ) {
+                const angle=Math.random()*Math.PI*80
+   const radius=3+Math.random()*100
+                gltf.scene.position.set(Math.sin(angle)*radius,
+                    0, Math.cos(angle)*radius);
+				gltf.scene.scale.set(0.5, 0.5, 0.5);
+                grass.add(gltf.scene)
+    
+      
+            },
+        );}
+       //flowers
+       const flowers=new THREE.Group()
+       scene.add(flowers)
+       for(let i=0;i<1000;i++){
+gltfLoader.load(
+  "/src/all models/flowers1.gltf",
+  function ( gltf ) {
+      const angle=Math.random()*Math.PI*80
+const radius=3+Math.random()*100
+      gltf.scene.position.set(Math.sin(angle)*radius,
+          0, Math.cos(angle)*radius);
+      gltf.scene.scale.set(0.5, 0.5, 0.5);
+      grass.add(gltf.scene)
+
+  },
+);}
+//mushroms
+const mushroms=new THREE.Group()
+scene.add(mushroms)
+for(let i=0;i<300;i++){
+gltfLoader.load(
+"/src/all models/mushrom.gltf",
+function ( gltf ) {
+const angle=Math.random()*Math.PI*80
+const radius=3+Math.random()*100
+gltf.scene.position.set(Math.sin(angle)*radius,
+   0, Math.cos(angle)*radius);
+gltf.scene.scale.set(0.3, 0.3, 0.3);
+grass.add(gltf.scene)
 
 
+},
+);}
 
+       // trees
+       gltfLoader.load(
+        "/src/all models/trees1.gltf",
+        function ( gltf ) {
+            console.log(gltf);
+            gltf.scene.position.set(32, 0, 19.6);
+            gltf.scene.scale.set(1, 1, 1);
+     
+            
+                      scene.add( gltf.scene );
+        },
+    );
+
+    gltfLoader.load(
+        "/src/all models/trees2.glb",
+        function ( gltf ) {
+            gltf.scene.position.set(0, 0, 3);
+            gltf.scene.scale.set(1, 1, 1);
+
+            scene.add( gltf.scene );
+            //           const cubeFolder1 = gui.addFolder('position')
+            // cubeFolder1.add(gltf.scene.position, 'x')
+            // cubeFolder1.add(gltf.scene.position, 'y')
+            // cubeFolder1.add(gltf.scene.position, 'z')
+            // cubeFolder1.open()
+            // const cubeFolder = gui.addFolder('scale')
+            // cubeFolder.add(gltf.scene.scale, 'x')
+            // cubeFolder.add(gltf.scene.scale, 'y')
+            // cubeFolder.add(gltf.scene.scale, 'z')
+            // cubeFolder.open()
+            // const cubeFolder2 = gui.addFolder('rotation')
+            // cubeFolder2.add(gltf.scene.rotation, 'x')
+            // cubeFolder2.add(gltf.scene.rotation, 'y')
+            // cubeFolder2.add(gltf.scene.rotation, 'z')
+            // cubeFolder2.open()
+           
+        },)
+		//a little scene
+        gltfLoader.load(
+            "/src/all models/littleScene.glb",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(4, 0, -24.8);
+				gltf.scene.scale.set(1, 1, 1);
+            
+                          scene.add( gltf.scene );
+            },
+        );
+        //ruins
+        gltfLoader.load(
+            "/src/all models/ruins.glb",
+            function ( gltf ) {
+                console.log(gltf);
+                gltf.scene.position.set(-15, 0, 58.1);
+				gltf.scene.scale.set(1, 1, 1);
+           
+                          scene.add( gltf.scene );
+            },
+        );
 		//offroad car
 		// loaderG.load(
 		// 	"/src/components/static/models/offroadcar.fbx",
@@ -84,12 +388,20 @@ const Vis = () => {
 		/**
 		 * Object
 		 */
-		
+         const textureLoader = new THREE.TextureLoader();
+
+         const grassNormalTexture = textureLoader.load(
+			"/src/all models/wassim.jfif"
+		);
+        // grassNormalTexture.repeat.set(1000, 1000);
+		// grassNormalTexture.wrapT = THREE.RepeatWrapping;
+		// grassNormalTexture.wrapS = THREE.RepeatWrapping;
+
 		//floor
 		const floor = new THREE.Mesh(
 			new THREE.PlaneBufferGeometry(1000, 1000),
 			new THREE.MeshStandardMaterial({
-			color:0xA4BD55
+            map: grassNormalTexture,
 			})
 		);
 		floor.geometry.setAttribute(
@@ -131,10 +443,10 @@ const Vis = () => {
 		//light
 
 		////////ambiant
-		const light = new THREE.AmbientLight("#b9d5ff", 0.7);
+		const light = new THREE.AmbientLight("#b9d5ff", 1);
 
 		/////////directionnal
-		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.12);
+		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
 		scene.add(light, moonLight);
 
@@ -157,55 +469,55 @@ const Vis = () => {
 		
 
 		// const horses = [];
-		// const storks = [];
-		// const flamingos = [];
-		// const parrots = [];
-		// mixer = new THREE.AnimationMixer(scene);
-		// function addMorph(
-		// 	mesh,
-		// 	clip,
-		// 	speed,
-		// 	duration,
-		// 	x,
-		// 	y,
-		// 	z,
-		// 	fudgeColor,
-		// 	type
-		// ) {
-		// 	mesh = mesh.clone();
-		// 	mesh.material = mesh.material.clone();
+		const storks = [];
+		const flamingos = [];
+		const parrots = [];
+		mixer = new THREE.AnimationMixer(scene);
+		function addMorph(
+			mesh,
+			clip,
+			speed,
+			duration,
+			x,
+			y,
+			z,
+			fudgeColor,
+			type
+		) {
+			mesh = mesh.clone();
+			mesh.material = mesh.material.clone();
 
-		// 	if (fudgeColor) {
-		// 		mesh.material.color.offsetHSL(
-		// 			0,
-		// 			Math.random() * 0.5 - 0.25,
-		// 			Math.random() * 0.5 - 0.25
-		// 		);
-		// 	}
+			if (fudgeColor) {
+				mesh.material.color.offsetHSL(
+					0,
+					Math.random() * 0.5 - 0.25,
+					Math.random() * 0.5 - 0.25
+				);
+			}
 
-		// 	mesh.speed = speed;
+			mesh.speed = speed;
 
-		// 	mixer
-		// 		.clipAction(clip, mesh)
-		// 		.setDuration(duration)
-		// 		// to shift the playback out of phase:
-		// 		.startAt(-duration * Math.random())
-		// 		.play();
-		// 	mesh.scale.set(0.01, 0.01, 0.01);
-		// 	mesh.position.set(x, y, z);
-		// 	mesh.rotation.y = Math.PI / 2;
+			mixer
+				.clipAction(clip, mesh)
+				.setDuration(duration)
+				// to shift the playback out of phase:
+				.startAt(-duration * Math.random())
+				.play();
+			mesh.scale.set(0.01, 0.01, 0.01);
+			mesh.position.set(x, y, z);
+			mesh.rotation.y = Math.PI / 2;
 
-		// 	mesh.castShadow = true;
-		// 	mesh.receiveShadow = true;
+			mesh.castShadow = true;
+			mesh.receiveShadow = true;
 
-		// 	scene.add(mesh);
-		// 	if (type === "horses") horses.push(mesh);
-		// 	if (type === "flamingos") flamingos.push(mesh);
-		// 	if (type === "storks") storks.push(mesh);
-		// 	if (type === "parrots") parrots.push(mesh);
-		// }
+			scene.add(mesh);
+			if (type === "horses") horses.push(mesh);
+			if (type === "flamingos") flamingos.push(mesh);
+			if (type === "storks") storks.push(mesh);
+			if (type === "parrots") parrots.push(mesh);
+		}
 
-		// const gltfloader = new GLTFLoader();
+		const gltfloader = new GLTFLoader();
 
 		// gltfloader.load(
 		// 	"/src/components/static/models/Horse.glb",
@@ -220,42 +532,40 @@ const Vis = () => {
 		// 	}
 		// );
 
-		// gltfloader.load(
-		// 	"/src/components/static/models/Flamingo.glb",
-		// 	function (gltf) {
-		// 		const mesh = gltf.scene.children[0];
-		// 		const clip = gltf.animations[0];
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "flamingos");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
-		// 		addMorph(mesh, clip, 7, 1, 4, 6.4, 6, true, "flamingos");
-		// 		// addMorph( mesh, clip, 7, 1, 0, 6, 2,true );
-		// 		// addMorph( mesh, clip, 7, 1, 2, 7, 0.5,true );
-		// 	}
-		// );
+		gltfloader.load(
+			"/src/components/static/models/Flamingo.glb",
+			function (gltf) {
+				const mesh = gltf.scene.children[0];
+				const clip = gltf.animations[0];
+				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "flamingos");
+				addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
+				addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
+				// addMorph( mesh, clip, 7, 1, 0, 6, 2,true );
+				// addMorph( mesh, clip, 7, 1, 2, 7, 0.5,true );
+			}
+		);
 
-		// gltfloader.load(
-		// 	"/src/components/static/models/Stork.glb",
-		// 	function (gltf) {
-		// 		const mesh = gltf.scene.children[0];
-		// 		const clip = gltf.animations[0];
-		// 		addMorph(mesh, clip, 7, 1, 3, 5, 3, true, "storks");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
-		// 		addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "storks");
-		// 	}
-		// );
+		gltfloader.load(
+			"/src/components/static/models/Stork.glb",
+			function (gltf) {
+				const mesh = gltf.scene.children[0];
+				const clip = gltf.animations[0];
+				addMorph(mesh, clip, 7, 1, 3, 5, 3, true, "storks");
+				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
+				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
+			}
+		);
 
-		// gltfloader.load(
-		// 	"/src/components/static/models/Parrot.glb",
-		// 	function (gltf) {
-		// 		const mesh = gltf.scene.children[0];
-		// 		const clip = gltf.animations[0];
-		// 		addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
-		// 		addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
-		// 		addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "parrots");
-		// 	}
-		// );
+		gltfloader.load(
+			"/src/components/static/models/Parrot.glb",
+			function (gltf) {
+				const mesh = gltf.scene.children[0];
+				const clip = gltf.animations[0];
+				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
+				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
+				addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "parrots");
+			}
+		);
 
 			//physics
 			var world = new CANNON.World();
@@ -278,43 +588,37 @@ world.addContactMaterial(defaultContactMaterial)
 world.defaultContactMaterial=defaultContactMaterial
 //box test
 
-	//house physics
-	const houseshape= new CANNON.Box(new CANNON.Vec3(0.3,5,0.3))
-    const housebody=new CANNON.Body({
-        mass:0,
-        position: new CANNON.Vec3(5,0,-10),
-        shape:houseshape,
-        material:defaultMaterial
-    })
-	world.addBody(housebody)
-	const gltfloader = new GLTFLoader();
-	const boxGeometry=new THREE.BoxBufferGeometry(1, 1, 1)
-	const boxMaterial=  new THREE.MeshStandardMaterial({ 
-		metalness:0.3,
-		roughness:0.4,
-	})
-	const boxtest = new THREE.Mesh(boxGeometry,boxMaterial )
-	boxtest.scale.set(0.3,0.3,0.3)
-	boxtest.castShadow=true
-	boxtest.position.copy(housebody.position)
-	const cubeFolder = gui.addFolder('Cube')
-	cubeFolder.add(boxtest.position, 'x')
-	cubeFolder.add(boxtest.position, 'y')
-	cubeFolder.add(boxtest.position, 'z')
-	cubeFolder.open()
-	scene.add(boxtest)
-	gltfloader.load(
-		"/src/all models/House.gltf",
-		function ( gltf ) {
-			console.log(gltf);
-			gltf.scene.position.set(0,-3,3)
-			gltf.scene.scale.set(0.3, 0.3, 0.3);
-			scene.add( gltf.scene );
+	//house physics (test)
+	// const houseshape= new CANNON.Box(new CANNON.Vec3(1.75,5,2.04))
+    // const housebody=new CANNON.Body({
+    //     mass:0,
+    //     position: new CANNON.Vec3(-11.5,0,2),
+    //     shape:houseshape,
+    //     material:defaultMaterial
+    // })
+	// world.addBody(housebody)
+	// const gltfloader = new GLTFLoader();
+	// const boxGeometry=new THREE.BoxBufferGeometry(1, 1, 1)
+	// const boxMaterial=  new THREE.MeshStandardMaterial({ 
+	// 	metalness:0.3,
+	// 	roughness:0.4,
+	// })
+	// const boxtest = new THREE.Mesh(boxGeometry,boxMaterial )
+	// boxtest.scale.set(1.75,2.04,3.27)
+	// boxtest.castShadow=true
+	// boxtest.position.copy(housebody.position)
+	// const cubeFolder1 = gui.addFolder('Cube')
+	// cubeFolder1.add(boxtest.position, 'x')
+	// cubeFolder1.add(boxtest.position, 'y')
+	// cubeFolder1.add(boxtest.position, 'z')
+	// cubeFolder1.open()
+    // const cubeFolder = gui.addFolder('scale')
+	// cubeFolder.add(boxtest.scale, 'x')
+	// cubeFolder.add(boxtest.scale, 'y')
+	// cubeFolder.add(boxtest.scale, 'z')
+	// cubeFolder.open()
+	// scene.add(boxtest)
 	
-		},
-	);
-
-
 			var groundMaterial = new CANNON.Material('groundMaterial');
 			var wheelMaterial = new CANNON.Material('wheelMaterial');
 			var wheelGroundContactMaterial = new CANNON.ContactMaterial(wheelMaterial, groundMaterial, {
@@ -448,7 +752,7 @@ function navigate(e) {
 	vehicle.setBrake(0, 2);
 	vehicle.setBrake(0, 3);
   
-	var engineForce = 500,
+	var engineForce = 1000,
 		maxSteerVal = 0.7;
 	switch(e.keyCode) {
   
@@ -496,35 +800,31 @@ function navigate(e) {
   window.addEventListener('keydown', navigate)
 window.addEventListener('keyup', navigate)	
 // * Camera
-// */
-// Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set  (-3,3,3)
-scene.add(camera)
+// // */
+// // Base camera
+// 
 
-// Controls
-const controls = new OrbitControls(camera,renderer.domElement)
-controls.enableDamping = true
+// 	/**
+		//  * Camera
+		//  */
+		// third person camera
+        var camera, goal;
+		var test = 5; //camera disctance from the car
+		var temp = new THREE.Vector3();
+		camera = new THREE.PerspectiveCamera(
+			75,
+			window.innerWidth / window.innerHeight,
+			0.1,
+			100
+		);
+		camera.position.set(0, test, -test);
+		camera.lookAt(scene.position);
+		goal = new THREE.Object3D();
+		box.add( goal );
+		goal.position.set(0, test, -test);
 
-	/**
-		 * Camera
-		 */
-		//third person camera
-		// var camera, goal;
-		// var test = 10; //camera disctance from the car
-		// var temp = new THREE.Vector3();
-		// camera = new THREE.PerspectiveCamera(
-		// 	75,
-		// 	window.innerWidth / window.innerHeight,
-		// 	0.1,
-		// 	100
-		// );
-		// camera.position.set(0, test, -test);
-		// camera.lookAt(scene.position);
-		// goal = new THREE.Object3D();
-		// box.add( goal );
-		// goal.position.set(0, test, -test);
-
+	
+		
 	
 		
 //truck
@@ -549,10 +849,10 @@ controls.enableDamping = true
 			var deltaTime = elapsedTime - oldElaspsedTime;
 			oldElaspsedTime = elapsedTime;
 
-			// if (mixer) {
-			// 	mixer.update(deltaTime);
-			// }
-			// mixer.update(deltaTime);
+			if (mixer) {
+				mixer.update(deltaTime);
+			}
+			mixer.update(deltaTime);
 
 			// for (let i = 0; i < horses.length; i++) {
 			// 	const horse = horses[i];
@@ -563,45 +863,50 @@ controls.enableDamping = true
 			// 		horse.position.x = -200;
 			// 	}
 			// }
-			// for (let i = 0; i < flamingos.length; i++) {
-			// 	const flamingo = flamingos[i];
+			for (let i = 0; i < flamingos.length; i++) {
+				const flamingo = flamingos[i];
 
-			// 	flamingo.position.x += flamingo.speed * deltaTime;
+				flamingo.position.x += flamingo.speed * deltaTime;
 
-			// 	if (flamingo.position.x > 80) {
-			// 		flamingo.position.x = -80;
-			// 	}
-			// }
-			// for (let i = 0; i < storks.length; i++) {
-			// 	const stork = storks[i];
+				if (flamingo.position.x > 80) {
+					flamingo.position.x = -80;
+				}
+			}
+			for (let i = 0; i < storks.length; i++) {
+				const stork = storks[i];
 
-			// 	stork.position.x += stork.speed * deltaTime;
-			// 	stork.position.z = 5;
+				stork.position.x += stork.speed * deltaTime;
+				stork.position.z = 5;
 
-			// 	if (stork.position.x > 150) {
-			// 		stork.position.x = -150;
-			// 	}
-			// }
-			// for (let i = 0; i < parrots.length; i++) {
-			// 	const parrot = parrots[i];
+				if (stork.position.x > 150) {
+					stork.position.x = -150;
+				}
+			}
+			for (let i = 0; i < parrots.length; i++) {
+				const parrot = parrots[i];
 
-			// 	parrot.position.x += parrot.speed * deltaTime;
-			// 	parrot.position.z = -5;
+				parrot.position.x += parrot.speed * deltaTime;
+				parrot.position.z = -5;
 
-			// 	if (parrot.position.x > 100) {
-			// 		parrot.position.x = -100;
-			// 	}
-			// }
+				if (parrot.position.x > 100) {
+					parrot.position.x = -100;
+				}
+			}
 			if (mixer1) {
 				mixer1.update(deltaTime);
+            }
+            if (mixer2) {
+				mixer2.position.copy(box.position);
+                mixer2.rotation.copy(box.rotation);
+
 			}
-			// Update controls
+            // Update controls
 			renderer.clear();
-			controls.update()
+			// controls.update()
 			// Render
 			renderer.render(scene, camera);
-			// temp.setFromMatrixPosition(goal.matrixWorld);
-			// camera.position.lerp(temp, 0.2);
+			temp.setFromMatrixPosition(goal.matrixWorld);
+			camera.position.lerp(temp, 0.2);
 			camera.lookAt(box.position);
 			updatePhysics();
 			// Call tick again on the next frame
