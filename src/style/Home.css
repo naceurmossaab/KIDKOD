@@ -49,3 +49,12 @@ body {
 .startGameBTN:hover {
   background-color: #f5890d;
 }
+
+.profile img{
+  width: 50px;
+  border-radius: 50%;
+  border: 1px dotted #888;
+}
+
+
+
