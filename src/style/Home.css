@@ -1,6 +1,5 @@
 body {
   background-color: #f5edec;
-  margin-top: -3%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .rightImage {
@@ -50,3 +49,12 @@ body {
 .startGameBTN:hover {
   background-color: #f5890d;
 }
+
+.profile img{
+  width: 50px;
+  border-radius: 50%;
+  border: 1px dotted #888;
+}
+
+
+

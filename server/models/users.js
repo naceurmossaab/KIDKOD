@@ -11,10 +11,11 @@ const userSchema = mongoose.Schema(
 				"There's already an account registered with that username",
 			],
 		},
-		email: { type: String, require: [true, "Please enter an email"] },
+		email   : { type: String, require: [true, "Please enter an email"] },
+		loginpic: { type: String, require: [true, "Please select a picture"] },
 		password: {
 			type: String,
-			required: [true, "Please enter a password"],
+			required : [true, "Please enter a password"],
 			minlength: [8, "Minimum password length is 8 characters"],
 		},
 		level: { type: Number, default: 1 },
@@ -33,6 +34,16 @@ userSchema.statics.login = async function (username, plainTextPassword) {
 		);
 		if (success) return foundUser;
 		else throw Error("Incorrect username/password");
+	}
+	else throw Error("Username not exist");
+};
+
+userSchema.statics.loginpic = async function (username, securepic) {
+	const foundUser = await this.findOne({ username });
+	if (foundUser) {
+		const success = (securepic === foundUser.loginpic);
+		if (success) return foundUser;
+		else throw Error("Incorrect username/picture");
 	}
 	else throw Error("Username not exist");
 };
