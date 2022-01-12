@@ -1,4 +1,5 @@
 import React from "react";
+import Challenges from './Challenges/Challenges.jsx'
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
@@ -13,6 +14,9 @@ const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
 	// const controls = useRef(null);
+
+
+
 
 	useEffect(() => {
 
@@ -72,23 +76,28 @@ const Vis = () => {
                         function ( gltf ) {
                             gltf.scene.position.set(0, 0, 3);
                             gltf.scene.scale.set(1, 1, 1);
-							gltf.scene.castShadow=true
+							gltf.scene.traverse(function (child) {
+								if (child.isMesh) {
+									child.castShadow = true;
+									child.receiveShadow = true;
+								}
+							});
                             scene.add( gltf.scene );
-                             const cubeFolder1 = gui.addFolder('position')
-                cubeFolder1.add(gltf.scene.position, 'x')
-                cubeFolder1.add(gltf.scene.position, 'y')
-                cubeFolder1.add(gltf.scene.position, 'z')
-                cubeFolder1.open()
-                const cubeFolder = gui.addFolder('scale')
-                cubeFolder.add(gltf.scene.rotation, 'x')
-                cubeFolder.add(gltf.scene.rotation, 'y')
-                cubeFolder.add(gltf.scene.rotation, 'z')
-                cubeFolder.open()
-                const cubeFolder2 = gui.addFolder('rotation')
-                cubeFolder2.add(gltf.scene.rotation, 'x')
-                cubeFolder2.add(gltf.scene.rotation, 'y')
-                cubeFolder2.add(gltf.scene.rotation, 'z')
-                cubeFolder2.open()
+                //              const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(gltf.scene.position, 'x')
+                // cubeFolder1.add(gltf.scene.position, 'y')
+                // cubeFolder1.add(gltf.scene.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(gltf.scene.rotation, 'x')
+                // cubeFolder.add(gltf.scene.rotation, 'y')
+                // cubeFolder.add(gltf.scene.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(gltf.scene.rotation, 'x')
+                // cubeFolder2.add(gltf.scene.rotation, 'y')
+                // cubeFolder2.add(gltf.scene.rotation, 'z')
+                // cubeFolder2.open()
 
                             
                         },
@@ -315,7 +324,7 @@ grass.add(gltf.scene)
        gltfLoader.load(
         "/src/all models/trees1.gltf",
         function ( gltf ) {
-            console.log(gltf);
+            
             gltf.scene.position.set(32, 0, 19.6);
             gltf.scene.scale.set(1, 1, 1);
      
@@ -352,7 +361,7 @@ grass.add(gltf.scene)
         gltfLoader.load(
             "/src/all models/littleScene.glb",
             function ( gltf ) {
-                console.log(gltf);
+                
                 gltf.scene.position.set(4, 0, -24.8);
 				gltf.scene.scale.set(1, 1, 1);
             
@@ -363,7 +372,7 @@ grass.add(gltf.scene)
         gltfLoader.load(
             "/src/all models/ruins.glb",
             function ( gltf ) {
-                console.log(gltf);
+                
                 gltf.scene.position.set(-15, 0, 58.1);
 				gltf.scene.scale.set(1, 1, 1);
            
@@ -406,7 +415,7 @@ grass.add(gltf.scene)
 			new THREE.PlaneBufferGeometry(380, 380),
 			new THREE.MeshStandardMaterial({
             map: grassNormalTexture,
-			receiveShadow:true
+			
 			})
 		);
 		floor.geometry.setAttribute(
@@ -421,6 +430,8 @@ grass.add(gltf.scene)
 		floor.position.y = 0;
         floor.receiveShadow=true
 		scene.add(floor);
+
+		//testfloor
 
 		//bushes
 	
@@ -457,19 +468,37 @@ grass.add(gltf.scene)
 		moonLight.castShadow=true
 		scene.add(light, moonLight);
 
+		function between(x, min, max) {
+			return x >= min && x <= max;
+		  }
+
 
 		var oldman=false
 					 document.onkeyup = function (e) {
-						if (e.keyCode === 13 && oldman===false) {
+						// if (e.keyCode === 13 && oldman===false) {
+							
+						// 	const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		
+						// 	talk.play();
+							
+						// 	oldman=true
+						// 	if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+
+						//  }
+						 if (e.keyCode === 13 && between(box.position.x,42.68,55.76)&&(box.position.z,8.9,-4.29)) {
 							
 							const talk = new Audio("/src/components/static/Enregistrement.m4a");
 		
 							talk.play();
 							
-							oldman=true
-							if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+							// oldman=true
+							// if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
 
-						 }}
+						 }
+						
+						
+						
+						}
 
 	
 		// Controls
@@ -654,7 +683,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			  chassisBody: chassisBody,
 			  indexRightAxis: 0, // x
 			  indexUpAxis: 1, // y
-			  indexForwardAxis: 1, // z
+			  indexForwardAxis: 2, // z
 			});
 			
 			// wheel options
@@ -669,7 +698,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			  maxSuspensionForce: 200000,
 			  rollInfluence:  0.01,
 			  axleLocal: new CANNON.Vec3(-1, 0, 0),
-			  chassisConnectionPointLocal: new CANNON.Vec3(1, 2, 0),
+			  chassisConnectionPointLocal: new CANNON.Vec3(1, 1, 0),
 			  maxSuspensionTravel: 0.25,
 			  customSlidingRotationalSpeed: -30,
 			  useCustomSlidingRotationalSpeed: true,
@@ -754,29 +783,26 @@ function navigate(e) {
 	if (e.type != 'keydown' && e.type != 'keyup') ;
 	var keyup = e.type == 'keyup';
   
-	//optionnal
-	vehicle.setBrake(0, 2);
-	vehicle.setBrake(0, 1);
-	vehicle.setBrake(0, 2);
-	vehicle.setBrake(0, 3);
+	
+	
   
-	var engineForce = 800,
-		maxSteerVal = 0.7;
+var engineForce = 2000,
+		maxSteerVal = 0.6;
 	switch(e.keyCode) {
   
 	  case 38: // forward
-		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 0);
-		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 0);
-		if(musicStatus===false){
-			var music=new Audio("/src/components/static/soundTruck.mp3")
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
+		// if(musicStatus===false){
+		// 	var music=new Audio("/src/components/static/soundTruck.mp3")
 
-			music.play()
-			music.Loop=true
-			musicStatus=true
-			if(musicStatus===true){
-				setTimeout(()=>{musicStatus=false},2222222)
-			}
-		}
+		// 	music.play()
+		// 	music.Loop=true
+		// 	musicStatus=true
+		// 	if(musicStatus===true){
+		// 		setTimeout(()=>{musicStatus=false},2222222)
+		// 	}
+		// }
 
 	
 		break;
@@ -798,7 +824,11 @@ function navigate(e) {
 
 
 	  case 32:
-	    vehicle.setBrake(10,1)
+		
+	vehicle.setBrake(10, 0);
+	vehicle.setBrake(10, 1);
+	vehicle.setBrake(10, 2);
+	vehicle.setBrake(10, 3);
 
 
 
@@ -919,7 +949,7 @@ window.addEventListener('keyup', navigate)
 			updatePhysics();
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
-	
+	// console.log("pisifzf",box.position);
 
 		};
 		tick();
@@ -927,7 +957,24 @@ window.addEventListener('keyup', navigate)
 		mount.current.appendChild(renderer.domElement);
 	}, []);
 
-	return <div className='vis' ref={mount} />;
+
+
+	// var task1=()=>{
+
+		
+	// 	return(<Challenges/>)}	
+	// 	document.onkeydown = function (e) {
+	// 		if (e.keyCode === 13 ) {
+	// 			console.log('hi');
+	// return task1()
+	// 	}}
+	return (
+	<div>
+		
+	<div className='vis' ref={mount} ></div>
+	{/* {task1()} */}
+	
+	</div>)
 };
 
 export default Vis;
