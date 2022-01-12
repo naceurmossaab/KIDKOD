@@ -30,7 +30,7 @@ const FirstExercice = () => {
   const compareAnswers = () => {
     var array = fetchChallengeData.quations;
     var correctAnswers = [];
-    if (userChallengeAnswers.length < 3) {
+    if (userChallengeAnswers.length < 5) {
       userChallengeAnswers.push(selectedOption);
     }
     for (var i = 0; i < array.length; i++) {
@@ -46,7 +46,7 @@ const FirstExercice = () => {
         counter++;
       }
     }
-    var challengeID = "61da00024cc951fb1aa31012";
+    var challengeID = "61df5172c27faa6ea8376ef5";
     var userID = "61dc987ae63acf3b4959f473";
     if (counter === 0) {
       axios
@@ -63,10 +63,10 @@ const FirstExercice = () => {
 
   const passToNextChallenge = () => {
     var newChallNbr = challNbr + 1;
-    if (challNbr < 2) {
+    if (challNbr < 4) {
       setchallNbr(newChallNbr);
     }
-    if (userChallengeAnswers.length < 3) {
+    if (userChallengeAnswers.length < 5) {
       userChallengeAnswers.push(selectedOption);
     }
     setselectedOption("");
@@ -85,7 +85,7 @@ const FirstExercice = () => {
       <div>
         <h1>{fetchChallengeData.quations[challNbr].announcement}</h1>
         <div>
-          <div>
+          <div className="label">
             <input
               type="radio"
               value={fetchChallengeData.quations[challNbr].choices[0]}
