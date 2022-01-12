@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const users = require("./routers/users.js");
 const cookieSession = require("cookie-session");
+const db=require("./config/database")
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 var cors = require("cors");
@@ -9,8 +10,8 @@ var cors = require("cors");
 /******************** Mongoose ********************/
 mongoose.Promise = global.Promise;
 mongoose
-	.connect("mongodb://localhost/kidkodnewVersion")
-	.then((res) => console.log("mongoose connected !"));
+  .connect(db.database)
+  .then((res) => console.log("mongoose connected !"));
 
 /******************** Middleware ********************/
 let app = express();
