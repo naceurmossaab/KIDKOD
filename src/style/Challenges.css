@@ -4,3 +4,9 @@ bottom:200px;
 z-index: 99;
 width: 30%;
 }
+#close{width: 70px;
+  height: 70px;
+  position: relative;
+  top:100px;
+  left: 85%;
+  }

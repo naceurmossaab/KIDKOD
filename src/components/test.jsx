@@ -16,9 +16,11 @@ const Vis = () => {
 	const mount = useRef(null);
 	// const controls = useRef(null);
    const [task, settask] = useState(true)
-    
+        function close (){settask(true)
+        console.log(task);
+        }
 	useEffect(() => {
-
+        
 
 		// Sound
 		
@@ -927,7 +929,7 @@ window.addEventListener('keyup', navigate)
       
 		mount.current.appendChild(renderer.domElement);
 	}, []);
-    function wael(){if (task===false)return <Challenges/>}
+    function wael(){if (task===false)return <Challenges close={close}/>}
             document.onkeydown = function (e) {
                 if (e.keyCode === 13 ) 
                     settask(false)    

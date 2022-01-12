@@ -82,7 +82,6 @@ const FirstExercice = () => {
 
   return (
     <div className="container">
-    <img id="close" src="https://i1.pnghost.com/5/15/13/pngdb-logo-material-property-circle-icon-close-cross-png-R4WxA84uYQzP1Fxv8crCSgk5B_t.jpg"/>
       <div>
         <h1>{fetchChallengeData.quations[challNbr].announcement}</h1>
         <div>
