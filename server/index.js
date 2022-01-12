@@ -22,7 +22,7 @@ app.use(cors());
 
 /******************** Cookie Life ********************/
 app.use(
-  cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
+	cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
 ); // 1 year in milliseconds})
 
 // Routers
@@ -41,5 +41,5 @@ app.use("/api/answer", answerRouter);
 app.use("/api/random-pictures", randomPictures);
 
 app.listen(port, () => {
-  console.log(`listening on port http://localhost:${port} !`);
+	console.log(`listening on port http://localhost:${port} !`);
 });
