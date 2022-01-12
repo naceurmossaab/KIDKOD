@@ -1,19 +1,22 @@
-import React from "react";
+import React,{useState} from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
+import Challenges from './Challenges/Challenges.jsx'
+import "../style/test.css";
+
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
-
-
+    
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
 	// const controls = useRef(null);
-
+   const [task, settask] = useState(true)
+    
 	useEffect(() => {
 
 
@@ -74,21 +77,21 @@ const Vis = () => {
                             gltf.scene.scale.set(1, 1, 1);
 							gltf.scene.castShadow=true
                             scene.add( gltf.scene );
-                             const cubeFolder1 = gui.addFolder('position')
-                cubeFolder1.add(gltf.scene.position, 'x')
-                cubeFolder1.add(gltf.scene.position, 'y')
-                cubeFolder1.add(gltf.scene.position, 'z')
-                cubeFolder1.open()
-                const cubeFolder = gui.addFolder('scale')
-                cubeFolder.add(gltf.scene.rotation, 'x')
-                cubeFolder.add(gltf.scene.rotation, 'y')
-                cubeFolder.add(gltf.scene.rotation, 'z')
-                cubeFolder.open()
-                const cubeFolder2 = gui.addFolder('rotation')
-                cubeFolder2.add(gltf.scene.rotation, 'x')
-                cubeFolder2.add(gltf.scene.rotation, 'y')
-                cubeFolder2.add(gltf.scene.rotation, 'z')
-                cubeFolder2.open()
+                //              const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(gltf.scene.position, 'x')
+                // cubeFolder1.add(gltf.scene.position, 'y')
+                // cubeFolder1.add(gltf.scene.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(gltf.scene.rotation, 'x')
+                // cubeFolder.add(gltf.scene.rotation, 'y')
+                // cubeFolder.add(gltf.scene.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(gltf.scene.rotation, 'x')
+                // cubeFolder2.add(gltf.scene.rotation, 'y')
+                // cubeFolder2.add(gltf.scene.rotation, 'z')
+                // cubeFolder2.open()
 
                             
                         },
@@ -458,20 +461,19 @@ grass.add(gltf.scene)
 		scene.add(light, moonLight);
 
 
-		var oldman=false
-					 document.onkeyup = function (e) {
-						if (e.keyCode === 13 && oldman===false) {
+		// var oldman=false
+		// 			 document.onkeyup = function (e) {
+		// 				if (e.keyCode === 13 && oldman===false) {
 							
-							const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		// 					const talk = new Audio("/src/components/static/Enregistrement.m4a");
 		
-							talk.play();
+		// 					talk.play();
 							
-							oldman=true
-							if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+		// 					oldman=true
+		// 					if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
 
-						 }}
-
-	
+		// 				 }}
+                   
 		// Controls
 		
 
@@ -831,7 +833,7 @@ window.addEventListener('keyup', navigate)
 		box.add( goal );
 		goal.position.set(0, test, -10);
 
-	
+        
 		
 	
 		
@@ -918,16 +920,22 @@ window.addEventListener('keyup', navigate)
 			camera.lookAt(box.position);
 			updatePhysics();
 			// Call tick again on the next frame
-			window.requestAnimationFrame(tick);
-	
-
+	        window.requestAnimationFrame(tick);
+            
 		};
 		tick();
-
+      
 		mount.current.appendChild(renderer.domElement);
 	}, []);
-
-	return <div className='vis' ref={mount} />;
+    function wael(){if (task===false)return <Challenges/>}
+            document.onkeydown = function (e) {
+                if (e.keyCode === 13 ) 
+                    settask(false)    
+                    }
+    
+    
+	return(<div> <div className='vis' ref={mount} />
+    {wael()}</div>)
 };
 
 export default Vis;
