@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import Challenges from './Challenges/Challenges.jsx'
+import Challenges from './Challenges/Challenges.jsx';
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
@@ -958,20 +958,22 @@ window.addEventListener('keyup', navigate)
 	}
 
 	return (<div className='vis' ref={mount} >
-			{quests()}
-				{user ? (
-					<div class="infocardContainer">
-						<div id="main">
-							<img src={user.picture}></img>
-						</div>
-						<div id="textbois">
-							<h4>Name  : {user.username}</h4>
-							<h4>Level : {user.level}   </h4>
-							<h4>Badge : {user.badge}   </h4>
-						<Link to="/"> <button className="startGameBTN" onClick={logout}>Logout</button> </Link>
-						</div>
+		<div className="questions">{quests()}</div>
+		<div>
+			{user ? (
+				<div className="infocardContainer">
+					<div id="main">
+						<img src={user.picture}></img>
 					</div>
-				) : ("")}
+					<div id="textbois">
+						<h4>Name  : {user.username}</h4>
+						<h4>Level : {user.level}   </h4>
+						<h4>Badge : {user.badge}   </h4>
+						<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
+					</div>
+				</div>
+			) : ("")}
+		</div>
 		</div>);
 
 };
