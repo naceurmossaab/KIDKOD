@@ -1,10 +1,12 @@
+import "../style/test.css";
 import React from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from 'cannon'
+import CANNON from 'cannon';
+import { Link } from "react-router-dom";
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
 
@@ -12,11 +14,19 @@ const gui = new dat.GUI()
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
+	const [user, setUser] = useState(null);
+
+	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
+
+	const logout = () => {
+		localStorage.removeItem("user");
+		setUser(null);
+	}
 	// const controls = useRef(null);
 
 	useEffect(() => {
 
-
+		session();
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -927,7 +937,24 @@ window.addEventListener('keyup', navigate)
 		mount.current.appendChild(renderer.domElement);
 	}, []);
 
-	return <div className='vis' ref={mount} />;
+	return (
+		
+			<div className='vis' ref={mount} >
+				{user ? (
+					<div class="infocardContainer">
+						<div id="main">
+							<img src={user.picture}></img>
+						</div>
+						<div id="textbois">
+							<h4>Name  : {user.username}</h4>
+							<h4>Level : {user.level}   </h4>
+							<h4>Badge : {user.badge}   </h4>
+						<Link to="/"> <button className="startGameBTN" onClick={logout}>Logout</button> </Link>
+						</div>
+					</div>
+				) : ("")}
+			</div>
+		);
 };
 
 export default Vis;

@@ -18,12 +18,9 @@ function App() {
 				<Route path='/login' element={<Login />}></Route>
 				<Route path='/test' element={<Vis />}></Route>
 				<Route path='/envirement' element={<Envirement />}></Route>
-				<Route path='/LandingPage' element={<LandingPage />}></Route>
-				<Route path='/Challenges' element={<Challenges />}></Route>
-				<Route
-					path='/game/cubetowergame'
-					element={<CubeTowerGame />}
-				></Route>
+				<Route path='/landingPage' element={<LandingPage />}></Route>
+				<Route path='/challenges' element={<Challenges />}></Route>
+				<Route path='/game/cubetowergame' element={<CubeTowerGame />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);

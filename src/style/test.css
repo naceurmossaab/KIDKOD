@@ -1,0 +1,57 @@
+.infocardContainer {
+     position:absolute;
+     top : 5px;
+     left: 5px;
+     display: flex;
+     height : 100px;
+     width  : 100px;
+     border-radius: 50%;
+     background: transparent;
+     transition: all .3s ease-in;
+     /* outline: 1px solid red; */
+}
+
+.infocardContainer:hover {
+     width: 300px;
+     border-radius: 100px 10px 100px 100px;
+     transition   : all .5s ease-out;
+}
+
+.infocardContainer div * {
+     display : flex;
+     overflow: hidden;
+     text-overflow: hidden;
+     color: white;
+     white-space: nowrap;
+     width : 0;
+     height: auto;
+     transition: all .3s ease-in;
+     transition-delay: .5s;
+     padding-top  : .5rem;
+}
+
+.infocardContainer:hover div *{
+     display: flex;
+     visibility: visible;
+     transition: all .7s ease-out;
+     transition-delay: .5s;
+     width : 100%;
+     height: auto;
+}
+
+.infocardContainer #main, .infocardContainer #main img{
+     padding-right: 1rem;
+     border-radius: 50%;
+}
+
+.infocardContainer #main img{
+     height: 100px;
+     width : 100px;
+     transition: none;
+     position: relative;
+     border : 1px solid white;
+     margin : 0; 
+     padding: 0;
+}
+
+
