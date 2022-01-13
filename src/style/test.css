@@ -1,3 +1,9 @@
+body{
+     width: 80%;
+     position: relative;
+     z-index: 0;
+}
+
 .infocardContainer {
      position:absolute;
      top : 5px;

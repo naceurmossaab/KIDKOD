@@ -80,12 +80,13 @@ var questions = [
     correct: "7",
   },
 ];
+// const db=require("./config/database")
 
 // const mongoose = require("mongoose");
 // const Quations = require("../server/models/quations");
 // mongoose.Promise = global.Promise;
 // mongoose
-//   .connect("mongodb://localhost/kidkod")
+//   .connect(db.database)
 //   .then((res) => console.log("mongoose connected !"));
 //   Quations.insertMany(questions)
 //           .then((res)=>console.log("done"));
