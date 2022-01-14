@@ -412,7 +412,7 @@ const LandingPage = () => {
         <ul className="mainNav__list">
           <li className="mainNav__el">
             <a href="#" className="mainNav__link">
-              Grow...
+              Grow
             </a>
           </li>
           <li className="mainNav__el">
