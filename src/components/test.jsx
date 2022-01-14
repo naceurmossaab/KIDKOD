@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Challenges from './Challenges/Challenges.jsx'
 import * as THREE from "three";
 import gsap from "gsap";
@@ -6,20 +6,21 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
+import "../style/test.css";
+
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
-
-
+    
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
 	// const controls = useRef(null);
-
-
-
-
+   const [task, settask] = useState(true)
+        function close (){settask(true)
+        console.log(task);
+        }
 	useEffect(() => {
-
+        
 
 		// Sound
 		
@@ -473,34 +474,19 @@ grass.add(gltf.scene)
 		  }
 
 
-		var oldman=false
-					 document.onkeyup = function (e) {
-						// if (e.keyCode === 13 && oldman===false) {
+		// var oldman=false
+		// 			 document.onkeyup = function (e) {
+		// 				if (e.keyCode === 13 && oldman===false) {
 							
-						// 	const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		// 					const talk = new Audio("/src/components/static/Enregistrement.m4a");
 		
-						// 	talk.play();
+		// 					talk.play();
 							
-						// 	oldman=true
-						// 	if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+		// 					oldman=true
+		// 					if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
 
-						//  }
-						 if (e.keyCode === 13 && between(box.position.x,42.68,55.76)&&(box.position.z,8.9,-4.29)) {
-							
-							const talk = new Audio("/src/components/static/Enregistrement.m4a");
-		
-							talk.play();
-							
-							// oldman=true
-							// if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
-
-						 }
-						
-						
-						
-						}
-
-	
+		// 				 }}
+                   
 		// Controls
 		
 
@@ -861,7 +847,7 @@ window.addEventListener('keyup', navigate)
 		box.add( goal );
 		goal.position.set(0, test, -10);
 
-	
+        
 		
 	
 		
@@ -948,33 +934,22 @@ window.addEventListener('keyup', navigate)
 			camera.lookAt(box.position);
 			updatePhysics();
 			// Call tick again on the next frame
-			window.requestAnimationFrame(tick);
-	// console.log("pisifzf",box.position);
-
+	        window.requestAnimationFrame(tick);
+            
 		};
 		tick();
-
+      
 		mount.current.appendChild(renderer.domElement);
 	}, []);
-
-
-
-	// var task1=()=>{
-
-		
-	// 	return(<Challenges/>)}	
-	// 	document.onkeydown = function (e) {
-	// 		if (e.keyCode === 13 ) {
-	// 			console.log('hi');
-	// return task1()
-	// 	}}
-	return (
-	<div>
-		
-	<div className='vis' ref={mount} ></div>
-	{/* {task1()} */}
-	
-	</div>)
+    function quests(){if (task===false)return <Challenges close={close}/>}
+            document.onkeydown = function (e) {
+                if (e.keyCode === 13 ) 
+                    settask(false)    
+                    }
+    
+    
+	return(<div> <div className='vis' ref={mount} />
+    {quests()}</div>)
 };
 
 export default Vis;
