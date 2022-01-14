@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const users = require("./routers/users.js");
 const cookieSession = require("cookie-session");
+const db=require("./config/database")
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 var cors = require("cors");
@@ -9,7 +10,7 @@ var cors = require("cors");
 /******************** Mongoose ********************/
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb://localhost/kidkod")
+  .connect(db.database)
   .then((res) => console.log("mongoose connected !"));
 
 /******************** Middleware ********************/
@@ -21,7 +22,7 @@ app.use(cors());
 
 /******************** Cookie Life ********************/
 app.use(
-  cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
+	cookieSession({ maxAge: 365 * 24 * 60 * 60 * 1000, keys: ["secret_key"] })
 ); // 1 year in milliseconds})
 
 // Routers
@@ -40,5 +41,5 @@ app.use("/api/answer", answerRouter);
 app.use("/api/random-pictures", randomPictures);
 
 app.listen(port, () => {
-  console.log(`listening on port http://localhost:${port} !`);
+	console.log(`listening on port http://localhost:${port} !`);
 });

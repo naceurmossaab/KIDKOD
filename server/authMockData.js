@@ -117,10 +117,11 @@ var data = [
     url: "https://cdn.iconscout.com/icon/premium/png-256-thumb/hank-pym-975584.png",
 }];
 
+// const db = require("./config/database")
 // const mongoose = require("mongoose");
 // const randomPictures = require("../server/models/random-pictures");
 // mongoose.Promise = global.Promise;
-// mongoose.connect("mongodb://localhost/kidkod")
+// mongoose.connect(db.database)
 //         .then((res) => console.log("mongoose connected !"));
 // randomPictures.insertMany(data)
 //               .then((res)=>console.log("done"));

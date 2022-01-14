@@ -1,25 +1,41 @@
-import React from "react";
+import React,{useState} from "react";
+import Challenges from './Challenges/Challenges.jsx';
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from 'cannon'
+import CANNON from 'cannon';
+import { Link } from "react-router-dom";
+import "../style/test.css";
+
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
-
-
+    
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	// const controls = useRef(null);
+	const [user, setUser] = useState(null);
 
+	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
+
+	const logout = () => {
+		localStorage.removeItem("user");
+		setUser(null);
+	}
+	// const controls = useRef(null);
+   const [task, settask] = useState(true)
+        function close (){settask(true)
+        console.log(task);
+        }
 	useEffect(() => {
 
-
+		session();
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.shadowMap.enabled = true;
+		renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap	
 		// Scene
 		const scene = new THREE.Scene();
 		//Models
@@ -70,22 +86,29 @@ const Vis = () => {
                         function ( gltf ) {
                             gltf.scene.position.set(0, 0, 3);
                             gltf.scene.scale.set(1, 1, 1);
+							gltf.scene.traverse(function (child) {
+								if (child.isMesh) {
+									child.castShadow = true;
+									child.receiveShadow = true;
+								}
+							});
                             scene.add( gltf.scene );
-                             const cubeFolder1 = gui.addFolder('position')
-                cubeFolder1.add(gltf.scene.position, 'x')
-                cubeFolder1.add(gltf.scene.position, 'y')
-                cubeFolder1.add(gltf.scene.position, 'z')
-                cubeFolder1.open()
-                const cubeFolder = gui.addFolder('scale')
-                cubeFolder.add(gltf.scene.rotation, 'x')
-                cubeFolder.add(gltf.scene.rotation, 'y')
-                cubeFolder.add(gltf.scene.rotation, 'z')
-                cubeFolder.open()
-                const cubeFolder2 = gui.addFolder('rotation')
-                cubeFolder2.add(gltf.scene.rotation, 'x')
-                cubeFolder2.add(gltf.scene.rotation, 'y')
-                cubeFolder2.add(gltf.scene.rotation, 'z')
-                cubeFolder2.open()
+                //              const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(gltf.scene.position, 'x')
+                // cubeFolder1.add(gltf.scene.position, 'y')
+                // cubeFolder1.add(gltf.scene.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(gltf.scene.rotation, 'x')
+                // cubeFolder.add(gltf.scene.rotation, 'y')
+                // cubeFolder.add(gltf.scene.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(gltf.scene.rotation, 'x')
+                // cubeFolder2.add(gltf.scene.rotation, 'y')
+                // cubeFolder2.add(gltf.scene.rotation, 'z')
+                // cubeFolder2.open()
+
                             
                         },
                         );
@@ -96,7 +119,7 @@ const Vis = () => {
                                 mixer2 = gltf.scene;
                                 gltf.scene.position.copy(box.position);
                 gltf.scene.rotation.y=102.1
-
+                                
 				// object.rotateY(-Math.PI/2)
 				gltf.scene.scale.set(1, 1, 1 );
 				scene.add(gltf.scene);
@@ -311,7 +334,7 @@ grass.add(gltf.scene)
        gltfLoader.load(
         "/src/all models/trees1.gltf",
         function ( gltf ) {
-            console.log(gltf);
+            
             gltf.scene.position.set(32, 0, 19.6);
             gltf.scene.scale.set(1, 1, 1);
      
@@ -348,7 +371,7 @@ grass.add(gltf.scene)
         gltfLoader.load(
             "/src/all models/littleScene.glb",
             function ( gltf ) {
-                console.log(gltf);
+                
                 gltf.scene.position.set(4, 0, -24.8);
 				gltf.scene.scale.set(1, 1, 1);
             
@@ -359,7 +382,7 @@ grass.add(gltf.scene)
         gltfLoader.load(
             "/src/all models/ruins.glb",
             function ( gltf ) {
-                console.log(gltf);
+                
                 gltf.scene.position.set(-15, 0, 58.1);
 				gltf.scene.scale.set(1, 1, 1);
            
@@ -399,9 +422,10 @@ grass.add(gltf.scene)
 
 		//floor
 		const floor = new THREE.Mesh(
-			new THREE.PlaneBufferGeometry(1000, 1000),
+			new THREE.PlaneBufferGeometry(380, 380),
 			new THREE.MeshStandardMaterial({
             map: grassNormalTexture,
+			
 			})
 		);
 		floor.geometry.setAttribute(
@@ -414,7 +438,10 @@ grass.add(gltf.scene)
 
 		floor.rotation.x = -Math.PI / 2;
 		floor.position.y = 0;
+        floor.receiveShadow=true
 		scene.add(floor);
+
+		//testfloor
 
 		//bushes
 	
@@ -448,23 +475,27 @@ grass.add(gltf.scene)
 		/////////directionnal
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
+		moonLight.castShadow=true
 		scene.add(light, moonLight);
 
+		function between(x, min, max) {
+			return x >= min && x <= max;
+		  }
 
-		var oldman=false
-					 document.onkeyup = function (e) {
-						if (e.keyCode === 13 && oldman===false) {
+
+		// var oldman=false
+		// 			 document.onkeyup = function (e) {
+		// 				if (e.keyCode === 13 && oldman===false) {
 							
-							const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		// 					const talk = new Audio("/src/components/static/Enregistrement.m4a");
 		
-							talk.play();
+		// 					talk.play();
 							
-							oldman=true
-							if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+		// 					oldman=true
+		// 					if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
 
-						 }}
-
-	
+		// 				 }}
+                   
 		// Controls
 		
 
@@ -538,8 +569,8 @@ grass.add(gltf.scene)
 				const mesh = gltf.scene.children[0];
 				const clip = gltf.animations[0];
 				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "flamingos");
-				addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
-				addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
+				// addMorph(mesh, clip, 7, 1, 4, 5, 4, true, "flamingos");
+				// addMorph(mesh, clip, 7, 1, 4, 5.5, 5, true, "flamingos");
 				// addMorph( mesh, clip, 7, 1, 0, 6, 2,true );
 				// addMorph( mesh, clip, 7, 1, 2, 7, 0.5,true );
 			}
@@ -551,8 +582,8 @@ grass.add(gltf.scene)
 				const mesh = gltf.scene.children[0];
 				const clip = gltf.animations[0];
 				addMorph(mesh, clip, 7, 1, 3, 5, 3, true, "storks");
-				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
-				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
+				// addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "storks");
+				// addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "storks");
 			}
 		);
 
@@ -561,8 +592,8 @@ grass.add(gltf.scene)
 			function (gltf) {
 				const mesh = gltf.scene.children[0];
 				const clip = gltf.animations[0];
-				addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
-				addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
+				// addMorph(mesh, clip, 7, 1, 4, 5, 3, true, "parrots");
+				// addMorph(mesh, clip, 7, 1, 4, 5.5, 4, true, "parrots");
 				addMorph(mesh, clip, 7, 1, 4, 6, 5, true, "parrots");
 			}
 		);
@@ -647,7 +678,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			  chassisBody: chassisBody,
 			  indexRightAxis: 0, // x
 			  indexUpAxis: 1, // y
-			  indexForwardAxis: 1, // z
+			  indexForwardAxis: 2, // z
 			});
 			
 			// wheel options
@@ -662,7 +693,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			  maxSuspensionForce: 200000,
 			  rollInfluence:  0.01,
 			  axleLocal: new CANNON.Vec3(-1, 0, 0),
-			  chassisConnectionPointLocal: new CANNON.Vec3(1, 2, 0),
+			  chassisConnectionPointLocal: new CANNON.Vec3(1, 1, 0),
 			  maxSuspensionTravel: 0.25,
 			  customSlidingRotationalSpeed: -30,
 			  useCustomSlidingRotationalSpeed: true,
@@ -747,29 +778,26 @@ function navigate(e) {
 	if (e.type != 'keydown' && e.type != 'keyup') ;
 	var keyup = e.type == 'keyup';
   
-	//optionnal
-	vehicle.setBrake(0, 2);
-	vehicle.setBrake(0, 1);
-	vehicle.setBrake(0, 2);
-	vehicle.setBrake(0, 3);
+	
+	
   
-	var engineForce = 800,
-		maxSteerVal = 0.7;
+var engineForce = 2000,
+		maxSteerVal = 0.6;
 	switch(e.keyCode) {
   
 	  case 38: // forward
-		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 0);
-		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 0);
-		if(musicStatus===false){
-			var music=new Audio("/src/components/static/soundTruck.mp3")
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
+		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
+		// if(musicStatus===false){
+		// 	var music=new Audio("/src/components/static/soundTruck.mp3")
 
-			music.play()
-			music.Loop=true
-			musicStatus=true
-			if(musicStatus===true){
-				setTimeout(()=>{musicStatus=false},2222222)
-			}
-		}
+		// 	music.play()
+		// 	music.Loop=true
+		// 	musicStatus=true
+		// 	if(musicStatus===true){
+		// 		setTimeout(()=>{musicStatus=false},2222222)
+		// 	}
+		// }
 
 	
 		break;
@@ -791,7 +819,11 @@ function navigate(e) {
 
 
 	  case 32:
-	    vehicle.setBrake(10,1)
+		
+	vehicle.setBrake(10, 0);
+	vehicle.setBrake(10, 1);
+	vehicle.setBrake(10, 2);
+	vehicle.setBrake(10, 3);
 
 
 
@@ -810,21 +842,21 @@ window.addEventListener('keyup', navigate)
 		//  */
 		// third person camera
         var camera, goal;
-		var test = 5; //camera disctance from the car
+		var test =2; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
 			window.innerWidth / window.innerHeight,
-			0.1,
-			100
+			0.5,
+			1000
 		);
-		camera.position.set(0, test, -test);
+		camera.position.set(0, test, -10);
 		camera.lookAt(scene.position);
 		goal = new THREE.Object3D();
 		box.add( goal );
-		goal.position.set(0, test, -test);
+		goal.position.set(0, test, -10);
 
-	
+        
 		
 	
 		
@@ -869,8 +901,8 @@ window.addEventListener('keyup', navigate)
 
 				flamingo.position.x += flamingo.speed * deltaTime;
 
-				if (flamingo.position.x > 80) {
-					flamingo.position.x = -80;
+				if (flamingo.position.x > 150) {
+					flamingo.position.x = -150;
 				}
 			}
 			for (let i = 0; i < storks.length; i++) {
@@ -879,8 +911,8 @@ window.addEventListener('keyup', navigate)
 				stork.position.x += stork.speed * deltaTime;
 				stork.position.z = 5;
 
-				if (stork.position.x > 150) {
-					stork.position.x = -150;
+				if (stork.position.x > 300) {
+					stork.position.x = -300;
 				}
 			}
 			for (let i = 0; i < parrots.length; i++) {
@@ -889,8 +921,8 @@ window.addEventListener('keyup', navigate)
 				parrot.position.x += parrot.speed * deltaTime;
 				parrot.position.z = -5;
 
-				if (parrot.position.x > 100) {
-					parrot.position.x = -100;
+				if (parrot.position.x > 500) {
+					parrot.position.x = -500;
 				}
 			}
 			if (mixer1) {
@@ -911,16 +943,39 @@ window.addEventListener('keyup', navigate)
 			camera.lookAt(box.position);
 			updatePhysics();
 			// Call tick again on the next frame
-			window.requestAnimationFrame(tick);
-	
-
+	        window.requestAnimationFrame(tick);
+            
 		};
 		tick();
-
+      
 		mount.current.appendChild(renderer.domElement);
 	}, []);
 
-	return <div className='vis' ref={mount} />;
+	function quests() { if (task === false) return <Challenges close={close} /> }
+	document.onkeydown = function (e) {
+		if (e.keyCode === 13)
+			settask(false)
+	}
+
+	return (
+		<div>
+			<div className='vis' ref={mount} />
+			{quests()}
+				{user ? (
+					<div className="infocardContainer">
+						<div id="main">
+							<img src={user.picture}></img>
+						</div>
+						<div id="textbois">
+							<h4>Name  : {user.username}</h4>
+							<h4>Level : {user.level}   </h4>
+							<h4>Badge : {user.badge}   </h4>
+							<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
+						</div>
+					</div>
+				) : ("")}
+		</div>);
+
 };
 
 export default Vis;
