@@ -75,9 +75,10 @@ const FirstExercice = () => {
   };
 
   const fetchChallenges = () => {
-    axios.get("http://localhost:8000/api/challenge/1").then(({ data }) => {
-      setfetchChallengeData(data);
-    });
+    // axios.get("http://localhost:8000/api/challenge/1").then(({ data }) => {
+    //   setfetchChallengeData(data);
+    // });
+    console.log("false");
   };
 
   return (
