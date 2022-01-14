@@ -1,11 +1,12 @@
 import React,{useState} from "react";
-import Challenges from './Challenges/Challenges.jsx'
+import Challenges from './Challenges/Challenges.jsx';
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from 'cannon'
+import CANNON from 'cannon';
+import { Link } from "react-router-dom";
 import "../style/test.css";
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -14,14 +15,22 @@ const gui = new dat.GUI()
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	const controls = useRef(null);
+	const [user, setUser] = useState(null);
+
+	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
+
+	const logout = () => {
+		localStorage.removeItem("user");
+		setUser(null);
+	}
+	// const controls = useRef(null);
    const [task, settask] = useState(true)
         function close (){settask(true)
         console.log(task);
         }
 	useEffect(() => {
-        
 
+		session();
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -1001,15 +1010,32 @@ const createBoxPhysics=(width,height,depth,position,rotation)=>{
       
 		mount.current.appendChild(renderer.domElement);
 	}, []);
-    function quests(){if (task===false)return <Challenges close={close}/>}
-            document.onkeydown = function (e) {
-                if (e.keyCode === 13 ) 
-                    settask(false)    
-                    }
-    
-    
-	return(<div> <div className='vis' ref={mount} />
-    {quests()}</div>)
+
+	function quests() { if (task === false) return <Challenges close={close} /> }
+	document.onkeydown = function (e) {
+		if (e.keyCode === 13)
+			settask(false)
+	}
+
+	return (
+		<div>
+			<div className='vis' ref={mount} />
+			{quests()}
+				{user ? (
+					<div className="infocardContainer">
+						<div id="main">
+							<img src={user.picture}></img>
+						</div>
+						<div id="textbois">
+							<h4>Name  : {user.username}</h4>
+							<h4>Level : {user.level}   </h4>
+							<h4>Badge : {user.badge}   </h4>
+							<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
+						</div>
+					</div>
+				) : ("")}
+		</div>);
+
 };
 
 export default Vis;
