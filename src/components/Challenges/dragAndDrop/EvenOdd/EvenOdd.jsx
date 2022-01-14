@@ -1,25 +1,35 @@
 import React from "react";
 const { useState, useEffect } = React;
 import "./EvenOdd.css";
-const EvenOdd = () => {
-	return (
-		// <div className='container'>
-			<DragAndDrop
-				containers={containers}
-				question='move even numbers to the left and odd numbers to the right'
-			/>
-		// </div>
-	);
-};
+// const DragAndDropQuiz = (choices = [], announcement = "") => {
+// 	return (
+// 		// <div className='container'>
+// 		<DragAndDrop containers={choices} question={announcement} />
+// 		// </div>
+// 	);
+// };
 
-const containers = [
-	{ name: "Even numbers" },
-	{
-		name: "All numbers",
-		items: ["Three", "Two", "Five", "Six", "One", "Seven", "Four"],
-	},
-	{ name: "Odd numbers" },
-];
+// const containers = [
+// 	{ name: "Even numbers" },
+// 	{
+// 		name: "All numbers",
+// 		items: ["Three", "Two", "Five", "Six", "One", "Seven", "Four"],
+// 	},
+// 	{ name: "Odd numbers" },
+// ];
+
+// [
+// 	{
+// 		name: "result is 5",
+// 	},
+// 	{
+// 		name: "All numbers",
+// 		items: [2, 3, 4, 5, 6, 24, "=", "+", "X", "="],
+// 	},
+// 	{
+// 		name: "result is 24",
+// 	},
+// ];
 
 const items = (array) =>
 	array.map((ele, i) => {
@@ -41,6 +51,7 @@ const input = (array) => {
 			items: array[i].items ? items(array[i].items) : [],
 		};
 	}
+	console.log("ggggggggggg", containers);
 	return containers;
 };
 
@@ -94,7 +105,7 @@ const DragAndDrop = ({ containers, question }) => {
 	});
 
 	return (
-		<div className="container">
+		<div className='container'>
 			<div className='drag-and-drop'>
 				<div className='drag-and-drop__header'>
 					<h3>{question}</h3>
@@ -228,29 +239,4 @@ const DraggableItem = ({
 	);
 };
 
-const ColumnOptions = ({ isHovered }) => {
-	const [isOpen, setOpen] = useState(false);
-	const handleToggle = () => {
-		setOpen(!isOpen);
-	};
-
-	return (
-		// <div className='column-options__container'>
-			/* <button
-				aria-label='View column options'
-				className='column-options__toggle'
-				onClick={() => handleToggle()}
-			></button> */
-			/* <div
-				className={`column-options__option-panel column-options__option-panel--${
-					isOpen ? "active" : "default"
-				}`}
-			>
-				<button>Edit Column Name</button>
-				<button>Add Item</button>
-			</div> */
-		{/* </div> */}
-	);
-};
-
-export default EvenOdd;
+export default DragAndDrop;

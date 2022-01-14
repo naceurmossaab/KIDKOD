@@ -11,6 +11,7 @@ import CubeTowerGame from "./components/CubeTowerGame.jsx";
 import React from "react";
 import DnD from "./components/Challenges/dragAndDrop/DnD";
 import EvenOdd from "./components/Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx";
+import Challenge from "./components/Challenges/mathChallenge/challenge";
 
 function App() {
 	return (
@@ -21,7 +22,7 @@ function App() {
 				<Route path='/test' element={<Vis />}></Route>
 				<Route path='/envirement' element={<Envirement />}></Route>
 				<Route path='/' element={<LandingPage />}></Route>
-				<Route path='/Challenges' element={<Challenges />}></Route>
+				<Route path='/Challenge' element={<Challenge />}></Route>
 				<Route path='/evenodd' element={<EvenOdd />}></Route>
 				<Route
 					path='/game/cubetowergame'

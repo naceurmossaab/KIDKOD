@@ -12,7 +12,12 @@ const LandingPage = () => {
 	const mount = useRef(null);
 	const [isAnimating, setAnimating] = useState(true);
 	const controls = useRef(null);
-
+	// add a 3d word
+	// const [userWorld, setuserWorld] = useState("kikkod");
+	// const handelChange = (e) => {
+	// 	setuserWorld(e.target.value);
+	// 	console.log(userWorld);
+	// };
 	useEffect(() => {
 		let width = mount.current.clientWidth;
 		let height = mount.current.clientHeight;
@@ -427,16 +432,14 @@ const LandingPage = () => {
 		console.log("hhhhhh");
 		window.location.reload();
 	};
-	const [userWorld, setuserWorld] = useState("");
-	const handelChange = (e) => {
-		setuserWorld(e.target.value);
-		console.log(userWorld);
-	};
+
 	return (
 		<div>
-			<nav className='navigation'>
+			{/* <nav className='navigation'>
 				<ul className='navigationBar'>
-					<li className='kidkod navItem'>KIDKOD</li>
+					<li className='kidkod navItem' onClick={refresh}>
+						KIDKOD
+					</li>
 					<input
 						type='text'
 						className='userworld navItem'
@@ -444,7 +447,7 @@ const LandingPage = () => {
 					/>
 					<li className='login navItem'>Login</li>
 				</ul>
-			</nav>
+			</nav> */}
 			{/* <input
 				type='text'
 				className='text textInput'
@@ -462,7 +465,7 @@ const LandingPage = () => {
 				<ul className='mainNav__list'>
 					<li className='mainNav__el'>
 						<a href='#' className='mainNav__link'>
-							{userWorld}
+							KIDKOD
 						</a>
 					</li>
 					<li className='mainNav__el'>
