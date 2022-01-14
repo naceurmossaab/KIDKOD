@@ -594,18 +594,20 @@ grass.add(gltf.scene)
 			world.broadphase = new CANNON.SAPBroadphase(world);
 			world.gravity.set(0, -10, 0);
 			world.defaultContactMaterial.friction = 0;
+			
 					//Material
 
-const defaultMaterial= new CANNON.Material('default')
+// const defaultMaterial= new CANNON.Material('default')
 
-const defaultContactMaterial= new CANNON.ContactMaterial(
-    defaultMaterial,
-    defaultMaterial,
-    {
-        friction:0.3,
-        restitution:0.7
-    }
-)
+// const defaultContactMaterial= new CANNON.ContactMaterial(
+//     defaultMaterial,
+//     defaultMaterial,
+//     {
+//         friction:0.3,
+//         restitution:0.7, 
+// 		contactEquationStiffness: 1000,
+//     }
+// )
 // world.addContactMaterial(defaultContactMaterial)
 // world.defaultContactMaterial=defaultContactMaterial
 //box test
@@ -669,7 +671,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			  chassisBody: chassisBody,
 			  indexRightAxis: 0, // x
 			  indexUpAxis: 1, // y
-			  indexForwardAxis: 2, // z
+			  indexForwardAxis: 1, // z
 			});
 			
 			// wheel options
@@ -684,7 +686,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			  maxSuspensionForce: 200000,
 			  rollInfluence:  0.01,
 			  axleLocal: new CANNON.Vec3(-1, 0, 0),
-			  chassisConnectionPointLocal: new CANNON.Vec3(1, 1, 0),
+			  chassisConnectionPointLocal: new CANNON.Vec3(1, 2	, 0),
 			  maxSuspensionTravel: 0.25,
 			  customSlidingRotationalSpeed: -30,
 			  useCustomSlidingRotationalSpeed: true,
@@ -751,7 +753,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			floorBody.mass=0
 			floorBody.addShape(floorShape)
 			floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1,0,0),Math.PI/2)
-			// floorBody.material(groundMaterial)
+			floorBody.material=groundMaterial
 			world.addBody(floorBody)
 /**
 * Main
@@ -773,7 +775,7 @@ function navigate(e) {
 	
   
 var engineForce = 2000,
-		maxSteerVal = 0.6;
+		maxSteerVal = 0.5;
 	switch(e.keyCode) {
   
 	  case 38: // forward
@@ -863,6 +865,13 @@ const createBox=(width,height,depth,position,rotation)=>{
 	mesh.scale.set(width,height,depth)
     mesh.position.copy(position)
 	mesh.rotation.set(rotation.x,rotation.y,rotation.z)
+
+
+
+	const cubeFolder2 = gui.addFolder('size')
+	cubeFolder2.add(mesh.scale, 'x').step(0.05)
+	cubeFolder2.add(mesh.scale, 'y').step(0.05)
+	cubeFolder2.add(mesh.scale, 'z').step(0.05)
 	const cubeFolder1 = gui.addFolder('Cube')
 	cubeFolder1.add(mesh.position, 'x').step(0.1)
 	cubeFolder1.add(mesh.position, 'y').step(0.1)
@@ -873,11 +882,7 @@ const createBox=(width,height,depth,position,rotation)=>{
 	cubeFolder.add(mesh.rotation, 'y').step(0.001)
 	cubeFolder.add(mesh.rotation, 'z').step(0.001)
 	cubeFolder.open()
-    scene.add(mesh)
-	const cubeFolder2 = gui.addFolder('size')
-	cubeFolder2.add(mesh.scale, 'x').step(0.05)
-	cubeFolder2.add(mesh.scale, 'y').step(0.05)
-	cubeFolder2.add(mesh.scale, 'z').step(0.05)
+	
 	cubeFolder2.open()
 
     scene.add(mesh)
@@ -887,14 +892,16 @@ const createBox=(width,height,depth,position,rotation)=>{
         mass:0,
         position: new CANNON.Vec3(position.x,position.y,position.z),
         shape,
-        material:defaultMaterial
     })
 	body.quaternion.copy(mesh.quaternion)
     
     
     world.addBody(body)
-	// mesh.visible=false
-	// scene.remove(mesh)
+
+
+
+	mesh.visible=false
+	scene.remove(mesh)
 
     
 }
@@ -903,7 +910,13 @@ const createBox=(width,height,depth,position,rotation)=>{
 // createBox(75.3,3.5,0.1,{x:37.7,y:0,z:-73.4},{x:3.1,y:0.747,z:3.169})
 // createBox(73.8,3.5,0.1,{x:40.8,y:0,z:-82.3},{x:3.053,y:0.771,z:3.2})
 // createBox(78.6,3.5,0.1,{x:-36.8,y:0,z:-95.3},{x:3.203,y:-0.175,z:3.159})
-createBox(75,3.5,0.1,{x:-42.5,y:0,z:-101.7},{x:3.2,y:-0.14,z:3.161})
+// createBox(75,3.5,0.1,{x:-42.5,y:0,z:-101.7},{x:3.2,y:-0.14,z:3.161})
+// createBox(13.2,6.45,8.5,{x:77.9,y:0,z:-69},{x:3.1,y:-0.915,z:3.1})//house
+// createBox(1,3.5,1.15,{x:79.1,y:0,z:-54.1},{x:3.1,y:-0.91,z:3.1})// medium tree
+// createBox(3.8,3.5,3.6,{x:-0.2,y:0,z:-109.6},{x:3.2,y:-0.719,z:3.2})//ruin piller
+// createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
+createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
+
 // const createBoxPhysics=(width,height,depth,position,rotation)=>{
 // 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
 //     const body=new CANNON.Body({
