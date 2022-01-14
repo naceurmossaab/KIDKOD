@@ -16,7 +16,7 @@
 }
 
 body {
-  background-color: #f5edec;
+  background-color: #000020 !important;
   margin-top: -3%;
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
 }
@@ -39,7 +39,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 10rem 1rem;
-  background-image: url("https://source.unsplash.com/800x1000/?kids");
+  background-image: url("https://images.unsplash.com/photo-1484820540004-14229fe36ca4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80");
   background-repeat: no-repeat;
   background-size: cover;
   width: 35vw;
