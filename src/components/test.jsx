@@ -14,7 +14,7 @@ const gui = new dat.GUI()
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	// const controls = useRef(null);
+	const controls = useRef(null);
    const [task, settask] = useState(true)
         function close (){settask(true)
         console.log(task);
@@ -810,7 +810,8 @@ var engineForce = 2000,
 
 
 	  case 32:
-		
+		console.log("boxpos",box.position);
+		console.log("rotation",box.rotation.y);
 	vehicle.setBrake(10, 0);
 	vehicle.setBrake(10, 1);
 	vehicle.setBrake(10, 2);
@@ -833,7 +834,7 @@ window.addEventListener('keyup', navigate)
 		//  */
 		// third person camera
         var camera, goal;
-		var test =2; //camera disctance from the car
+		var test =10; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -851,7 +852,66 @@ window.addEventListener('keyup', navigate)
 		
 	
 		
-//truck
+//world physics ghassen
+
+
+const createBox=(width,height,depth,position,rotation)=>{
+	const btry=new THREE.BoxBufferGeometry(1, 1, 1)
+	const bl=  new THREE.MeshStandardMaterial()
+    //threejs mesh
+    const mesh = new THREE.Mesh(btry,bl )
+	mesh.scale.set(width,height,depth)
+    mesh.position.copy(position)
+	mesh.rotation.set(rotation.x,rotation.y,rotation.z)
+	const cubeFolder1 = gui.addFolder('Cube')
+	cubeFolder1.add(mesh.position, 'x').step(0.1)
+	cubeFolder1.add(mesh.position, 'y').step(0.1)
+	cubeFolder1.add(mesh.position, 'z').step(0.1)
+	cubeFolder1.open()
+    const cubeFolder = gui.addFolder('rotation')
+	cubeFolder.add(mesh.rotation, 'x').step(0.05)
+	cubeFolder.add(mesh.rotation, 'y').step(0.05)
+	cubeFolder.add(mesh.rotation, 'z').step(0.05)
+	cubeFolder.open()
+    scene.add(mesh)
+	const cubeFolder2 = gui.addFolder('size')
+	cubeFolder2.add(mesh.scale, 'x').step(0.05)
+	cubeFolder2.add(mesh.scale, 'y').step(0.05)
+	cubeFolder2.add(mesh.scale, 'z').step(0.05)
+	cubeFolder2.open()
+    scene.add(mesh)
+    //cannon js body
+    const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
+    const body=new CANNON.Body({
+        mass:0,
+        position: new CANNON.Vec3(position.x,position.y,position.z),
+        shape,
+        material:defaultMaterial
+    })
+	body.quaternion.copy(mesh.quaternion)
+    
+    
+    world.addBody(body)
+
+    
+}
+createBox(30,3,0.5,{x:65,y:0,z:-31.3},{x:3.1,y:-1.2,z:3.1})
+const createBoxPhysics=(width,height,depth,position,rotation)=>{
+	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
+    const body=new CANNON.Body({
+        mass:0,
+        position: new CANNON.Vec3(position.x,position.y,position.z),
+        shape,
+        material:defaultMaterial
+    })
+    body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,1,0),rotation.y)
+	body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),rotation.x)
+	body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,0,1),rotation.z)
+    
+    world.addBody(body)
+	
+}
+// createBoxPhysics(30,3,0.5,{x:65,y:0,z:-31.3},{x:3.1,y:-1.2,z:3.1})
 
 
 
