@@ -3,12 +3,12 @@ const { useState, useEffect } = React;
 import "./EvenOdd.css";
 const EvenOdd = () => {
 	return (
-		<div className='container'>
+		// <div className='container'>
 			<DragAndDrop
 				containers={containers}
 				question='move even numbers to the left and odd numbers to the right'
 			/>
-		</div>
+		// </div>
 	);
 };
 
@@ -94,34 +94,40 @@ const DragAndDrop = ({ containers, question }) => {
 	});
 
 	return (
-		<div className='drag-and-drop'>
-			<div className='drag-and-drop__header'>
-				<h3>{question}</h3>
+		<div className="container">
+			<div className='drag-and-drop'>
+				<div className='drag-and-drop__header'>
+					<h3>{question}</h3>
+				</div>
+				<div className='drag-and-drop__content'>
+					{Object.keys(appData.containers).map((container, i) => {
+						return (
+							<DropContainer
+								key={i}
+								setCurrentContainer={setCurrentContainer}
+								name={appData.containers[container].name}
+								id={container}
+								containerKey={appData.containers[container].key}
+								items={appData.containers[container].items}
+								handleMoveItemToNewContainer={
+									handleMoveItemToNewContainer
+								}
+								currentContainer={currentContainer}
+								appData={appData}
+								setItemId={setItemId}
+								itemId={itemId}
+							/>
+						);
+					})}
+				</div>
+				<button
+					className='submitBTN'
+					type='submit'
+					onClick={handelClick}
+				>
+					Submit
+				</button>
 			</div>
-			<div className='drag-and-drop__content'>
-				{Object.keys(appData.containers).map((container, i) => {
-					return (
-						<DropContainer
-							key={i}
-							setCurrentContainer={setCurrentContainer}
-							name={appData.containers[container].name}
-							id={container}
-							containerKey={appData.containers[container].key}
-							items={appData.containers[container].items}
-							handleMoveItemToNewContainer={
-								handleMoveItemToNewContainer
-							}
-							currentContainer={currentContainer}
-							appData={appData}
-							setItemId={setItemId}
-							itemId={itemId}
-						/>
-					);
-				})}
-			</div>
-			<button type='submit' onClick={handelClick}>
-				submit
-			</button>
 		</div>
 	);
 };
@@ -229,21 +235,21 @@ const ColumnOptions = ({ isHovered }) => {
 	};
 
 	return (
-		<div className='column-options__container'>
-			{/* <button
+		// <div className='column-options__container'>
+			/* <button
 				aria-label='View column options'
 				className='column-options__toggle'
 				onClick={() => handleToggle()}
-			></button> */}
-			{/* <div
+			></button> */
+			/* <div
 				className={`column-options__option-panel column-options__option-panel--${
 					isOpen ? "active" : "default"
 				}`}
 			>
 				<button>Edit Column Name</button>
 				<button>Add Item</button>
-			</div> */}
-		</div>
+			</div> */
+		{/* </div> */}
 	);
 };
 
