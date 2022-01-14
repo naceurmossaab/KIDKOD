@@ -1,12 +1,11 @@
 import React,{useState} from "react";
-import Challenges from './Challenges/Challenges.jsx';
+import Challenges from './Challenges/Challenges.jsx'
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from 'cannon';
-import { Link } from "react-router-dom";
+import CANNON from 'cannon'
 import "../style/test.css";
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -15,22 +14,14 @@ const gui = new dat.GUI()
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	const [user, setUser] = useState(null);
-
-	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
-
-	const logout = () => {
-		localStorage.removeItem("user");
-		setUser(null);
-	}
-	// const controls = useRef(null);
+	const controls = useRef(null);
    const [task, settask] = useState(true)
         function close (){settask(true)
         console.log(task);
         }
 	useEffect(() => {
+        
 
-		session();
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -819,8 +810,8 @@ var engineForce = 2000,
 
 
 	  case 32:
-		console.log("boxpos",box.position);
-		console.log("rotation",box.rotation.y);
+		// console.log("boxpos",box.position);
+		// console.log("rotation",box.rotation.y);
 	vehicle.setBrake(10, 0);
 	vehicle.setBrake(10, 1);
 	vehicle.setBrake(10, 2);
@@ -843,7 +834,7 @@ window.addEventListener('keyup', navigate)
 		//  */
 		// third person camera
         var camera, goal;
-		var test =10; //camera disctance from the car
+		var test =12; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -878,9 +869,9 @@ const createBox=(width,height,depth,position,rotation)=>{
 	cubeFolder1.add(mesh.position, 'z').step(0.1)
 	cubeFolder1.open()
     const cubeFolder = gui.addFolder('rotation')
-	cubeFolder.add(mesh.rotation, 'x').step(0.05)
-	cubeFolder.add(mesh.rotation, 'y').step(0.05)
-	cubeFolder.add(mesh.rotation, 'z').step(0.05)
+	cubeFolder.add(mesh.rotation, 'x').step(0.001)
+	cubeFolder.add(mesh.rotation, 'y').step(0.001)
+	cubeFolder.add(mesh.rotation, 'z').step(0.001)
 	cubeFolder.open()
     scene.add(mesh)
 	const cubeFolder2 = gui.addFolder('size')
@@ -888,6 +879,7 @@ const createBox=(width,height,depth,position,rotation)=>{
 	cubeFolder2.add(mesh.scale, 'y').step(0.05)
 	cubeFolder2.add(mesh.scale, 'z').step(0.05)
 	cubeFolder2.open()
+
     scene.add(mesh)
     //cannon js body
     const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
@@ -901,25 +893,32 @@ const createBox=(width,height,depth,position,rotation)=>{
     
     
     world.addBody(body)
+	// mesh.visible=false
+	// scene.remove(mesh)
 
     
 }
-createBox(30,3,0.5,{x:65,y:0,z:-31.3},{x:3.1,y:-1.2,z:3.1})
-const createBoxPhysics=(width,height,depth,position,rotation)=>{
-	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
-    const body=new CANNON.Body({
-        mass:0,
-        position: new CANNON.Vec3(position.x,position.y,position.z),
-        shape,
-        material:defaultMaterial
-    })
-    body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,1,0),rotation.y)
-	body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),rotation.x)
-	body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,0,1),rotation.z)
+// createBox(35.9,3,0.1,{x:65,y:0,z:-31},{x:3.1,y:-1.187,z:3.1})
+// createBox(26.15,3,0.1,{x:58.6,y:0,z:-31},{x:3.1,y:-1.187,z:3.1})
+// createBox(75.3,3.5,0.1,{x:37.7,y:0,z:-73.4},{x:3.1,y:0.747,z:3.169})
+// createBox(73.8,3.5,0.1,{x:40.8,y:0,z:-82.3},{x:3.053,y:0.771,z:3.2})
+// createBox(78.6,3.5,0.1,{x:-36.8,y:0,z:-95.3},{x:3.203,y:-0.175,z:3.159})
+createBox(75,3.5,0.1,{x:-42.5,y:0,z:-101.7},{x:3.2,y:-0.14,z:3.161})
+// const createBoxPhysics=(width,height,depth,position,rotation)=>{
+// 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
+//     const body=new CANNON.Body({
+//         mass:0,
+//         position: new CANNON.Vec3(position.x,position.y,position.z),
+//         shape,
+//         material:defaultMaterial
+//     })
+//     body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,1,0),rotation.y)
+// 	body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),rotation.x)
+// 	body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,0,1),rotation.z)
     
-    world.addBody(body)
+//     world.addBody(body)
 	
-}
+// }
 // createBoxPhysics(30,3,0.5,{x:65,y:0,z:-31.3},{x:3.1,y:-1.2,z:3.1})
 
 
@@ -1010,32 +1009,15 @@ const createBoxPhysics=(width,height,depth,position,rotation)=>{
       
 		mount.current.appendChild(renderer.domElement);
 	}, []);
-
-	function quests() { if (task === false) return <Challenges close={close} /> }
-	document.onkeydown = function (e) {
-		if (e.keyCode === 13)
-			settask(false)
-	}
-
-	return (
-		<div>
-			<div className='vis' ref={mount} />
-			{quests()}
-				{user ? (
-					<div className="infocardContainer">
-						<div id="main">
-							<img src={user.picture}></img>
-						</div>
-						<div id="textbois">
-							<h4>Name  : {user.username}</h4>
-							<h4>Level : {user.level}   </h4>
-							<h4>Badge : {user.badge}   </h4>
-							<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
-						</div>
-					</div>
-				) : ("")}
-		</div>);
-
+    function quests(){if (task===false)return <Challenges close={close}/>}
+            document.onkeydown = function (e) {
+                if (e.keyCode === 13 ) 
+                    settask(false)    
+                    }
+    
+    
+	return(<div> <div className='vis' ref={mount} />
+    {quests()}</div>)
 };
 
 export default Vis;
