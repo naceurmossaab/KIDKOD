@@ -66,6 +66,41 @@ const Vis = () => {
 				object.scale.set(0.012, 0.012, 0.012);
 				object.rotation.set(0,11,0);
 				scene.add(object);
+				// const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(object.position, 'x')
+                // cubeFolder1.add(object.position, 'y')
+                // cubeFolder1.add(object.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(object.rotation, 'x')
+                // cubeFolder.add(object.rotation, 'y')
+                // cubeFolder.add(object.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(object.rotation, 'x')
+                // cubeFolder2.add(object.rotation, 'y')
+                // cubeFolder2.add(object.rotation, 'z')
+                // cubeFolder2.open()
+
+			}
+		);
+		loader.load(
+			"/src/components/static/models/Dwarf Idle.fbx",
+			function (object) {
+				mixer1 = new THREE.AnimationMixer(object);
+				const action = mixer1.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(69, 0, -53.5);
+				object.scale.set(0.012, 0.012, 0.012);
+				object.rotation.set(0,11,0);
+				scene.add(object);
 				const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(object.position, 'x')
                 cubeFolder1.add(object.position, 'y')
