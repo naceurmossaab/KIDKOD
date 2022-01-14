@@ -960,7 +960,7 @@ window.addEventListener('keyup', navigate)
 	return (
 		<div>
 			<div className='vis' ref={mount} />
-			{/* {quests()} */}
+			{quests()}
 				{user ? (
 					<div className="infocardContainer">
 						<div id="main">
