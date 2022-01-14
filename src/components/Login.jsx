@@ -85,7 +85,7 @@ const Login = () => {
                          .then(({ data }) => {
                               console.log("response signup :", data);
                               setSignup({ username: "", email: "", password: "", password2: "", status: "account created" });
-                              navigateTo("/login");
+                              navigateTo("/");
                          })
                          .catch((error) => {
                               if (error.response.data.includes("E11000 duplicate key error"))
@@ -122,7 +122,7 @@ const Login = () => {
                               console.log("response signin :", data);
                               setSignin({ username: "", password: "", status: "", });
                               localStorage.setItem("user", JSON.stringify(data));
-                              navigateTo("/");
+                              navigateTo("/test");
                          })
                          .catch((error) => setSignin({ ...signin, status: error.response.data }));
                     }
