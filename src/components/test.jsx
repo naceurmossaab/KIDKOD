@@ -957,23 +957,23 @@ window.addEventListener('keyup', navigate)
 			settask(false)
 	}
 
-	return (<div className='vis' ref={mount} >
-		<div className="questions">{quests()}</div>
+	return (
 		<div>
-			{user ? (
-				<div className="infocardContainer">
-					<div id="main">
-						<img src={user.picture}></img>
+			<div className='vis' ref={mount} />
+			{/* {quests()} */}
+				{user ? (
+					<div className="infocardContainer">
+						<div id="main">
+							<img src={user.picture}></img>
+						</div>
+						<div id="textbois">
+							<h4>Name  : {user.username}</h4>
+							<h4>Level : {user.level}   </h4>
+							<h4>Badge : {user.badge}   </h4>
+							<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
+						</div>
 					</div>
-					<div id="textbois">
-						<h4>Name  : {user.username}</h4>
-						<h4>Level : {user.level}   </h4>
-						<h4>Badge : {user.badge}   </h4>
-						<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
-					</div>
-				</div>
-			) : ("")}
-		</div>
+				) : ("")}
 		</div>);
 
 };
