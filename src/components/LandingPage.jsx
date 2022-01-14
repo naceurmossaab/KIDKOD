@@ -4,7 +4,9 @@ import "../style/Home3D.css";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import C from "cannon";
-import * as dat from "dat.gui"
+import * as dat from "dat.gui";
+import { render } from "react-dom";
+import Navbar from "./Navbar";
 
 const LandingPage = () => {
   const { useRef, useEffect, useState } = React;
@@ -17,13 +19,6 @@ const LandingPage = () => {
     let height = mount.current.clientHeight;
 
     const scene = new THREE.Scene();
-    // const camera = new THREE.PerspectiveCamera(
-    // 	75,
-    // 	width / height,
-    // 	0.1,
-    // 	1000
-    // );
-    // scene.fog = new THREE.Fog(0x202533, -1, 100)
 
     const clock = new THREE.Clock();
     ///camera
@@ -41,7 +36,7 @@ const LandingPage = () => {
       100
     );
 
-    camera.position.set(-10, 10, 10);
+    camera.position.set(-5, 5, 10);
     camera.lookAt(new THREE.Vector3());
     /////light
     const ambient = new THREE.AmbientLight(0xcccccc);
@@ -133,7 +128,8 @@ const LandingPage = () => {
 
           world.addBody(words.ground);
 
-          const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+          const pick = (arr) =>
+            arr[Math.floor(Math.random() * arr.length)];
 
           // color palet
           const colors = [
@@ -177,7 +173,9 @@ const LandingPage = () => {
           Array.from(innerText).forEach((letter, j) => {
             const progress = j / (innerText.length - 1);
             const material = new THREE.MeshPhongMaterial({
-              color: randomColor.from.clone().lerp(randomColor.to, progress),
+              color: randomColor.from
+                .clone()
+                .lerp(randomColor.to, progress),
             });
 
             const geometry = new TextGeometry(letter, fontOption);
@@ -186,20 +184,31 @@ const LandingPage = () => {
 
             const mesh = new THREE.Mesh(geometry, material);
             // Get size of our entire mesh
-            mesh.size = mesh.geometry.boundingBox.getSize(new THREE.Vector3());
+            mesh.size = mesh.geometry.boundingBox.getSize(
+              new THREE.Vector3()
+            );
             // We'll use accumulator to get the offset of each letter. Notice that is not perfect because each character of each font has specific kerning.
             words.letterOff += mesh.size.x;
             // Create the shape of our letter
             // Note that we need to scale down our geometry because of Box's Cannon.js class setup
-            const box = new C.Box(new C.Vec3().copy(mesh.size).scale(0.5));
+            const box = new C.Box(
+              new C.Vec3().copy(mesh.size).scale(0.5)
+            );
             mesh.body = new C.Body({
               // We divide the totalmass by the length of the string to have a common weight for each words.
               mass: totalMass / innerText.length,
-              position: new C.Vec3(words.letterOff, getOffsetY(i), 0),
+              position: new C.Vec3(
+                words.letterOff,
+                getOffsetY(i),
+                0
+              ),
               material: letterMat,
             });
             const { center } = mesh.geometry.boundingSphere;
-            mesh.body.addShape(box, new C.Vec3(center.x, center.y, center.z));
+            mesh.body.addShape(
+              box,
+              new C.Vec3(center.x, center.y, center.z)
+            );
             // Add the body to our world
             world.addBody(mesh.body);
             words.add(mesh);
@@ -208,7 +217,8 @@ const LandingPage = () => {
           });
           // Recenter each body based on the whole string.
           words.children.forEach((letter) => {
-            letter.body.position.x -= letter.size.x + words.letterOff * 0.5;
+            letter.body.position.x -=
+              letter.size.x + words.letterOff * 0.5;
           });
 
           wordss.push(words);
@@ -245,7 +255,10 @@ const LandingPage = () => {
 
         // calculate objects intersecting the picking ray
         // It will return an array with intersecting objects
-        const intersects = raycaster.intersectObjects(scene.children, true);
+        const intersects = raycaster.intersectObjects(
+          scene.children,
+          true
+        );
 
         if (intersects.length > 0) {
           const obj = intersects[0];
@@ -268,7 +281,7 @@ const LandingPage = () => {
 
               letter.position.copy(body.position);
               letter.quaternion.copy(body.quaternion);
-              body.allowSleep=true
+              body.allowSleep = true;
 
               // window.requestAnimationFrame(onClick);
             });
@@ -294,10 +307,10 @@ const LandingPage = () => {
     };
     // Init Physics world
     const world = new C.World();
-    world.allowSleep=true
-    
+    world.allowSleep = true;
+
     world.gravity.set(0, -50, 0);
-    var x= 100
+    var x = 100;
     // const cube = new C.Body({
     //   mass: 0,
     //   shape: new C.Box(new C.Vec3(x, x, x)),
@@ -305,11 +318,10 @@ const LandingPage = () => {
     // });
     // world.add( cube );
 
-
     const edge1 = new C.Body({
       mass: 0,
       shape: new C.Plane(new C.Vec3(50, 0.1, 50)),
-      position: new C.Vec3(0,0, -18),
+      position: new C.Vec3(0, 0, -18),
     });
     world.addBody(edge1);
 
@@ -329,7 +341,6 @@ const LandingPage = () => {
     // controller.add(plane.quaternion,"x").min(-Math.PI).max(Math.PI).step(0.01)
     // controller.add(plane.quaternion,"y").min(-Math.PI).max(Math.PI).step(0.01)
     // controller.add(plane.quaternion,"z").min(-Math.PI).max(Math.PI).step(0.01)
-
 
     const update = () => {
       if (!wordss) return;
@@ -376,15 +387,21 @@ const LandingPage = () => {
           // We get the current letter and the next letter (if it's not the penultimate)
           const letter = word.children[i];
           const nextLetter =
-            i === word.children.length - 1 ? null : word.children[i + 1];
+            i === word.children.length - 1
+              ? null
+              : word.children[i + 1];
 
           if (!nextLetter) continue;
 
-          // ConeTwistConstraint because it's more rigid that other constraints 
-          const c = new C.ConeTwistConstraint(letter.body, nextLetter.body, {
-            pivotA: new C.Vec3(letter.size.x, 0, 0),
-            pivotB: new C.Vec3(0, 0, 0),
-          });
+          // ConeTwistConstraint because it's more rigid that other constraints
+          const c = new C.ConeTwistConstraint(
+            letter.body,
+            nextLetter.body,
+            {
+              pivotA: new C.Vec3(letter.size.x, 0, 0),
+              pivotB: new C.Vec3(0, 0, 0),
+            }
+          );
 
           // Optionnal but it gives us a more realistic render in my opinion
           c.collideConnected = true;
@@ -393,6 +410,8 @@ const LandingPage = () => {
         }
       });
     };
+
+    renderer.setClearColor("#000020");
 
     ///constraint pivot
 
@@ -405,26 +424,59 @@ const LandingPage = () => {
     };
   }, []);
 
+  const refresh = () => {
+    console.log("hhhhhh");
+    window.location.reload();
+  };
+  const [userWorld, setuserWorld] = useState("");
+  const handelChange = (e) => {
+    setuserWorld(e.target.value);
+    console.log(userWorld);
+  };
   return (
     <div>
-      <div className="home3D" ref={mount}></div>
-      <nav className="mainNav">
-        <ul className="mainNav__list">
-          <li className="mainNav__el">
-            <a href="#" className="mainNav__link">
+      <Navbar />
+      {/* <nav className='navigation'>
+				<ul className='navigationBar'>
+					<li className='kidkod navItem'>KIDKOD</li>
+					<li className='login navItem'>Login</li>
+				</ul>
+			</nav> */}
+      {/* <input
+				type='text'
+				className='text textInput'
+				onChange={handelChange}
+			/>
+			<button className='btn homeBTN'>KIDKOD</button>
+			<button className='btn refreshBTN' onClick={refresh}>
+				Refresh
+			</button>
+			<button className='btn loginBTN'>Login</button>
+			<button className='btn signupBTN'>Sign up</button> */}
+
+      <div className='home3D' ref={mount}></div>
+      <nav className='mainNav'>
+        <ul className='mainNav__list'>
+          <li className='mainNav__el'>
+            <a href='#' className='mainNav__link'>
+              {userWorld}
+            </a>
+          </li>
+          <li className='mainNav__el'>
+            <a href='#' className='mainNav__link'>
               Grow
             </a>
           </li>
-          <li className="mainNav__el">
-            <a href="#" className="mainNav__link">
+          <li className='mainNav__el'>
+            <a href='#' className='mainNav__link'>
               Learn
             </a>
           </li>
-          <li className="mainNav__el">
-            <a href="#" className="mainNav__link">
+          <li className='mainNav__el'>
+            <a href='#' className='mainNav__link'>
               play
             </a>
-          </li>
+          </li>{" "}
         </ul>
       </nav>
     </div>
