@@ -194,7 +194,9 @@ const Vis = () => {
                             "/src/components/static/models/car.glb",
                             function (gltf) {
                                 mixer2 = gltf.scene;
-                                gltf.scene.position.copy(box.position);
+                                gltf.scene.position.set(box.position.x,3,box.position.z)
+								// .copy(box.position);
+								console.log(gltf.scene.position.y);
                 gltf.scene.rotation.y=102.1
                                 
 				// object.rotateY(-Math.PI/2)
@@ -784,7 +786,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			chassisBody.angularVelocity.set(0, 0, 0); // initial velocity
 			
 			// car visual body
-			var geometry = new THREE.BoxGeometry(1, 0.3, 2); // double chasis shape
+			var geometry = new THREE.BoxGeometry(0.5, 0.2, 2); // double chasis shape
 			var material = new THREE.MeshBasicMaterial({color: 0xffff00});
 			var box = new THREE.Mesh(geometry, material);
 			scene.add(box);
@@ -836,7 +838,7 @@ const defaultContactMaterial= new CANNON.ContactMaterial(
 			var wheelBodies = [],
 				wheelVisuals = [];
 			vehicle.wheelInfos.forEach(function(wheel) {
-			  var shape = new CANNON.Cylinder(wheel.radius, wheel.radius, wheel.radius / 2, 20);
+			  var shape = new CANNON.Cylinder(wheel.radius, wheel.radius, wheel.radius /2, 20);
 			  var body = new CANNON.Body({mass: 1, material: wheelMaterial});
 			  var q = new CANNON.Quaternion();
 			  q.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
@@ -1126,7 +1128,7 @@ createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
 				mixer1.update(deltaTime);
             }
             if (mixer2) {
-				mixer2.position.copy(box.position);
+				mixer2.position.set(box.position.x,box.position.y-0.55,box.position.z)
                 mixer2.rotation.copy(box.rotation);
 
 			}
@@ -1136,7 +1138,7 @@ createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
 			if (mixer4) {
 				mixer4.update(deltaTime);
             }
-			console.log(box.position);
+			
             // Update controls
 			renderer.clear();
 			// controls.update()
