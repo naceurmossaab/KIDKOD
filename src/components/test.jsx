@@ -6,11 +6,14 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
+// import "../style/test.css";
+import {Sky} from 'three/examples/jsm/objects/Sky.js'
+import { Link } from "react-router-dom";
 import "../style/test.css";
 
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
-    
+    var level=''
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
@@ -51,9 +54,26 @@ const Vis = () => {
 						child.receiveShadow = true;
 					}
 				});
-				object.position.set(0, 0, 3);
-				object.scale.set(0.007, 0.007, 0.007);
+				object.position.set(46, 0, -7.1);
+				object.scale.set(0.012, 0.012, 0.012);
+				object.rotation.set(0,11,0);
 				scene.add(object);
+				const cubeFolder1 = gui.addFolder('position')
+                cubeFolder1.add(object.position, 'x')
+                cubeFolder1.add(object.position, 'y')
+                cubeFolder1.add(object.position, 'z')
+                cubeFolder1.open()
+                const cubeFolder = gui.addFolder('scale')
+                cubeFolder.add(object.rotation, 'x')
+                cubeFolder.add(object.rotation, 'y')
+                cubeFolder.add(object.rotation, 'z')
+                cubeFolder.open()
+                const cubeFolder2 = gui.addFolder('rotation')
+                cubeFolder2.add(object.rotation, 'x')
+                cubeFolder2.add(object.rotation, 'y')
+                cubeFolder2.add(object.rotation, 'z')
+                cubeFolder2.open()
+
 			}
 		);
         // function passmesh(mesh){
@@ -370,16 +390,16 @@ grass.add(gltf.scene)
             },
         );
         //ruins
-        gltfLoader.load(
-            "/src/all models/ruins.glb",
-            function ( gltf ) {
+        // gltfLoader.load(
+        //     "/src/all models/ruins.glb",
+        //     function ( gltf ) {
                 
-                gltf.scene.position.set(-15, 0, 58.1);
-				gltf.scene.scale.set(1, 1, 1);
+        //         gltf.scene.position.set(-15, 0, 58.1);
+		// 		gltf.scene.scale.set(1, 1, 1);
            
-                          scene.add( gltf.scene );
-            },
-        );
+        //                   scene.add( gltf.scene );
+        //     },
+        // );
 		//offroad car
 		// loaderG.load(
 		// 	"/src/components/static/models/offroadcar.fbx",
@@ -394,10 +414,48 @@ grass.add(gltf.scene)
 
 		//texture
 		// Sky background
-		var texture1 = new THREE.TextureLoader().load(
-			"/src/components/static/sky.jpg"
-		);
-		scene.background = texture1;
+		var sky = new Sky();
+				sky.scale.setScalar( 450000 );
+				scene.add( sky );
+
+			var	sun = new THREE.Vector3();
+
+            const effectController = {
+                turbidity: 10,
+                rayleigh: 3,
+                mieCoefficient: 0.005,
+                mieDirectionalG: 0.7,
+                elevation: 2,
+                azimuth: 180,
+                exposure: renderer.toneMappingExposure
+            };
+
+            function guiChanged() {
+
+                const uniforms = sky.material.uniforms;
+                uniforms[ 'turbidity' ].value = effectController.turbidity;
+                uniforms[ 'rayleigh' ].value = effectController.rayleigh;
+                uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient;
+                uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG;
+
+                const phi = THREE.MathUtils.degToRad( 90 - effectController.elevation );
+                const theta = THREE.MathUtils.degToRad( effectController.azimuth );
+
+                sun.setFromSphericalCoords( 1, phi, theta );
+
+                uniforms[ 'sunPosition' ].value.copy( sun );
+
+                renderer.toneMappingExposure = effectController.exposure;
+
+            }
+            gui.add( effectController, 'turbidity', 0.0, 20.0, 0.1 ).onChange( guiChanged );
+            gui.add( effectController, 'rayleigh', 0.0, 4, 0.001 ).onChange( guiChanged );
+            gui.add( effectController, 'mieCoefficient', 0.0, 0.1, 0.001 ).onChange( guiChanged );
+            gui.add( effectController, 'mieDirectionalG', 0.0, 1, 0.001 ).onChange( guiChanged );
+            gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
+            gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
+            gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
+            guiChanged();
 
 		/**
 		 * Object
@@ -471,21 +529,21 @@ grass.add(gltf.scene)
 
 		function between(x, min, max) {
 			return x >= min && x <= max;
-		  }
+		  } 
 
 
-		// var oldman=false
-		// 			 document.onkeyup = function (e) {
-		// 				if (e.keyCode === 13 && oldman===false) {
-							
-		// 					const talk = new Audio("/src/components/static/Enregistrement.m4a");
+		var oldman=false
+					 document.onkeyup = function (e) {
+						if (e.keyCode === 13 && oldman===false && between(box.position.x,38.39,52.11) && between (box.position.z,-13.67,0.92)) {
+							level="one"
+							const talk = new Audio("/src/components/static/Enregistrement.m4a");
 		
-		// 					talk.play();
+							talk.play();
 							
-		// 					oldman=true
-		// 					if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
+							oldman=true
+							if(oldman===true){ setTimeout(()=>{oldman=false;},6000)}
 
-		// 				 }}
+						 }}
                    
 		// Controls
 		
@@ -612,7 +670,7 @@ grass.add(gltf.scene)
 // world.defaultContactMaterial=defaultContactMaterial
 //box test
 
-	//house physics (test)
+	// house physics (test)
 	// const houseshape= new CANNON.Box(new CANNON.Vec3(1.75,5,2.04))
     // const housebody=new CANNON.Body({
     //     mass:0,
@@ -621,7 +679,6 @@ grass.add(gltf.scene)
     //     material:defaultMaterial
     // })
 	// world.addBody(housebody)
-	// const gltfloader = new GLTFLoader();
 	// const boxGeometry=new THREE.BoxBufferGeometry(1, 1, 1)
 	// const boxMaterial=  new THREE.MeshStandardMaterial({ 
 	// 	metalness:0.3,
@@ -631,15 +688,17 @@ grass.add(gltf.scene)
 	// boxtest.scale.set(1.75,2.04,3.27)
 	// boxtest.castShadow=true
 	// boxtest.position.copy(housebody.position)
+	// boxtest.scale.copy(housebody.scale)
+
 	// const cubeFolder1 = gui.addFolder('Cube')
-	// cubeFolder1.add(boxtest.position, 'x')
-	// cubeFolder1.add(boxtest.position, 'y')
-	// cubeFolder1.add(boxtest.position, 'z')
+	// cubeFolder1.add(housebody.quaternion, 'x')
+	// cubeFolder1.add(housebody.quaternion, 'y')
+	// cubeFolder1.add(housebody.quaternion, 'z')
 	// cubeFolder1.open()
     // const cubeFolder = gui.addFolder('scale')
-	// cubeFolder.add(boxtest.scale, 'x')
-	// cubeFolder.add(boxtest.scale, 'y')
-	// cubeFolder.add(boxtest.scale, 'z')
+	// cubeFolder.add(housebody.scale, 'x')
+	// cubeFolder.add(housebody.scale, 'y')
+	// cubeFolder.add(housebody.scale, 'z')
 	// cubeFolder.open()
 	// scene.add(boxtest)
 	
@@ -836,7 +895,7 @@ window.addEventListener('keyup', navigate)
 		//  */
 		// third person camera
         var camera, goal;
-		var test =12; //camera disctance from the car
+		var test =5; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -1016,8 +1075,7 @@ createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
 			updatePhysics();
 			// Call tick again on the next frame
 	        window.requestAnimationFrame(tick);
-            
-		};
+           		};
 		tick();
       
 		mount.current.appendChild(renderer.domElement);
