@@ -10,7 +10,7 @@ import "../style/test.css";
 import {Sky} from 'three/examples/jsm/objects/Sky.js'
 import { Link } from "react-router-dom";
 import "../style/test.css";
-
+import DragAndDrop from './Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx'
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
     var level=''
@@ -1156,7 +1156,7 @@ createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
 		mount.current.appendChild(renderer.domElement);
 	}, []);
 
-	function quests(){if (task===false)return <Challenges close={close}/>}
+	function quests(){if (task===false)return <DragAndDrop close={close}/>}
 	document.onkeydown = function (e) {
 		if (e.keyCode === 13 && level === "one") settask(false);
 		level = "zero";
