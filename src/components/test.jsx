@@ -6,7 +6,7 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
-// import "../style/test.css";
+import "../style/test.css";
 import {Sky} from 'three/examples/jsm/objects/Sky.js'
 import { Link } from "react-router-dom";
 import "../style/test.css";
@@ -18,6 +18,7 @@ const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
+    const [image, setImage] = useState(1);
 
 	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
 
@@ -45,7 +46,9 @@ const Vis = () => {
 		let mixer = null;
 		let mixer1 = null;
         let mixer2=null
-        
+		let mixer3=null
+		let mixer4=null
+
 		// Models
         //adding the old man
 		const loader = new FBXLoader();
@@ -63,8 +66,63 @@ const Vis = () => {
 					}
 				});
 				object.position.set(46, 0, -7.1);
-				object.scale.set(0.012, 0.012, 0.012);
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0,11,0);
+				scene.add(object);
+				// const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(object.position, 'x')
+                // cubeFolder1.add(object.position, 'y')
+                // cubeFolder1.add(object.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(object.rotation, 'x')
+                // cubeFolder.add(object.rotation, 'y')
+                // cubeFolder.add(object.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(object.rotation, 'x')
+                // cubeFolder2.add(object.rotation, 'y')
+                // cubeFolder2.add(object.rotation, 'z')
+                // cubeFolder2.open()
+
+			}
+		);
+		loader.load(
+			"/src/components/static/models/Dwarf Idle.fbx",
+			function (object) {
+				mixer4 = new THREE.AnimationMixer(object);
+				const action = mixer4.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(70, 0, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0,12,0);
+				scene.add(object);
+
+			}
+		);
+		loader.load(
+			"/src/components/static/models/Old Man Idle.fbx",
+			function (object) {
+				mixer3 = new THREE.AnimationMixer(object);
+				const action = mixer3.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(5, 0, -111);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0,13,0);
 				scene.add(object);
 				const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(object.position, 'x')
@@ -991,6 +1049,13 @@ window.addEventListener('keyup', navigate)
                 mixer2.rotation.copy(box.rotation);
 
 			}
+			if (mixer3) {
+				mixer3.update(deltaTime);
+            }
+			if (mixer4) {
+				mixer4.update(deltaTime);
+            }
+			console.log(box.position);
             // Update controls
 			renderer.clear();
 			// controls.update()
@@ -1002,7 +1067,7 @@ window.addEventListener('keyup', navigate)
 			updatePhysics();
 			// Call tick again on the next frame
 	        window.requestAnimationFrame(tick);
-            console.log(box.position)		};
+          	};
 		tick();
       
 		mount.current.appendChild(renderer.domElement);
@@ -1010,29 +1075,56 @@ window.addEventListener('keyup', navigate)
 
 	function quests(){if (task===false)return <Challenges close={close}/>}
 	document.onkeydown = function (e) {
-		if (e.keyCode === 13 && level==="one") 
-			settask(false)    
-			level="zero"
-			}
+		if (e.keyCode === 13 && level === "one") settask(false);
+		level = "zero";
+	};
+	function changeImagevariable(){setImage(2);}
+		function removeImagevariable() {
+			setImage(3);
+		}
+	
 
+function changeImage(){if (image===1){return (
+	<img
+		onClick={changeImagevariable}
+		css='image'
+		src='https://cdn.discordapp.com/attachments/902991650727538769/931741300213047306/wassim.png'
+	/>
+);
+}else if (image===2) {return (
+	<img
+		onClick={removeImagevariable}
+		css='image'
+		src='https://media.discordapp.net/attachments/902991650727538769/931741299965591592/elfen.png?width=1040&height=585'
+	/>
+); }}
 	return (
 		<div>
 			<div className='vis' ref={mount} />
+			{changeImage()}
 			{quests()}
-				{user ? (
-					<div className="infocardContainer">
-						<div id="main">
-							<img src={user.picture}></img>
-						</div>
-						<div id="textbois">
-							<h4>Name  : {user.username}</h4>
-							<h4>Level : {user.level}   </h4>
-							<h4>Badge : {user.badge}   </h4>
-							<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
-						</div>
+			{user ? (
+				<div className='infocardContainer'>
+					<div id='main'>
+						<img src={user.picture}></img>
 					</div>
-				) : ("")}
-		</div>);
+					<div id='textbois'>
+						<h4>Name : {user.username}</h4>
+						<h4>Level : {user.level} </h4>
+						<h4>Badge : {user.badge} </h4>
+						<Link to='/'>
+							{" "}
+							<button className='logoutBTN' onClick={logout}>
+								Logout
+							</button>{" "}
+						</Link>
+					</div>
+				</div>
+			) : (
+				""
+			)}
+		</div>
+	);
 
 };
 
