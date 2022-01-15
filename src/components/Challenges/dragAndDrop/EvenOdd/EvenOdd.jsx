@@ -1,24 +1,111 @@
 import React from "react";
 const { useState, useEffect } = React;
 import "./EvenOdd.css";
-const EvenOdd = () => {
-	return (
-		// <div className='container'>
-			<DragAndDrop
-				containers={containers}
-				question='move even numbers to the left and odd numbers to the right'
-			/>
-		// </div>
-	);
-};
+// const DragAndDropQuiz = (choices = [], announcement = "") => {
+// 	return (
+// 		// <div className='container'>
+// 		<DragAndDrop containers={choices} question={announcement} />
+// 		// </div>
+// 	);
+// };
 
-const containers = [
-	{ name: "Even numbers" },
+// const containers = [
+// 	{ name: "Even numbers" },
+// 	{
+// 		name: "All numbers",
+// 		items: ["Three", "Two", "Five", "Six", "One", "Seven", "Four"],
+// 	},
+// 	{ name: "Odd numbers" },
+// ];
+
+// [
+// 	{
+// 		name: "result is 5",
+// 	},
+// 	{
+// 		name: "All numbers",
+// 		items: [2, 3, 4, 5, 6, 24, "=", "+", "X", "="],
+// 	},
+// 	{
+// 		name: "result is 24",
+// 	},
+// ];
+
+var containers = [
 	{
-		name: "All numbers",
-		items: ["Three", "Two", "Five", "Six", "One", "Seven", "Four"],
+		announcement:
+			"Formulate a product operation on the right to get 24 and a sum operation on the left to get 5",
+		choices: [
+			{
+				name: "result is 5",
+			},
+			{
+				name: "All numbers",
+				items: [2, 3, 4, 5, 6, 24, "=", "+", "x", "="],
+			},
+			{
+				name: "result is 24",
+			},
+		],
+		correct: [
+			{
+				5: [2, "+", 3, "=", 5],
+				24: [4, "x", 6, "=", 24],
+			},
+		],
 	},
-	{ name: "Odd numbers" },
+	{
+		announcement:
+			"move numbers greater than ten to the left and numbers lesser thna ten to the right",
+		choices: [
+			{
+				name: "Greater",
+			},
+			{
+				name: "All numbers",
+				items: [
+					"Three",
+					"Two",
+					"Five",
+					"Six",
+					"Eleven",
+					"Therteen",
+					"Twenty",
+				],
+			},
+			{
+				name: "Lesser",
+			},
+		],
+		correct: [
+			{
+				greater: ["Three", "Five", "Six", "Two"],
+				lesser: ["Eleven", "Therteen", "Twenty"],
+			},
+		],
+	},
+	{
+		announcement:
+			"move even numbers to the left and odd numbers to the right",
+		choices: [
+			{
+				name: "Even numbers",
+			},
+			{
+				name: "All numbers",
+				items: ["Three", "Two", "Five", "Six", "One", "Seven", "Four"],
+			},
+			{
+				name: "Odd numbers",
+			},
+		],
+		correct: [
+			{
+				odd: ["One", "Three", "Five", "Seven"],
+				even: ["Two", "Four", "Six"],
+			},
+		],
+	},
 ];
 
 const items = (array) =>
@@ -32,6 +119,7 @@ const items = (array) =>
 	});
 
 const input = (array) => {
+	// console.log("ggggggggggg", array);
 	var containers = {};
 	for (var i = 0; i < array.length; i++) {
 		var str = "container" + (i + 1);
@@ -44,14 +132,16 @@ const input = (array) => {
 	return containers;
 };
 
-const DragAndDrop = ({ containers, question }) => {
-	const initialData = { containers: input(containers) };
+const DragAndDrop = () => {
+	const [index, setindex] = useState(0);
+	let initialData = { containers: input(containers[index].choices) };
 	const [dragStatus, setDragStatus] = useState(null);
 	const [appData, setAppData] = useState(initialData);
 	const [runTest, setRunTest] = useState(false);
 	const [currentContainer, setCurrentContainer] = useState(null);
 	const [itemId, setItemId] = useState(null);
 	const [response, setResponse] = useState(null);
+
 
 	const handleMoveItemToNewContainer = (
 		currentState,
@@ -85,6 +175,8 @@ const DragAndDrop = ({ containers, question }) => {
 
 	const handelClick = () => {
 		console.log(response);
+		var inc = index + 1;
+		if (index < containers.length) setindex(inc);
 	};
 
 	useEffect(() => {
@@ -94,10 +186,10 @@ const DragAndDrop = ({ containers, question }) => {
 	});
 
 	return (
-		<div className="container">
+		<div className='container'>
 			<div className='drag-and-drop'>
 				<div className='drag-and-drop__header'>
-					<h3>{question}</h3>
+					<h3>{containers[index].announcement}</h3>
 				</div>
 				<div className='drag-and-drop__content'>
 					{Object.keys(appData.containers).map((container, i) => {
@@ -228,29 +320,4 @@ const DraggableItem = ({
 	);
 };
 
-const ColumnOptions = ({ isHovered }) => {
-	const [isOpen, setOpen] = useState(false);
-	const handleToggle = () => {
-		setOpen(!isOpen);
-	};
-
-	return (
-		// <div className='column-options__container'>
-			/* <button
-				aria-label='View column options'
-				className='column-options__toggle'
-				onClick={() => handleToggle()}
-			></button> */
-			/* <div
-				className={`column-options__option-panel column-options__option-panel--${
-					isOpen ? "active" : "default"
-				}`}
-			>
-				<button>Edit Column Name</button>
-				<button>Add Item</button>
-			</div> */
-		{/* </div> */}
-	);
-};
-
-export default EvenOdd;
+export default DragAndDrop;

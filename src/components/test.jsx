@@ -6,7 +6,7 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
-// import "../style/test.css";
+import "../style/test.css";
 import {Sky} from 'three/examples/jsm/objects/Sky.js'
 import { Link } from "react-router-dom";
 import "../style/test.css";
@@ -19,6 +19,7 @@ const Vis = () => {
 	const mount = useRef(null);
 	const controls = useRef(null);
    const [task, settask] = useState(true)
+   const [image, setImage] = useState(1)
         function close (){settask(true)
         console.log(task);
         }
@@ -519,13 +520,13 @@ grass.add(gltf.scene)
 		//light
 
 		////////ambiant
-		const light = new THREE.AmbientLight("#b9d5ff", 1);
+		const light = new THREE.AmbientLight("#b9d5ff", 0.8);
 
 		/////////directionnal
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
 		moonLight.castShadow=true
-		scene.add(light, moonLight);
+		scene.add(moonLight,light);
 
 		function between(x, min, max) {
 			return x >= min && x <= max;
@@ -1075,20 +1076,65 @@ createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
 			updatePhysics();
 			// Call tick again on the next frame
 	        window.requestAnimationFrame(tick);
-           		};
+          	};
 		tick();
       
 		mount.current.appendChild(renderer.domElement);
 	}, []);
-    function quests(){if (task===false)return <Challenges close={close}/>}
-            document.onkeydown = function (e) {
-                if (e.keyCode === 13 ) 
-                    settask(false)    
-                    }
-    
-    
-	return(<div> <div className='vis' ref={mount} />
-    {quests()}</div>)
+
+	function quests(){if (task===false)return <Challenges close={close}/>}
+	document.onkeydown = function (e) {
+		if (e.keyCode === 13 && level === "one") settask(false);
+		level = "zero";
+	};
+	function changeImagevariable(){setImage(2);}
+		function removeImagevariable() {
+			setImage(3);
+		}
+	
+
+function changeImage(){if (image===1){return (
+	<img
+		onClick={changeImagevariable}
+		css='image'
+		src='https://cdn.discordapp.com/attachments/902991650727538769/931741300213047306/wassim.png'
+	/>
+);
+}else if (image===2) {return (
+	<img
+		onClick={removeImagevariable}
+		css='image'
+		src='https://media.discordapp.net/attachments/902991650727538769/931741299965591592/elfen.png?width=1040&height=585'
+	/>
+); }}
+	return (
+		<div>
+			<div className='vis' ref={mount} />
+			{changeImage()}
+			{quests()}
+			{user ? (
+				<div className='infocardContainer'>
+					<div id='main'>
+						<img src={user.picture}></img>
+					</div>
+					<div id='textbois'>
+						<h4>Name : {user.username}</h4>
+						<h4>Level : {user.level} </h4>
+						<h4>Badge : {user.badge} </h4>
+						<Link to='/'>
+							{" "}
+							<button className='logoutBTN' onClick={logout}>
+								Logout
+							</button>{" "}
+						</Link>
+					</div>
+				</div>
+			) : (
+				""
+			)}
+		</div>
+	);
+
 };
 
 export default Vis;
