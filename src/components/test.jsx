@@ -46,7 +46,9 @@ const Vis = () => {
 		let mixer = null;
 		let mixer1 = null;
         let mixer2=null
-        
+		let mixer3=null
+		let mixer4=null
+
 		// Models
         //adding the old man
 		const loader = new FBXLoader();
@@ -64,8 +66,63 @@ const Vis = () => {
 					}
 				});
 				object.position.set(46, 0, -7.1);
-				object.scale.set(0.012, 0.012, 0.012);
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0,11,0);
+				scene.add(object);
+				// const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(object.position, 'x')
+                // cubeFolder1.add(object.position, 'y')
+                // cubeFolder1.add(object.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(object.rotation, 'x')
+                // cubeFolder.add(object.rotation, 'y')
+                // cubeFolder.add(object.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(object.rotation, 'x')
+                // cubeFolder2.add(object.rotation, 'y')
+                // cubeFolder2.add(object.rotation, 'z')
+                // cubeFolder2.open()
+
+			}
+		);
+		loader.load(
+			"/src/components/static/models/Dwarf Idle.fbx",
+			function (object) {
+				mixer4 = new THREE.AnimationMixer(object);
+				const action = mixer4.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(70, 0, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0,12,0);
+				scene.add(object);
+
+			}
+		);
+		loader.load(
+			"/src/components/static/models/Old Man Idle.fbx",
+			function (object) {
+				mixer3 = new THREE.AnimationMixer(object);
+				const action = mixer3.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(5, 0, -111);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0,13,0);
 				scene.add(object);
 				const cubeFolder1 = gui.addFolder('position')
                 cubeFolder1.add(object.position, 'x')
@@ -992,6 +1049,13 @@ window.addEventListener('keyup', navigate)
                 mixer2.rotation.copy(box.rotation);
 
 			}
+			if (mixer3) {
+				mixer3.update(deltaTime);
+            }
+			if (mixer4) {
+				mixer4.update(deltaTime);
+            }
+			console.log(box.position);
             // Update controls
 			renderer.clear();
 			// controls.update()
