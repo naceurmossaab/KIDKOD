@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Challenges = require("../models/challenges");
+const Challenges = require("../models/challenges.js");
 
 module.exports = {
 	add_challenge: async (req, res) => {
