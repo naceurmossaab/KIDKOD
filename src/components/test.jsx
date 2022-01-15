@@ -65,7 +65,7 @@ const Vis = () => {
 					}
 				});
 				object.position.set(46, 0, -7.1);
-				object.scale.set(0.02, 0.02, 0.02);
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0,11,0);
 				scene.add(object);
 				// const cubeFolder1 = gui.addFolder('position')
@@ -100,7 +100,7 @@ const Vis = () => {
 					}
 				});
 				object.position.set(70, 0, -55);
-				object.scale.set(0.02, 0.02, 0.02);
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0,12,0);
 				scene.add(object);
 
