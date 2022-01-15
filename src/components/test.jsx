@@ -976,7 +976,88 @@ window.addEventListener('keyup', navigate)
 		
 	
 		
-//truck
+
+		
+//world physics ghassen
+
+
+const createBox=(width,height,depth,position,rotation)=>{
+	const btry=new THREE.BoxBufferGeometry(1, 1, 1)
+	const bl=  new THREE.MeshStandardMaterial()
+    //threejs mesh
+    const mesh = new THREE.Mesh(btry,bl )
+	mesh.scale.set(width,height,depth)
+    mesh.position.copy(position)
+	mesh.rotation.set(rotation.x,rotation.y,rotation.z)
+
+
+
+	// const cubeFolder2 = gui.addFolder('size')
+	// cubeFolder2.add(mesh.scale, 'x').step(0.05)
+	// cubeFolder2.add(mesh.scale, 'y').step(0.05)
+	// cubeFolder2.add(mesh.scale, 'z').step(0.05)
+	// const cubeFolder1 = gui.addFolder('Cube')
+	// cubeFolder1.add(mesh.position, 'x').step(0.1)
+	// cubeFolder1.add(mesh.position, 'y').step(0.1)
+	// cubeFolder1.add(mesh.position, 'z').step(0.1)
+	// cubeFolder1.open()
+    // const cubeFolder = gui.addFolder('rotation')
+	// cubeFolder.add(mesh.rotation, 'x').step(0.001)
+	// cubeFolder.add(mesh.rotation, 'y').step(0.001)
+	// cubeFolder.add(mesh.rotation, 'z').step(0.001)
+	// cubeFolder.open()
+	
+	// cubeFolder2.open()
+
+    scene.add(mesh)
+    //cannon js body
+    const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
+    const body=new CANNON.Body({
+        mass:0,
+        position: new CANNON.Vec3(position.x,position.y,position.z),
+        shape,
+    })
+	body.quaternion.copy(mesh.quaternion)
+    
+    
+    world.addBody(body)
+
+
+
+	mesh.visible=false
+	scene.remove(mesh)
+
+    
+}
+createBox(35.9,3,0.1,{x:65,y:0,z:-31},{x:3.1,y:-1.187,z:3.1})
+createBox(26.15,3,0.1,{x:58.6,y:0,z:-31},{x:3.1,y:-1.187,z:3.1})
+createBox(75.3,3.5,0.1,{x:37.7,y:0,z:-73.4},{x:3.1,y:0.747,z:3.169})
+createBox(73.8,3.5,0.1,{x:40.8,y:0,z:-82.3},{x:3.053,y:0.771,z:3.2})
+createBox(78.6,3.5,0.1,{x:-36.8,y:0,z:-95.3},{x:3.203,y:-0.175,z:3.159})
+createBox(75,3.5,0.1,{x:-42.5,y:0,z:-101.7},{x:3.2,y:-0.14,z:3.161})
+createBox(13.2,6.45,8.5,{x:77.9,y:0,z:-69},{x:3.1,y:-0.915,z:3.1})//house
+createBox(1,3.5,1.15,{x:79.1,y:0,z:-54.1},{x:3.1,y:-0.91,z:3.1})// medium tree
+createBox(3.8,3.5,3.6,{x:-0.2,y:0,z:-109.6},{x:3.2,y:-0.719,z:3.2})//ruin piller
+createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
+createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
+
+// const createBoxPhysics=(width,height,depth,position,rotation)=>{
+// 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
+//     const body=new CANNON.Body({
+//         mass:0,
+//         position: new CANNON.Vec3(position.x,position.y,position.z),
+//         shape,
+//         material:defaultMaterial
+//     })
+//     body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,1,0),rotation.y)
+// 	body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),rotation.x)
+// 	body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,0,1),rotation.z)
+    
+//     world.addBody(body)
+	
+// }
+// createBoxPhysics(30,3,0.5,{x:65,y:0,z:-31.3},{x:3.1,y:-1.2,z:3.1})
+
 
 
 
@@ -1087,14 +1168,14 @@ window.addEventListener('keyup', navigate)
 function changeImage(){if (image===1){return (
 	<img
 		onClick={changeImagevariable}
-		css='image'
+		className='image'
 		src='https://cdn.discordapp.com/attachments/902991650727538769/931741300213047306/wassim.png'
 	/>
 );
 }else if (image===2) {return (
 	<img
 		onClick={removeImagevariable}
-		css='image'
+		className='image'
 		src='https://media.discordapp.net/attachments/902991650727538769/931741299965591592/elfen.png?width=1040&height=585'
 	/>
 ); }}
