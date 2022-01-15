@@ -183,6 +183,8 @@ const DragAndDrop = (props) => {
 			console.log("before", appData);
 			setAppData({ containers: input(containers[index].choices) });
 			console.log("after", appData);
+		} else {
+			props.close();
 		}
 	};
 
@@ -194,7 +196,13 @@ const DragAndDrop = (props) => {
 
 	return (
 		<div className='container'>
-						<img onClick={()=>{props.close()}} id="close" src="https://cdn.discordapp.com/attachments/902266709568782436/931835733495382026/close.png"/>
+			<img
+				onClick={() => {
+					props.close();
+				}}
+				id='close'
+				src='https://cdn.discordapp.com/attachments/902266709568782436/931835733495382026/close.png'
+			/>
 
 			<div className='drag-and-drop'>
 				<div className='drag-and-drop__header'>
@@ -316,16 +324,17 @@ const DraggableItem = ({
 		setItemId(itemId);
 		setCurrentContainer(currentContainerName);
 	};
-	return (<div>
-		<li
-			className={`draggable-item draggable-item--${status}`}
-			draggable='true'
-			onDragStart={() => {
-				handlePrepForDrop();
-			}}
-		>
-			<h3 className='draggable-item__name'>{itemName}</h3>
-		</li>
+	return (
+		<div>
+			<li
+				className={`draggable-item draggable-item--${status}`}
+				draggable='true'
+				onDragStart={() => {
+					handlePrepForDrop();
+				}}
+			>
+				<h3 className='draggable-item__name'>{itemName}</h3>
+			</li>
 		</div>
 	);
 };

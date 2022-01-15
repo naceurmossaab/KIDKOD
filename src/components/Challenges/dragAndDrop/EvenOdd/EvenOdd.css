@@ -197,7 +197,7 @@
 	margin-bottom: 8%;
 	margin-left: 45%;
 }
-#close{
+#close {
 	width: 70px;
 	height: 70px;
 	position: relative;
@@ -205,5 +205,4 @@
 	bottom: 40%;
 	left: 50%;
 	cursor: pointer;
-	}
-  
+}
