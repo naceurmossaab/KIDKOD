@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import Challenges from './Challenges/Challenges.jsx'
+import Challenges from './Challenges/Challenges.jsx';
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
@@ -17,15 +17,23 @@ const gui = new dat.GUI()
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	const controls = useRef(null);
+	const [user, setUser] = useState(null);
+    const [image, setImage] = useState(1);
+
+	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
+
+	const logout = () => {
+		localStorage.removeItem("user");
+		setUser(null);
+	}
+	// const controls = useRef(null);
    const [task, settask] = useState(true)
-   const [image, setImage] = useState(1)
         function close (){settask(true)
         console.log(task);
         }
 	useEffect(() => {
-        
 
+		session();
 		// Sound
 		
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -710,20 +718,18 @@ grass.add(gltf.scene)
 			world.broadphase = new CANNON.SAPBroadphase(world);
 			world.gravity.set(0, -10, 0);
 			world.defaultContactMaterial.friction = 0;
-			
 					//Material
 
-// const defaultMaterial= new CANNON.Material('default')
+const defaultMaterial= new CANNON.Material('default')
 
-// const defaultContactMaterial= new CANNON.ContactMaterial(
-//     defaultMaterial,
-//     defaultMaterial,
-//     {
-//         friction:0.3,
-//         restitution:0.7, 
-// 		contactEquationStiffness: 1000,
-//     }
-// )
+const defaultContactMaterial= new CANNON.ContactMaterial(
+    defaultMaterial,
+    defaultMaterial,
+    {
+        friction:0.3,
+        restitution:0.7
+    }
+)
 // world.addContactMaterial(defaultContactMaterial)
 // world.defaultContactMaterial=defaultContactMaterial
 //box test
@@ -788,7 +794,7 @@ grass.add(gltf.scene)
 			  chassisBody: chassisBody,
 			  indexRightAxis: 0, // x
 			  indexUpAxis: 1, // y
-			  indexForwardAxis: 1, // z
+			  indexForwardAxis: 2, // z
 			});
 			
 			// wheel options
@@ -803,7 +809,7 @@ grass.add(gltf.scene)
 			  maxSuspensionForce: 200000,
 			  rollInfluence:  0.01,
 			  axleLocal: new CANNON.Vec3(-1, 0, 0),
-			  chassisConnectionPointLocal: new CANNON.Vec3(1, 2	, 0),
+			  chassisConnectionPointLocal: new CANNON.Vec3(1, 1, 0),
 			  maxSuspensionTravel: 0.25,
 			  customSlidingRotationalSpeed: -30,
 			  useCustomSlidingRotationalSpeed: true,
@@ -870,7 +876,7 @@ grass.add(gltf.scene)
 			floorBody.mass=0
 			floorBody.addShape(floorShape)
 			floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1,0,0),Math.PI/2)
-			floorBody.material=groundMaterial
+			// floorBody.material(groundMaterial)
 			world.addBody(floorBody)
 /**
 * Main
@@ -892,7 +898,7 @@ function navigate(e) {
 	
   
 var engineForce = 2000,
-		maxSteerVal = 0.5;
+		maxSteerVal = 0.6;
 	switch(e.keyCode) {
   
 	  case 38: // forward
@@ -929,8 +935,7 @@ var engineForce = 2000,
 
 
 	  case 32:
-		// console.log("boxpos",box.position);
-		// console.log("rotation",box.rotation.y);
+		
 	vehicle.setBrake(10, 0);
 	vehicle.setBrake(10, 1);
 	vehicle.setBrake(10, 2);
@@ -953,7 +958,7 @@ window.addEventListener('keyup', navigate)
 		//  */
 		// third person camera
         var camera, goal;
-		var test =5; //camera disctance from the car
+		var test =2; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -971,85 +976,7 @@ window.addEventListener('keyup', navigate)
 		
 	
 		
-//world physics ghassen
-
-
-const createBox=(width,height,depth,position,rotation)=>{
-	const btry=new THREE.BoxBufferGeometry(1, 1, 1)
-	const bl=  new THREE.MeshStandardMaterial()
-    //threejs mesh
-    const mesh = new THREE.Mesh(btry,bl )
-	mesh.scale.set(width,height,depth)
-    mesh.position.copy(position)
-	mesh.rotation.set(rotation.x,rotation.y,rotation.z)
-
-
-
-	const cubeFolder2 = gui.addFolder('size')
-	cubeFolder2.add(mesh.scale, 'x').step(0.05)
-	cubeFolder2.add(mesh.scale, 'y').step(0.05)
-	cubeFolder2.add(mesh.scale, 'z').step(0.05)
-	const cubeFolder1 = gui.addFolder('Cube')
-	cubeFolder1.add(mesh.position, 'x').step(0.1)
-	cubeFolder1.add(mesh.position, 'y').step(0.1)
-	cubeFolder1.add(mesh.position, 'z').step(0.1)
-	cubeFolder1.open()
-    const cubeFolder = gui.addFolder('rotation')
-	cubeFolder.add(mesh.rotation, 'x').step(0.001)
-	cubeFolder.add(mesh.rotation, 'y').step(0.001)
-	cubeFolder.add(mesh.rotation, 'z').step(0.001)
-	cubeFolder.open()
-	
-	cubeFolder2.open()
-
-    scene.add(mesh)
-    //cannon js body
-    const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
-    const body=new CANNON.Body({
-        mass:0,
-        position: new CANNON.Vec3(position.x,position.y,position.z),
-        shape,
-    })
-	body.quaternion.copy(mesh.quaternion)
-    
-    
-    world.addBody(body)
-
-
-
-	mesh.visible=false
-	scene.remove(mesh)
-
-    
-}
-// createBox(35.9,3,0.1,{x:65,y:0,z:-31},{x:3.1,y:-1.187,z:3.1})
-// createBox(26.15,3,0.1,{x:58.6,y:0,z:-31},{x:3.1,y:-1.187,z:3.1})
-// createBox(75.3,3.5,0.1,{x:37.7,y:0,z:-73.4},{x:3.1,y:0.747,z:3.169})
-// createBox(73.8,3.5,0.1,{x:40.8,y:0,z:-82.3},{x:3.053,y:0.771,z:3.2})
-// createBox(78.6,3.5,0.1,{x:-36.8,y:0,z:-95.3},{x:3.203,y:-0.175,z:3.159})
-// createBox(75,3.5,0.1,{x:-42.5,y:0,z:-101.7},{x:3.2,y:-0.14,z:3.161})
-// createBox(13.2,6.45,8.5,{x:77.9,y:0,z:-69},{x:3.1,y:-0.915,z:3.1})//house
-// createBox(1,3.5,1.15,{x:79.1,y:0,z:-54.1},{x:3.1,y:-0.91,z:3.1})// medium tree
-// createBox(3.8,3.5,3.6,{x:-0.2,y:0,z:-109.6},{x:3.2,y:-0.719,z:3.2})//ruin piller
-// createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
-createBox(3.8,3.5,3.6,{x:8.2,y:0,z:-116.9},{x:3.2,y:-0.72,z:3.2})//ruin piller
-
-// const createBoxPhysics=(width,height,depth,position,rotation)=>{
-// 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
-//     const body=new CANNON.Body({
-//         mass:0,
-//         position: new CANNON.Vec3(position.x,position.y,position.z),
-//         shape,
-//         material:defaultMaterial
-//     })
-//     body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,1,0),rotation.y)
-// 	body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),rotation.x)
-// 	body.quaternion.setFromAxisAngle(new CANNON.Vec3(0,0,1),rotation.z)
-    
-//     world.addBody(body)
-	
-// }
-// createBoxPhysics(30,3,0.5,{x:65,y:0,z:-31.3},{x:3.1,y:-1.2,z:3.1})
+//truck
 
 
 
