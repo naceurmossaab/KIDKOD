@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import "../style/test.css";
 import DragAndDrop from './Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx'
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-const gui = new dat.GUI()
+// const gui = new dat.GUI()
     var level=''
 const Vis = () => {
 	const { useRef, useEffect, useState } = React;
@@ -523,7 +523,7 @@ grass.add(gltf.scene)
             // gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
             // gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
             // gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
-            guiChanged();
+            // guiChanged();
 
 		/**
 		 * Object
