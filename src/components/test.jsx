@@ -528,13 +528,13 @@ grass.add(gltf.scene)
 		//light
 
 		////////ambiant
-		const light = new THREE.AmbientLight("#b9d5ff", 1);
+		const light = new THREE.AmbientLight("#b9d5ff", 0.8);
 
 		/////////directionnal
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
 		moonLight.castShadow=true
-		scene.add(light, moonLight);
+		scene.add(moonLight,light);
 
 		function between(x, min, max) {
 			return x >= min && x <= max;
@@ -1009,15 +1009,16 @@ window.addEventListener('keyup', navigate)
 		mount.current.appendChild(renderer.domElement);
 	}, []);
 
-	function quests() { if (task === false) return <Challenges close={close} /> }
+	function quests(){if (task===false)return <Challenges close={close}/>}
 	document.onkeydown = function (e) {
-		if (e.keyCode === 13)
-			settask(false)
-	}
+		if (e.keyCode === 13 && level === "one") settask(false);
+		level = "zero";
+	};
 	function changeImagevariable(){setImage(2);}
 		function removeImagevariable() {
 			setImage(3);
 		}
+	
 
 function changeImage(){if (image===1){return (
 	<img
