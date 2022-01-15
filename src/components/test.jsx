@@ -45,7 +45,9 @@ const Vis = () => {
 		let mixer = null;
 		let mixer1 = null;
         let mixer2=null
-        
+		let mixer3=null
+		let mixer4=null
+
 		// Models
         //adding the old man
 		const loader = new FBXLoader();
@@ -63,7 +65,7 @@ const Vis = () => {
 					}
 				});
 				object.position.set(46, 0, -7.1);
-				object.scale.set(0.012, 0.012, 0.012);
+				object.scale.set(0.02, 0.02, 0.02);
 				object.rotation.set(0,11,0);
 				scene.add(object);
 				// const cubeFolder1 = gui.addFolder('position')
@@ -87,8 +89,8 @@ const Vis = () => {
 		loader.load(
 			"/src/components/static/models/Dwarf Idle.fbx",
 			function (object) {
-				mixer1 = new THREE.AnimationMixer(object);
-				const action = mixer1.clipAction(object.animations[0]);
+				mixer4 = new THREE.AnimationMixer(object);
+				const action = mixer4.clipAction(object.animations[0]);
 				action.play();
 
 				object.traverse(function (child) {
@@ -98,7 +100,7 @@ const Vis = () => {
 					}
 				});
 				object.position.set(70, 0, -55);
-				object.scale.set(0.012, 0.012, 0.012);
+				object.scale.set(0.02, 0.02, 0.02);
 				object.rotation.set(0,12,0);
 				scene.add(object);
 
@@ -107,8 +109,8 @@ const Vis = () => {
 		loader.load(
 			"/src/components/static/models/Old Man Idle.fbx",
 			function (object) {
-				mixer1 = new THREE.AnimationMixer(object);
-				const action = mixer1.clipAction(object.animations[0]);
+				mixer3 = new THREE.AnimationMixer(object);
+				const action = mixer3.clipAction(object.animations[0]);
 				action.play();
 
 				object.traverse(function (child) {
@@ -1046,6 +1048,12 @@ window.addEventListener('keyup', navigate)
                 mixer2.rotation.copy(box.rotation);
 
 			}
+			if (mixer3) {
+				mixer3.update(deltaTime);
+            }
+			if (mixer4) {
+				mixer4.update(deltaTime);
+            }
             // Update controls
 			renderer.clear();
 			// controls.update()
