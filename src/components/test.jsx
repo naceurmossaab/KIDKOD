@@ -124,21 +124,21 @@ const Vis = () => {
 				object.scale.set(0.02, 0.02, 0.02);
 				object.rotation.set(0,13,0);
 				scene.add(object);
-				const cubeFolder1 = gui.addFolder('position')
-                cubeFolder1.add(object.position, 'x')
-                cubeFolder1.add(object.position, 'y')
-                cubeFolder1.add(object.position, 'z')
-                cubeFolder1.open()
-                const cubeFolder = gui.addFolder('scale')
-                cubeFolder.add(object.rotation, 'x')
-                cubeFolder.add(object.rotation, 'y')
-                cubeFolder.add(object.rotation, 'z')
-                cubeFolder.open()
-                const cubeFolder2 = gui.addFolder('rotation')
-                cubeFolder2.add(object.rotation, 'x')
-                cubeFolder2.add(object.rotation, 'y')
-                cubeFolder2.add(object.rotation, 'z')
-                cubeFolder2.open()
+				// const cubeFolder1 = gui.addFolder('position')
+                // cubeFolder1.add(object.position, 'x')
+                // cubeFolder1.add(object.position, 'y')
+                // cubeFolder1.add(object.position, 'z')
+                // cubeFolder1.open()
+                // const cubeFolder = gui.addFolder('scale')
+                // cubeFolder.add(object.rotation, 'x')
+                // cubeFolder.add(object.rotation, 'y')
+                // cubeFolder.add(object.rotation, 'z')
+                // cubeFolder.open()
+                // const cubeFolder2 = gui.addFolder('rotation')
+                // cubeFolder2.add(object.rotation, 'x')
+                // cubeFolder2.add(object.rotation, 'y')
+                // cubeFolder2.add(object.rotation, 'z')
+                // cubeFolder2.open()
 
 			}
 		);
@@ -516,13 +516,13 @@ grass.add(gltf.scene)
                 renderer.toneMappingExposure = effectController.exposure;
 
             }
-            gui.add( effectController, 'turbidity', 0.0, 20.0, 0.1 ).onChange( guiChanged );
-            gui.add( effectController, 'rayleigh', 0.0, 4, 0.001 ).onChange( guiChanged );
-            gui.add( effectController, 'mieCoefficient', 0.0, 0.1, 0.001 ).onChange( guiChanged );
-            gui.add( effectController, 'mieDirectionalG', 0.0, 1, 0.001 ).onChange( guiChanged );
-            gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
-            gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
-            gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
+            // gui.add( effectController, 'turbidity', 0.0, 20.0, 0.1 ).onChange( guiChanged );
+            // gui.add( effectController, 'rayleigh', 0.0, 4, 0.001 ).onChange( guiChanged );
+            // gui.add( effectController, 'mieCoefficient', 0.0, 0.1, 0.001 ).onChange( guiChanged );
+            // gui.add( effectController, 'mieDirectionalG', 0.0, 1, 0.001 ).onChange( guiChanged );
+            // gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
+            // gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
+            // gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
             guiChanged();
 
 		/**
