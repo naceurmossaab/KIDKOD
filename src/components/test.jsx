@@ -1055,6 +1055,7 @@ window.addEventListener('keyup', navigate)
 			if (mixer4) {
 				mixer4.update(deltaTime);
             }
+			console.log(box.position);
             // Update controls
 			renderer.clear();
 			// controls.update()
