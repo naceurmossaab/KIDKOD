@@ -6,7 +6,7 @@ import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import CANNON from 'cannon'
-// import "../style/test.css";
+import "../style/test.css";
 import {Sky} from 'three/examples/jsm/objects/Sky.js'
 import { Link } from "react-router-dom";
 import "../style/test.css";
@@ -18,6 +18,7 @@ const Vis = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
+    const [image, setImage] = useState(1);
 
 	const session = () => JSON.parse(localStorage.getItem("user")) ? setUser(JSON.parse(localStorage.getItem("user"))) : setUser(null);
 
@@ -1065,7 +1066,7 @@ window.addEventListener('keyup', navigate)
 			updatePhysics();
 			// Call tick again on the next frame
 	        window.requestAnimationFrame(tick);
-            console.log(box.position)		};
+          	};
 		tick();
       
 		mount.current.appendChild(renderer.domElement);
@@ -1073,29 +1074,56 @@ window.addEventListener('keyup', navigate)
 
 	function quests(){if (task===false)return <Challenges close={close}/>}
 	document.onkeydown = function (e) {
-		if (e.keyCode === 13 && level==="one") 
-			settask(false)    
-			level="zero"
-			}
+		if (e.keyCode === 13 && level === "one") settask(false);
+		level = "zero";
+	};
+	function changeImagevariable(){setImage(2);}
+		function removeImagevariable() {
+			setImage(3);
+		}
+	
 
+function changeImage(){if (image===1){return (
+	<img
+		onClick={changeImagevariable}
+		css='image'
+		src='https://cdn.discordapp.com/attachments/902991650727538769/931741300213047306/wassim.png'
+	/>
+);
+}else if (image===2) {return (
+	<img
+		onClick={removeImagevariable}
+		css='image'
+		src='https://media.discordapp.net/attachments/902991650727538769/931741299965591592/elfen.png?width=1040&height=585'
+	/>
+); }}
 	return (
 		<div>
 			<div className='vis' ref={mount} />
+			{changeImage()}
 			{quests()}
-				{user ? (
-					<div className="infocardContainer">
-						<div id="main">
-							<img src={user.picture}></img>
-						</div>
-						<div id="textbois">
-							<h4>Name  : {user.username}</h4>
-							<h4>Level : {user.level}   </h4>
-							<h4>Badge : {user.badge}   </h4>
-							<Link to="/"> <button className="logoutBTN" onClick={logout}>Logout</button> </Link>
-						</div>
+			{user ? (
+				<div className='infocardContainer'>
+					<div id='main'>
+						<img src={user.picture}></img>
 					</div>
-				) : ("")}
-		</div>);
+					<div id='textbois'>
+						<h4>Name : {user.username}</h4>
+						<h4>Level : {user.level} </h4>
+						<h4>Badge : {user.badge} </h4>
+						<Link to='/'>
+							{" "}
+							<button className='logoutBTN' onClick={logout}>
+								Logout
+							</button>{" "}
+						</Link>
+					</div>
+				</div>
+			) : (
+				""
+			)}
+		</div>
+	);
 
 };
 
