@@ -10,7 +10,7 @@ import "../style/test.css";
 import {Sky} from 'three/examples/jsm/objects/Sky.js'
 import { Link } from "react-router-dom";
 import "../style/test.css";
-
+import DragAndDrop from './Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx'
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI()
     var level=''
@@ -1073,7 +1073,7 @@ window.addEventListener('keyup', navigate)
 		mount.current.appendChild(renderer.domElement);
 	}, []);
 
-	function quests(){if (task===false)return <Challenges close={close}/>}
+	function quests(){if (task===false)return <DragAndDrop close={close}/>}
 	document.onkeydown = function (e) {
 		if (e.keyCode === 13 && level === "one") settask(false);
 		level = "zero";
@@ -1087,14 +1087,14 @@ window.addEventListener('keyup', navigate)
 function changeImage(){if (image===1){return (
 	<img
 		onClick={changeImagevariable}
-		css='image'
+		className='image'
 		src='https://cdn.discordapp.com/attachments/902991650727538769/931741300213047306/wassim.png'
 	/>
 );
 }else if (image===2) {return (
 	<img
 		onClick={removeImagevariable}
-		css='image'
+		className='image'
 		src='https://media.discordapp.net/attachments/902991650727538769/931741299965591592/elfen.png?width=1040&height=585'
 	/>
 ); }}
