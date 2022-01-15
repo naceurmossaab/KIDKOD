@@ -49,14 +49,14 @@ const FirstExercice = () => {
     var challengeID = "61df5172c27faa6ea8376ef5";
     var userID = "61dc987ae63acf3b4959f473";
     if (counter === 0) {
-      axios
-        .get(`http://localhost:8000/api/answer/${challengeID}/${userID}`)
-        .then(({ data }) => console.log("response data", data));
+      // axios
+      //   .get(`http://localhost:8000/api/answer/${challengeID}/${userID}`)
+      //   .then(({ data }) => console.log("response data", data));
       console.log("truee");
     } else {
-      axios
-        .post("http://localhost:8000/api/answer/add", userChallengeAnswers)
-        .then(({ data }) => console.log("response data", data));
+      // axios
+      //   .post("http://localhost:8000/api/answer/add", userChallengeAnswers)
+      //   .then(({ data }) => console.log("response data", data));
       console.log("falsee");
     }
   };
@@ -75,9 +75,10 @@ const FirstExercice = () => {
   };
 
   const fetchChallenges = () => {
-    axios.get("http://localhost:8000/api/challenge/1").then(({ data }) => {
-      setfetchChallengeData(data);
-    });
+    // axios.get("http://localhost:8000/api/challenge/1").then(({ data }) => {
+    //   setfetchChallengeData(data);
+    // });
+    console.log("false");
   };
 
   return (
