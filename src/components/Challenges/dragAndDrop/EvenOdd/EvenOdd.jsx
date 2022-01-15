@@ -56,10 +56,10 @@ var containers = [
 	},
 	{
 		announcement:
-			"move numbers greater than ten to the left and numbers lesser thna ten to the right",
+			"move numbers greater than ten to the left and numbers lesser than ten to the right",
 		choices: [
 			{
-				name: "Greater",
+				name: "Greater than 10",
 			},
 			{
 				name: "All numbers",
@@ -74,7 +74,7 @@ var containers = [
 				],
 			},
 			{
-				name: "Lesser",
+				name: "Lesser than 10",
 			},
 		],
 		correct: [
@@ -134,14 +134,15 @@ const input = (array) => {
 
 const DragAndDrop = () => {
 	const [index, setindex] = useState(0);
-	let initialData = { containers: input(containers[index].choices) };
+	// let initialData = ;
 	const [dragStatus, setDragStatus] = useState(null);
-	const [appData, setAppData] = useState(initialData);
+	const [appData, setAppData] = useState({
+		containers: input(containers[index].choices),
+	});
 	const [runTest, setRunTest] = useState(false);
 	const [currentContainer, setCurrentContainer] = useState(null);
 	const [itemId, setItemId] = useState(null);
 	const [response, setResponse] = useState(null);
-
 
 	const handleMoveItemToNewContainer = (
 		currentState,
@@ -176,7 +177,13 @@ const DragAndDrop = () => {
 	const handelClick = () => {
 		console.log(response);
 		var inc = index + 1;
-		if (index < containers.length) setindex(inc);
+		if (index < containers.length - 1) {
+			console.log(index);
+			setindex(inc);
+			console.log("before", appData);
+			setAppData({ containers: input(containers[index].choices) });
+			console.log("after", appData);
+		}
 	};
 
 	useEffect(() => {
