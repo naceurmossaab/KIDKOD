@@ -54,9 +54,9 @@ const FirstExercice = () => {
       //   .then(({ data }) => console.log("response data", data));
       console.log("truee");
     } else {
-      axios
-        .post("http://localhost:8000/api/answer/add", userChallengeAnswers)
-        .then(({ data }) => console.log("response data", data));
+      // axios
+      //   .post("http://localhost:8000/api/answer/add", userChallengeAnswers)
+      //   .then(({ data }) => console.log("response data", data));
       console.log("falsee");
     }
   };

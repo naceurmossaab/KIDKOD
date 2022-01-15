@@ -43,4 +43,14 @@
 a{
      text-decoration: none;
 }
+.image {
+position: absolute;
+border-radius: 20px;
+border: brown solid 3px;
+left: 21%;
+bottom:150px;
+z-index: 99;
+width: 60%;
+}
+
 
