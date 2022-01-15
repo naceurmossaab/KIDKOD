@@ -132,7 +132,7 @@ const input = (array) => {
 	return containers;
 };
 
-const DragAndDrop = () => {
+const DragAndDrop = (props) => {
 	const [index, setindex] = useState(0);
 	let initialData = { containers: input(containers[index].choices) };
 	const [dragStatus, setDragStatus] = useState(null);
@@ -187,6 +187,8 @@ const DragAndDrop = () => {
 
 	return (
 		<div className='container'>
+						<img onClick={()=>{props.close()}} id="close" src="https://cdn.discordapp.com/attachments/902266709568782436/931835733495382026/close.png"/>
+
 			<div className='drag-and-drop'>
 				<div className='drag-and-drop__header'>
 					<h3>{containers[index].announcement}</h3>
@@ -307,7 +309,7 @@ const DraggableItem = ({
 		setItemId(itemId);
 		setCurrentContainer(currentContainerName);
 	};
-	return (
+	return (<div>
 		<li
 			className={`draggable-item draggable-item--${status}`}
 			draggable='true'
@@ -317,6 +319,7 @@ const DraggableItem = ({
 		>
 			<h3 className='draggable-item__name'>{itemName}</h3>
 		</li>
+		</div>
 	);
 };
 
