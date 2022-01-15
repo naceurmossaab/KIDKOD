@@ -15,9 +15,9 @@ var questions = [
     correct: "0.67",
   },
   {
-    announcement: "A cube has all its angles equal to : ",
-    choices: ["40 degrees", "45 degrees", "50 degrees", "55 degrees"],
-    correct: "45 degrees",
+    announcement: "A square has all its angles equal to : ",
+    choices: ["40 degrees", "45 degrees", "50 degrees", "90 degrees"],
+    correct: "90 degrees",
   },
   {
     announcement: "the product of 8 and 4 is : ",
