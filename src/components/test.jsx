@@ -523,7 +523,7 @@ grass.add(gltf.scene)
             // gui.add( effectController, 'elevation', 0, 90, 0.1 ).onChange( guiChanged );
             // gui.add( effectController, 'azimuth', - 180, 180, 0.1 ).onChange( guiChanged );
             // gui.add( effectController, 'exposure', 0, 1, 0.0001 ).onChange( guiChanged );
-            // guiChanged();
+            guiChanged();
 
 		/**
 		 * Object
@@ -906,16 +906,16 @@ var engineForce = 2000,
 	  case 38: // forward
 		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
 		vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
-		// if(musicStatus===false){
-		// 	var music=new Audio("/src/components/static/soundTruck.mp3")
+		if(musicStatus===false){
+			var music=new Audio("/src/components/static/soundTruck.mp3")
 
-		// 	music.play()
-		// 	music.Loop=true
-		// 	musicStatus=true
-		// 	if(musicStatus===true){
-		// 		setTimeout(()=>{musicStatus=false},2222222)
-		// 	}
-		// }
+			music.play()
+			music.Loop=true
+			musicStatus=true
+			if(musicStatus===true){
+				setTimeout(()=>{musicStatus=false},2222222)
+			}
+		}
 
 	
 		break;

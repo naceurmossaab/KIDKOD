@@ -176,7 +176,11 @@ const DragAndDrop = (props) => {
 	const handelClick = () => {
 		console.log(response);
 		var inc = index + 1;
-		if (index < containers.length) setindex(inc);
+		if (index < containers.length-1) {
+			setindex(inc)
+				setAppData({containers: input(containers[index].choices)})
+				}
+		else props.close()
 	};
 
 	useEffect(() => {
