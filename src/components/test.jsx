@@ -29,7 +29,7 @@ const Vis = () => {
 	// const controls = useRef(null);
    const [task, settask] = useState(true)
         function close (){settask(true)
-        console.log(task);
+        // console.log(task);
         }
 	useEffect(() => {
 
@@ -1055,7 +1055,7 @@ window.addEventListener('keyup', navigate)
 			if (mixer4) {
 				mixer4.update(deltaTime);
             }
-			console.log(box.position);
+			// console.log(box.position);
             // Update controls
 			renderer.clear();
 			// controls.update()
