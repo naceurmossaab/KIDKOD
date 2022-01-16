@@ -166,6 +166,7 @@
 	border-radius: 4px;
 	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.125);
 	transition: background-color 0.125s ease-in-out;
+	font-size: 30px;
 }
 
 .draggable-item:hover {
@@ -195,4 +196,13 @@
 	margin: 3%;
 	margin-bottom: 8%;
 	margin-left: 45%;
+}
+#close {
+	width: 70px;
+	height: 70px;
+	position: relative;
+	top: 10px;
+	bottom: 40%;
+	left: 50%;
+	cursor: pointer;
 }

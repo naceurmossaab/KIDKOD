@@ -23,8 +23,11 @@ function App() {
 				<Route path='/test' element={<Vis />}></Route>
 				<Route path='/envirement' element={<Envirement />}></Route>
 				<Route path='/' element={<LandingPage />}></Route>
-				<Route path='/Challenge' element={<DragAndDrop />}></Route>
-				<Route path='/instractionOne' element={<InstractionOne />}></Route>
+				<Route path='/challenge' element={<DnD />}></Route>
+				<Route
+					path='/instractionOne'
+					element={<InstractionOne />}
+				></Route>
 				{/* <Route path='/evenodd' element={<EvenOdd />}></Route> */}
 				<Route
 					path='/game/cubetowergame'
