@@ -4,10 +4,10 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import DropArea from "./DropArea";
 import "./DnD.css";
 
-const DnD = () => {
+const DnD = ({ user, setUser, close }) => {
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<DropArea />
+			<DropArea close={close} user={user} setUser={setUser} />
 		</DndProvider>
 	);
 };
