@@ -16,7 +16,7 @@ const Navbar = () => {
 
      return (
           <div className="navbar" role="banner">
-                         <img width="40" alt="kid center" src="https://cdn.discordapp.com/attachments/929085824262361128/931565255274926180/kidkod-logo.png" />
+               <img width="40" alt="kid center" src="https://cdn.discordapp.com/attachments/929085824262361128/931565255274926180/kidkod-logo.png" />
                <Link to="/"><span className="navbar-title" onClick={()=>window.location.reload()}>KIDKOD</span></Link>
                <div className="spacer"></div>
                <div className="spacer-right"></div>
