@@ -151,7 +151,7 @@
   align-items: left;
   cursor: pointer;
   margin: 0 1rem;
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
 }
 .connexion-method img{
   width: 100px;
