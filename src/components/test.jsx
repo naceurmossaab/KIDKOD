@@ -29,7 +29,7 @@ const Vis = () => {
 	// const controls = useRef(null);
    const [task, settask] = useState(true)
         function close (){settask(true)
-        console.log(task);
+        // console.log(task);
         }
 	useEffect(() => {
 
