@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import axios from "axios";
 import Drag from "./Drag.jsx";
 
-const DropArea = () => {
+const DropArea = ({ user, setUser, close }) => {
 	const [challengeData, setchallengeData] = useState([
 		{ choices: [], equation: "" },
 	]);
@@ -14,6 +14,7 @@ const DropArea = () => {
 	const [goal, setGoal] = useState(false);
 	const [challengeResponce, setchallengeResponce] = useState([]);
 	const [submitFlag, setsubmitFlag] = useState(false);
+	const [handAnimation, sethandAnimation] = useState(true);
 
 	useEffect(() => {
 		axios
@@ -23,7 +24,16 @@ const DropArea = () => {
 				setchoices(data.challengeData[index].choices);
 				setequation(data.challengeData[index].equation);
 			});
+		stopHandAnimation();
 	}, []);
+
+	const stopHandAnimation = () => {
+		console.log("wait 3 sec");
+		setTimeout(() => {
+			console.log("done");
+			sethandAnimation(false);
+		}, 11000);
+	};
 
 	const handelGoalClick = () => {
 		setGoal(!goal);
@@ -60,8 +70,16 @@ const DropArea = () => {
 		);
 		console.log(test);
 		if (test > 3) {
-			localStorage.get();
-			// update the user level
+			setUser({ ...user, level: user.level + 1 });
+			axios
+				.put(
+					`http://localhost:8000/api/users/updateLevel/${user._id}`,
+					{ level: user.level + 1 }
+				)
+				.then(({ data }) => {
+					console.log(data.level);
+				})
+				.catch((err) => console.log(err));
 		}
 	};
 
@@ -101,6 +119,18 @@ const DropArea = () => {
 	return (
 		<React.Fragment>
 			<div className='dnd-container'>
+				{handAnimation && (
+					<div className='hand-animation'>
+						<video
+							loading='lazy'
+							muted='muted'
+							src='https://cdn.discordapp.com/attachments/902991650727538769/932640853799866458/dragAndDropInstractions.mp4'
+							type='video/mp4'
+							autoplay='autoplay'
+							loop='loop'
+						></video>
+					</div>
+				)}
 				<div className='icons'>
 					<img
 						className='challenge-goal icon'
@@ -110,6 +140,7 @@ const DropArea = () => {
 					<img
 						className='challenge-close icon'
 						src='https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png'
+						onClick={close}
 					/>
 				</div>
 				{goal && (
@@ -177,5 +208,7 @@ const DropArea = () => {
 		</React.Fragment>
 	);
 };
+
+
 
 export default DropArea;
