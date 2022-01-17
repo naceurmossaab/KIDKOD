@@ -113,6 +113,7 @@
 .switch-question-container {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
+	column-gap: 70px;
 	width: 1100px;
 }
