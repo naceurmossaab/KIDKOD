@@ -13,6 +13,7 @@ import DnD from "./components/Challenges/dragAndDrop/DnD";
 import DragAndDrop from "./components/Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx";
 import Challenge from "./components/Challenges/mathChallenge/challenge";
 import InstractionOne from "./components/Instructions/InstractionOne";
+import Admin from "./admin";
 
 function App() {
 	return (
@@ -34,6 +35,7 @@ function App() {
 					element={<CubeTowerGame />}
 				></Route>
 				<Route path='/drop' element={<DnD />}></Route>
+				<Route path='/admin' element={<Admin />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
