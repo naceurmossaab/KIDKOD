@@ -110,12 +110,12 @@
   gap: 0.1rem;
   justify-content: center;
   align-items: center;
-  margin: 0;
   max-width: 400px;
 }
 .random-pictures img{
   width: 120px;
   transition: .5s ease-in-out;
+  margin: 0 !important;
 }
 .random-pictures img:hover{
   transform: scale(120%);
@@ -148,11 +148,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   cursor: pointer;
   margin: 0 1rem;
   /* outline: 1px solid red; */
 }
 .connexion-method img{
   width: 100px;
+  margin-left: 6rem;
 }
