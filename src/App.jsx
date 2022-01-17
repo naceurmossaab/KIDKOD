@@ -13,6 +13,7 @@ import DnD from "./components/Challenges/dragAndDrop/DnD";
 import DragAndDrop from "./components/Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx";
 import Challenge from "./components/Challenges/mathChallenge/challenge";
 import InstractionOne from "./components/Instructions/InstractionOne";
+import Admin from "./admin";
 
 function App() {
 	return (
@@ -23,14 +24,18 @@ function App() {
 				<Route path='/test' element={<Vis />}></Route>
 				<Route path='/envirement' element={<Envirement />}></Route>
 				<Route path='/' element={<LandingPage />}></Route>
-				<Route path='/Challenge' element={<DragAndDrop />}></Route>
-				<Route path='/instractionOne' element={<InstractionOne />}></Route>
+				<Route path='/challenge' element={<DnD />}></Route>
+				<Route
+					path='/instractionOne'
+					element={<InstractionOne />}
+				></Route>
 				{/* <Route path='/evenodd' element={<EvenOdd />}></Route> */}
 				<Route
 					path='/game/cubetowergame'
 					element={<CubeTowerGame />}
 				></Route>
 				<Route path='/drop' element={<DnD />}></Route>
+				<Route path='/admin' element={<Admin />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
