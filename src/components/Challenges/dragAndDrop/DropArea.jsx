@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import axios from "axios";
 import Drag from "./Drag.jsx";
+import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
 
 const DropArea = ({ user, setUser, close }) => {
 	const [challengeData, setchallengeData] = useState([
@@ -15,6 +16,11 @@ const DropArea = ({ user, setUser, close }) => {
 	const [challengeResponce, setchallengeResponce] = useState([]);
 	const [submitFlag, setsubmitFlag] = useState(false);
 	const [handAnimation, sethandAnimation] = useState(true);
+	const [view, setview] = useState({
+		challenge: true,
+		win: false,
+		loose: false,
+	});
 
 	useEffect(() => {
 		axios
@@ -83,14 +89,6 @@ const DropArea = ({ user, setUser, close }) => {
 		}
 	};
 
-	// const backToPreviouse = () => {
-	// 	if (index > 0) {
-	// 		setIndex(index - 1);
-	// 		setchoices(challengeData[index].choices);
-	// 		setequation(challengeData[index].equation);
-	// 		setresponce([])
-	// 	}
-	// };
 
 	const [{ isOver }, dropRef] = useDrop({
 		accept: "drag",
@@ -128,7 +126,7 @@ const DropArea = ({ user, setUser, close }) => {
 							type='video/mp4'
 							autoplay='autoplay'
 							loop='loop'
-						></video>
+						></video> 
 					</div>
 				)}
 				<div className='icons'>
@@ -208,7 +206,5 @@ const DropArea = ({ user, setUser, close }) => {
 		</React.Fragment>
 	);
 };
-
-
 
 export default DropArea;
