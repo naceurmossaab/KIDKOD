@@ -1,78 +1,39 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
+import axios from "axios";
 import Drag from "./Drag.jsx";
 
-const PETS = [
-	{ id: 1, name: 10 },
-	{ id: 2, name: 8 },
-	{ id: 3, name: 9 },
-	{ id: 4, name: 15 },
-];
-
-const challengeData = [
-	{
-		equation: "3 + 5 =",
-		choices: [
-			{ id: 1, name: 10 },
-			{ id: 2, name: 8, correct: true },
-			{ id: 3, name: 9 },
-			{ id: 4, name: 15 },
-		],
-	},
-	{
-		equation: "10 + 2 =",
-		choices: [
-			{ id: 1, name: 15 },
-			{ id: 3, name: 9 },
-			{ id: 2, name: 12, correct: true },
-			{ id: 4, name: 13 },
-		],
-	},
-	{
-		equation: "3 - 1 =",
-		choices: [
-			{ id: 2, name: 2, correct: true },
-			{ id: 1, name: 4 },
-			{ id: 3, name: 1 },
-			{ id: 4, name: 5 },
-		],
-	},
-	{
-		equation: "12 - 7 =",
-		choices: [
-			{ id: 1, name: 19 },
-			{ id: 3, name: 6 },
-			{ id: 4, name: 10 },
-			{ id: 2, name: 5, correct: true },
-		],
-	},
-	{
-		equation: "2 x 3 =",
-		choices: [
-			{ id: 1, name: 5 },
-			{ id: 2, name: 6, correct: true },
-			{ id: 3, name: 9 },
-			{ id: 4, name: 10 },
-		],
-	},
-	{
-		equation: "10 x 2 =",
-		choices: [
-			{ id: 1, name: 12 },
-			{ id: 3, name: 8 },
-			{ id: 2, name: 20, correct: true },
-			{ id: 4, name: 15 },
-		],
-	},
-];
-
-const DropArea = () => {
+const DropArea = ({ user, setUser, close }) => {
+	const [challengeData, setchallengeData] = useState([
+		{ choices: [], equation: "" },
+	]);
 	const [index, setIndex] = useState(0);
 	const [choices, setchoices] = useState(challengeData[index].choices);
 	const [equation, setequation] = useState(challengeData[index].equation);
 	const [responce, setresponce] = useState([]);
 	const [goal, setGoal] = useState(false);
 	const [challengeResponce, setchallengeResponce] = useState([]);
+	const [submitFlag, setsubmitFlag] = useState(false);
+	const [handAnimation, sethandAnimation] = useState(true);
+
+	useEffect(() => {
+		axios
+			.get("http://localhost:8000/api/dndChallenge/1")
+			.then(({ data }) => {
+				setchallengeData(data.challengeData);
+				setchoices(data.challengeData[index].choices);
+				setequation(data.challengeData[index].equation);
+			});
+		stopHandAnimation();
+	}, []);
+
+	const stopHandAnimation = () => {
+		console.log("wait 3 sec");
+		setTimeout(() => {
+			console.log("done");
+			sethandAnimation(false);
+		}, 11000);
+	};
 
 	const handelGoalClick = () => {
 		setGoal(!goal);
@@ -82,11 +43,43 @@ const DropArea = () => {
 	const passeToNext = () => {
 		if (index < challengeData.length - 1) {
 			setIndex(index + 1);
-			
-			setchoices(challengeData[index+1].choices);
-			setequation(challengeData[index+1].equation);
-			setchallengeResponce([...challengeResponce, ...responce]);
+			setchoices(challengeData[index + 1].choices);
+			setequation(challengeData[index + 1].equation);
 			setresponce([]);
+		}
+		console.log(challengeResponce);
+		if (challengeResponce.length < challengeData.length) {
+			if (responce[0]) {
+				setchallengeResponce([
+					...challengeResponce,
+					responce[0].name === challengeData[index].correct,
+				]);
+			} else {
+				setchallengeResponce([...challengeResponce, false]);
+			}
+		}
+
+		if (challengeResponce.length === challengeData.length)
+			setsubmitFlag(true);
+	};
+
+	const submitResponce = () => {
+		let test = challengeResponce.reduce(
+			(acc, ele) => (ele ? acc + 1 : acc),
+			0
+		);
+		console.log(test);
+		if (test > 3) {
+			setUser({ ...user, level: user.level + 1 });
+			axios
+				.put(
+					`http://localhost:8000/api/users/updateLevel/${user._id}`,
+					{ level: user.level + 1 }
+				)
+				.then(({ data }) => {
+					console.log(data.level);
+				})
+				.catch((err) => console.log(err));
 		}
 	};
 
@@ -104,8 +97,10 @@ const DropArea = () => {
 	const [{ isOver }, dropRef] = useDrop({
 		accept: "drag",
 		drop: (item) => {
-			setresponce(responce.filter((rest) => item.id !== rest.id));
-			setchoices([...choices, item]);
+			setresponce([]);
+			let ids = choices.map((choice) => choice.id);
+			if (!ids.includes(item.id)) setchoices([...choices, item]);
+			console.log("hhhhh");
 		},
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),
@@ -126,6 +121,18 @@ const DropArea = () => {
 	return (
 		<React.Fragment>
 			<div className='dnd-container'>
+				{handAnimation && (
+					<div className='hand-animation'>
+						<video
+							loading='lazy'
+							muted='muted'
+							src='https://cdn.discordapp.com/attachments/902991650727538769/932640853799866458/dragAndDropInstractions.mp4'
+							type='video/mp4'
+							autoPlay='autoplay'
+							loop='loop'
+						></video>
+					</div>
+				)}
 				<div className='icons'>
 					<img
 						className='challenge-goal icon'
@@ -135,6 +142,7 @@ const DropArea = () => {
 					<img
 						className='challenge-close icon'
 						src='https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png'
+						onClick={close}
 					/>
 				</div>
 				{goal && (
@@ -148,11 +156,6 @@ const DropArea = () => {
 					</div>
 				)}
 				<div className='switch-question-container'>
-					<img
-						src='https://cdn3d.iconscout.com/3d/premium/thumb/left-arrow-3711632-3105353.png'
-						className='challenge-arrow left-arrow'
-						// onClick={backToPreviouse}
-					/>
 					<div className='dnd-sub-container'>
 						<div className='question-and-responce'>
 							<div className='question'>
@@ -189,16 +192,25 @@ const DropArea = () => {
 								/>
 							))}
 						</div>
+						{submitFlag && (
+							<div className='submit-btn'>
+								<button onClick={submitResponce}>Submit</button>
+							</div>
+						)}
 					</div>
-					<img
-						src='https://cdn3d.iconscout.com/3d/premium/thumb/right-arrow-3711690-3105412.png'
-						className='challenge-arrow right-arrow'
-						onClick={passeToNext}
-					/>
+					{!submitFlag && (
+						<img
+							src='https://cdn3d.iconscout.com/3d/premium/thumb/right-arrow-3711690-3105412.png'
+							className='challenge-arrow right-arrow'
+							onClick={passeToNext}
+						/>
+					)}
 				</div>
 			</div>
 		</React.Fragment>
 	);
 };
+
+
 
 export default DropArea;
