@@ -23,13 +23,14 @@
      align-items: center;
      background-color: transparent;
      font-size: 22px;
-     font-weight: 600;
+     font-weight: 700;
      padding: 3rem;
      width: 100vw !important;
      z-index: 1000;
 }
 .navbar img {
      margin-left: 5rem;
+     margin-right: 0;
 }
 .navbar span {
      text-decoration: none;
