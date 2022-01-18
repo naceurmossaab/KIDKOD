@@ -5,7 +5,7 @@ import axios from "axios";
 const Tasks = () =>{
      const [data, setData] = useState([]);
      const [question, setQuestion] = useState("");
-     const [level, setLevel] = useState(null);
+     const [level, setLevel] = useState('');
      const [equation, setEquation] = useState("");
      const [choice1, setChoice1] = useState("");
      const [choice2, setChoice2] = useState("");
@@ -18,11 +18,9 @@ const Tasks = () =>{
 
      const next = (event) => {
           event.preventDefault();
-          if(step === 1){
-               if (question.length === 0)   setError({ question: "put a task question" });
-               else if (level.length === 0) setError({ level: "select a level" });
-          }
-          if(equation.length === 0)     setError({equation: "put a equation"});
+          if (question.length === 0) setError({ question: "put a task question" });
+          else if (level.length === 0) setError({ level: "select a level" });
+          else if(equation.length === 0) setError({ equation: "put a equation" });
           else if(choice1.length === 0 || choice2.length === 0 || choice3.length === 0 || choice4.length === 0)   
           setError({choices : "fill all the choices"});
           else if(correct.length === 0) setError({correct : "put the correct answer"});
@@ -83,7 +81,7 @@ const Tasks = () =>{
                               {step === 1 ?
                                    (<label className="input form-question" > 
                                         <input type="text" name="question" className="name" placeholder={`task question`} onChange={(e)=>setQuestion(e.target.value)} /> 
-                                        <select onChange={(e)=>console.log(e.target.value)} className="form-level" name="level" id="">
+                                        <select onChange={(e)=>setLevel(e.target.value)} className="form-level" name="level" id="">
                                              <option value="">level</option>
                                              <option value="1">1</option>
                                              <option value="2">2</option>
