@@ -1,18 +1,18 @@
 import React from "react";
 import * as THREE from "three";
 import "./WinAnimation.css";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const WinAnimation = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	const [isAnimating, setAnimating] = useState(true);
 	const controls = useRef(null);
 
 	useEffect(() => {
-		let width = mount.current.clientWidth;
-		let height = mount.current.clientHeight;
-		let frameId;
+		let width = 800;
+		let height = 600;
 
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(
@@ -21,15 +21,20 @@ const WinAnimation = () => {
 			0.1,
 			1000
 		);
-		const renderer = new THREE.WebGLRenderer({ antialias: true });
-		const geometry = new THREE.BoxGeometry(1, 1, 1);
-		const material = new THREE.MeshBasicMaterial({ color: 0x00ff });
-		const cube = new THREE.Mesh(geometry, material);
 
-		camera.position.z = 4;
-		scene.add(cube);
-		renderer.setClearColor("0x2929");
+		
+		// const gltfLoder = new GLTFLoader();
+		const fbxLoader = new FBXLoader();
+
+		const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+		renderer.setClearColor("white");
 		renderer.setSize(width, height);
+
+		const controls = new OrbitControls(camera, renderer.domElement);
+		controls.enableDamping = true;
+		controls.update();
+
 
 		const renderScene = () => {
 			renderer.render(scene, camera);
@@ -44,57 +49,40 @@ const WinAnimation = () => {
 			renderScene();
 		};
 
-		const animate = () => {
-			cube.rotation.x += 0.01;
-			cube.rotation.y += 0.01;
+		let mixer = null;
 
-			renderScene();
-			frameId = window.requestAnimationFrame(animate);
-		};
+		fbxLoader.load("/src/components/static/models/Clapping.fbx", (fox) => {
+			mixer = new THREE.AnimationMixer(fox);
+			const action = mixer.clipAction(fox.animations[0]);
+			action.play();
+			fox.scale.set(0.01, 0.01, 0.01);
+			scene.add(fox);
+			console.log(fox);
+		});
 
-		const start = () => {
-			if (!frameId) {
-				frameId = requestAnimationFrame(animate);
+		const clock = new THREE.Clock();
+		var oldElapsedTime = 0;
+
+		
+
+		const tick = () => {
+			const elapsedTime = clock.getElapsedTime();
+			var deltaTime = elapsedTime - oldElapsedTime;
+			oldElapsedTime = elapsedTime;
+			if (mixer) {
+				mixer.update(deltaTime);
 			}
+			controls.update();
+			renderer.render(scene, camera);
+			window.requestAnimationFrame(tick);
 		};
-
-		const stop = () => {
-			cancelAnimationFrame(frameId);
-			frameId = null;
-		};
+		tick();
 
 		mount.current.appendChild(renderer.domElement);
 		window.addEventListener("resize", handleResize);
-		start();
-
-		controls.current = { start, stop };
-
-		return () => {
-			stop();
-			window.removeEventListener("resize", handleResize);
-			mount.current.removeChild(renderer.domElement);
-
-			scene.remove(cube);
-			geometry.dispose();
-			material.dispose();
-		};
 	}, []);
 
-	useEffect(() => {
-		if (isAnimating) {
-			controls.current.start();
-		} else {
-			controls.current.stop();
-		}
-	}, [isAnimating]);
-
-	return (
-		<div
-			className='win-animation'
-			ref={mount}
-			
-		/>
-	);
+	return <div className='win-animation' ref={mount} />;
 };
 
 export default WinAnimation;
