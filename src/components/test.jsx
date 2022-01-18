@@ -1242,8 +1242,8 @@ const Vis = () => {
 			{quests()}
 			{user ? (
 				<div className='infocardContainer'>
-					<div id='main'>
-						<img src={user.picture}></img>
+					<div className="user-avatar">
+						<img src={user.loginpic}></img>
 					</div>
 					<div id='textbois'>
 						<h4>Name : {user.username}</h4>
