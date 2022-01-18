@@ -62,7 +62,6 @@ const Tasks = () =>{
                     </div>) : (<div></div>)}
                {step <= 5 ?
                     (<div className="line">
-                         <div className="dot-move" />
                          <div className={step===1?'dot one active'  :'dot one'}   />
                          <div className={step===2?'dot two active'  :'dot two'}   />
                          <div className={step===3?'dot three active':'dot three'} />
