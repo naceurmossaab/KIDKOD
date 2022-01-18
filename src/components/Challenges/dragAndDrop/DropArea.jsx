@@ -17,8 +17,8 @@ const DropArea = ({ user, setUser, close }) => {
 	const [submitFlag, setsubmitFlag] = useState(false);
 	const [handAnimation, sethandAnimation] = useState(true);
 	const [view, setview] = useState({
-		challenge: false,
-		win: true,
+		challenge: true,
+		win: false,
 		loose: false,
 	});
 
