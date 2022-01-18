@@ -17,14 +17,14 @@ const DropArea = ({ user, setUser, close }) => {
 	const [submitFlag, setsubmitFlag] = useState(false);
 	const [handAnimation, sethandAnimation] = useState(true);
 	const [view, setview] = useState({
-		challenge: false,
+		challenge: true,
 		win: false,
-		loose: true,
+		loose: false,
 	});
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:8000/api/dndChallenge/1")
+			.get("http://localhost:8000/api/dndChallenge/2")
 			.then(({ data }) => {
 				setchallengeData(data.challengeData);
 				setchoices(data.challengeData[index].choices);
