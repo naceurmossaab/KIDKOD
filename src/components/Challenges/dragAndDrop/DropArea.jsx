@@ -209,12 +209,22 @@ const DropArea = ({ user, setUser, close }) => {
 						)}
 					</div>
 				</div>
-			) : (view.loose || view.win) ?? <div>
+			) : (
 				<div>
-				{view.loose && (<div className='dnd-container'>LOOOOOSE</div>)}</div>
-				<div>{view.win && (<div className='dnd-container'>WINWINWIN</div>)}</div>  
-			</div> 
-			}
+					<div>
+						{view.loose && (
+							<div className='dnd-container'>LOOOOOSE</div>
+						)}
+					</div>
+					<div>
+						{view.win && (
+							<div className='dnd-container'>
+								<WinAnimation />
+							</div>
+						)}
+					</div>
+				</div>
+			)}
 		</React.Fragment>
 	);
 };

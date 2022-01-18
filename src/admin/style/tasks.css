@@ -1,3 +1,15 @@
+.form-question{
+	display: flex;
+	align-items: center;
+}
+
+.form-level{
+	width : 75px;
+	height: 50px;
+	font-size: 1rem;
+	color: #777;
+}
+
 input:focus,
 button:focus {
 	outline: none;
@@ -54,14 +66,19 @@ button:active,
 }
 
 .container {
-	width: 500px;
-     height: 70vh;
+	width: 700px;
+     height: 50vh;
 	position: absolute;
 	top: 50%;
 	left: calc(100% - 250px);
 	-webkit-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
+@media screen and (max-width: 1400px) {
+	.container{
+		height: 75vh !important;
+	}
 }
 
 .steps {
@@ -130,8 +147,9 @@ button:active,
 }
 
 .line {
-	width: 100%;
+	width: 90%;
 	height: 5px;
+	margin: 0 1rem;
 	background: #ddd;
 	position: relative;
 	border-radius: 10px;
@@ -213,34 +231,6 @@ button:active,
 	-webkit-transform: translate(0px) scale(1);
 	-ms-transform: translate(0px) scale(1);
 	transform: translate(0px) scale(1);
-}
-
-.container.slider-one-active .slider-two,
-.container.slider-one-active .slider-three {
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
-	transform: scale(.5);
-}
-
-.container.slider-two-active .slider-one,
-.container.slider-two-active .slider-three {
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
-	transform: scale(.5);
-}
-
-.container.slider-three-active .slider-one,
-.container.slider-three-active .slider-two {
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
-	transform: scale(.5);
-}
-
-.slider-one,
-.slider-two,
-.slider-three {
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
 }
 
 .slider-form {
