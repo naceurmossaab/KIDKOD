@@ -3,6 +3,7 @@ import { useDrop } from "react-dnd";
 import axios from "axios";
 import Drag from "./Drag.jsx";
 import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
+import LooseAnimation from "./winAndLooseAnimation/LooseAnimation.jsx";
 
 const DropArea = ({ user, setUser, close }) => {
 	const [challengeData, setchallengeData] = useState([
@@ -17,8 +18,8 @@ const DropArea = ({ user, setUser, close }) => {
 	const [submitFlag, setsubmitFlag] = useState(false);
 	const [handAnimation, sethandAnimation] = useState(true);
 	const [view, setview] = useState({
-		challenge: true,
-		win: false,
+		challenge: false,
+		win: true,
 		loose: false,
 	});
 
@@ -209,10 +210,24 @@ const DropArea = ({ user, setUser, close }) => {
 						)}
 					</div>
 				</div>
-			) : view.loose ? (<div className='dnd-container'>LOOOOOSE</div>): <div className='dnd-container'>WINWINWIN</div>
-				
-			
-			}
+			) : (
+				<div>
+					<div>
+						{view.loose && (
+							<div className='dnd-container'>
+								<LooseAnimation />
+							</div>
+						)}
+					</div>
+					<div>
+						{view.win && (
+							<div className='dnd-container'>
+								<WinAnimation />
+							</div>
+						)}
+					</div>
+				</div>
+			)}
 		</React.Fragment>
 	);
 };
