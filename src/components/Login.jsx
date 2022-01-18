@@ -185,16 +185,16 @@ const Login = () => {
                                    </span>
                               </span>
                               <input value={signin.username} onChange={(e) => setSignin({ ...signin, username: e.target.value })} name="username" placeholder="username" type="text" />
-                              choose a method :
+                              <span>choose a method :</span>
                               <div className="connexion-method" id="connexion-method">
                                    <label name="picture" className={signin.method === "picture" ? "checked-radio" : ""} onClick={(e) => setSignin({ ...signin, method: "picture" })}>
                                         <input type="radio" name="picture" value="picture" />
-                                        <img src="https://img.icons8.com/fluency/48/000000/picture.png" />
+                                                  <img src="https://cdn3d.iconscout.com/3d/premium/thumb/image-4059094-3364017.png" />
                                         picture
                                    </label>
                                    <label name="password" className={signin.method === "password" ? "checked-radio" : ""} onClick={(e) => setSignin({ ...signin, method: "password" })}>
                                         <input type="radio" name="password" value="password" />
-                                        <img src="https://img.icons8.com/color-glass/48/000000/password.png" />
+                                                  <img src="https://cdn3d.iconscout.com/3d/premium/thumb/lock-and-key-4727261-3928178.png" />
                                         password
                                    </label>
                               </div>

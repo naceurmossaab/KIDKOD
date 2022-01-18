@@ -62,6 +62,9 @@
 }
 .contact > *{
   margin: .5rem 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
 }
 .contact input {
   font-size: 17px;
@@ -70,10 +73,11 @@
   outline: none;
   padding-left: 0.5rem;
   margin: 1rem 0;
-  background-color: #dddddd;
+  background-color: #fff;
   border: none;
   align-items: center;
   border-radius: 10px;
+  font-weight: 500;
 }
 .contact button {
   margin: 0.5rem 0;
