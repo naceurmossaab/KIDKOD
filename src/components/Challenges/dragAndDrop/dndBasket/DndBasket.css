@@ -1,0 +1,17 @@
+.drg-item-image {
+	height: 180px;
+	width: 180px;
+    margin-right: -50px;
+    margin-top: -20px;
+}
+.choices-pics {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+}
+.dnd-container{
+    display: flex;
+    flex-direction: column;
+}

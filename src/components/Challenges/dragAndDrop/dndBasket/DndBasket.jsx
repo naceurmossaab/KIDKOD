@@ -1,17 +1,64 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import axios from "axios";
-import Drag from "./Drag.jsx";
-import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
+import DragItem from "./DragItem.jsx";
+import "./DndBasket.css"
+// import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
 
-const DropArea = ({ user, setUser, close }) => {
+const question = {
+	choices: [
+		{
+			id: 1,
+			name: "grap",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/grape-4521297-3753411.png",
+		},
+		{
+			id: 2,
+			name: "pear",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pear-4521299-3753413.png",
+		},
+		{
+			id: 3,
+			name: "banana",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/banana-4521290-3753404.png",
+		},
+		{
+			id: 4,
+			name: "pineapple",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pineapple-4521281-3753395.png",
+		},
+		{
+			id: 5,
+			name: "tomato",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/tomato-4383810-3640392.png",
+		},
+		{
+			id: 6,
+			name: "carotte",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/carrot-4383840-3640388.png",
+		},
+		{
+			id: 7,
+			name: "potato",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/potato-4339974-3600620.png",
+		},
+		{
+			id: 8,
+			name: "pumpkin",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pumpkin-4383223-3640402.png",
+		},
+	],
+};
+
+const DndBasket = ({ user, setUser, close }) => {
 	const [challengeData, setchallengeData] = useState([
-		{ choices: [], equation: "" },
+		{ choices: question.choices, equation: "" },
 	]);
 	const [index, setIndex] = useState(0);
+	// const [equation, setequation] = useState(challengeData[index].equation);
 	const [choices, setchoices] = useState(challengeData[index].choices);
-	const [equation, setequation] = useState(challengeData[index].equation);
-	const [responce, setresponce] = useState([]);
+	const [baskerType1, setbaskerType1] = useState([]);
+	const [baskerType2, setbaskerType2] = useState([]);
 	const [goal, setGoal] = useState(false);
 	const [challengeResponce, setchallengeResponce] = useState([]);
 	const [submitFlag, setsubmitFlag] = useState(false);
@@ -22,28 +69,25 @@ const DropArea = ({ user, setUser, close }) => {
 		loose: false,
 	});
 
-	useEffect(() => {
-		axios
-			.get("http://localhost:8000/api/dndChallenge/1")
-			.then(({ data }) => {
-				setchallengeData(data.challengeData);
-				setchoices(data.challengeData[index].choices);
-				setequation(data.challengeData[index].equation);
-			});
-		stopHandAnimation();
-	}, []);
+	// useEffect(() => {
+	// 	axios
+	// 		.get("http://localhost:8000/api/dndChallenge/1")
+	// 		.then(({ data }) => {
+	// 			setchallengeData(data.challengeData);
+	// 			setchoices(data.challengeData[index].choices);
+	// 			setequation(data.challengeData[index].equation);
+	// 		});
+	// 	stopHandAnimation();
+	// }, []);
 
 	const stopHandAnimation = () => {
-		console.log("wait 3 sec");
 		setTimeout(() => {
-			console.log("done");
 			sethandAnimation(false);
 		}, 11000);
 	};
 
 	const handelGoalClick = () => {
 		setGoal(!goal);
-		console.log(goal);
 	};
 
 	const passeToNext = () => {
@@ -89,25 +133,45 @@ const DropArea = ({ user, setUser, close }) => {
 		}
 	};
 
-	const [{ isOver }, dropRef] = useDrop({
+	const [{ isOver }, dropChoiceRef] = useDrop({
 		accept: "drag",
 		drop: (item) => {
-			setresponce([]);
 			let ids = choices.map((choice) => choice.id);
 			if (!ids.includes(item.id)) setchoices([...choices, item]);
-			console.log("hhhhh");
+			setbaskerType1(
+				baskerType1.filter((rest) => item.name !== rest.name)
+			);
+			setbaskerType2(
+				baskerType2.filter((rest) => item.name !== rest.name)
+			);
 		},
 		collect: (monitor) => ({
 			isOver: monitor.isOver(),
 		}),
 	});
-	const [{ isOver2 }, dropRef2] = useDrop({
+	const [{ isOver1 }, dropBasket1Ref] = useDrop({
 		accept: "drag",
 		drop: (item) => {
-			if (responce.length === 0) {
-				setresponce([...responce, item]);
-				setchoices(choices.filter((rest) => item.name !== rest.name));
-			}
+			let ids = baskerType1.map((choice) => choice.id);
+			if (!ids.includes(item.id)) setbaskerType1([...choices, item]);
+			setchoices(choices.filter((rest) => item.name !== rest.name));
+			setbaskerType2(
+				baskerType2.filter((rest) => item.name !== rest.name)
+			);
+		},
+		collect: (monitor) => ({
+			isOver1: monitor.isOver(),
+		}),
+	});
+	const [{ isOver2 }, dropBasket2Ref] = useDrop({
+		accept: "drag",
+		drop: (item) => {
+			let ids = baskerType2.map((choice) => choice.id);
+			if (!ids.includes(item.id)) setbaskerType2([...choices, item]);
+			setchoices(choices.filter((rest) => item.name !== rest.name));
+			setbaskerType1(
+				baskerType1.filter((rest) => item.name !== rest.name)
+			);
 		},
 		collect: (monitor) => ({
 			isOver2: monitor.isOver(),
@@ -117,7 +181,7 @@ const DropArea = ({ user, setUser, close }) => {
 		<React.Fragment>
 			{view.challenge ? (
 				<div className='dnd-container'>
-					{handAnimation && (
+					{/* {handAnimation && (
 						<div className='hand-animation'>
 							<video
 								loading='lazy'
@@ -128,7 +192,7 @@ const DropArea = ({ user, setUser, close }) => {
 								loop='loop'
 							></video>
 						</div>
-					)}
+					)} */}
 					<div className='icons'>
 						<img
 							className='challenge-goal icon'
@@ -159,38 +223,54 @@ const DropArea = ({ user, setUser, close }) => {
 									Which is the missing number ?
 								</div>
 								<div className='responce'>
-									<div className='responce-detail'>
+									{/* <div className='responce-detail'>
 										{equation}
-									</div>
+									</div> */}
 									<div
-										className='choices single'
-										ref={dropRef2}
+										className='choices-pics'
+										ref={dropChoiceRef}
 									>
-										{responce.map((pet, index) => (
-											<Drag
+										{choices.map((item, index) => (
+											<DragItem
 												draggable
-												id={pet.id}
+												id={item.id}
 												key={index}
-												name={pet.name}
+												name={item.name}
+												image={item.image}
 											/>
 										))}
-										{isOver2 && (
-											<div className='drop-here'>
-												Drop Here!
-											</div>
-										)}
 									</div>
 								</div>
 							</div>
-							<div className='choices multiple' ref={dropRef}>
-								{choices.map((pet, index) => (
-									<Drag
-										draggable
-										id={pet.id}
-										key={index}
-										name={pet.name}
-									/>
-								))}
+							<div className='basket-container'>
+								<div
+									className='choices single'
+									ref={dropBasket1Ref}
+								>
+									{baskerType1.map((item, index) => (
+										<DragItem
+											draggable
+											id={item.id}
+											key={index}
+											name={item.name}
+											image={item.image}
+										/>
+									))}
+								</div>
+								<div
+									className='choices single'
+									ref={dropBasket2Ref}
+								>
+									{baskerType2.map((item, index) => (
+										<DragItem
+											draggable
+											id={item.id}
+											key={index}
+											name={item.name}
+											image={item.image}
+										/>
+									))}
+								</div>
 							</div>
 							{submitFlag && (
 								<div className='submit-btn'>
@@ -219,7 +299,7 @@ const DropArea = ({ user, setUser, close }) => {
 					<div>
 						{view.win && (
 							<div className='dnd-container'>
-								<WinAnimation />
+								{/* <WinAnimation /> */}
 							</div>
 						)}
 					</div>
@@ -229,4 +309,4 @@ const DropArea = ({ user, setUser, close }) => {
 	);
 };
 
-export default DropArea;
+export default DndBasket;
