@@ -25,7 +25,7 @@ const DropArea = ({ user, setUser, close }) => {
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:8000/api/dndChallenge/2")
+			.get("http://localhost:8000/api/dndChallenge/1")
 			.then(({ data }) => {
 				setchallengeData(data.challengeData);
 				setchoices(data.challengeData[index].choices);
@@ -54,7 +54,7 @@ const DropArea = ({ user, setUser, close }) => {
 			setequation(challengeData[index + 1].equation);
 			setresponce([]);
 		}
-		console.log(challengeResponce);
+		console.log("challengeResponce",challengeResponce);
 		if (challengeResponce.length < challengeData.length) {
 			if (responce[0]) {
 				setchallengeResponce([
@@ -77,6 +77,12 @@ const DropArea = ({ user, setUser, close }) => {
 		);
 		console.log(test);
 		if (test > 3) {
+
+			setview({
+				challenge: false,
+				win: true,
+				loose: false,
+			})
 			setUser({ ...user, level: user.level + 1 });
 			axios
 				.put(
@@ -87,7 +93,11 @@ const DropArea = ({ user, setUser, close }) => {
 					console.log(data.level);
 				})
 				.catch((err) => console.log(err));
-		}
+		}else{setview({
+			challenge: false,
+			win: false ,
+			loose: true,
+		})}
 	};
 
 	const [{ isOver }, dropRef] = useDrop({
@@ -217,7 +227,8 @@ const DropArea = ({ user, setUser, close }) => {
 							<div className='dnd-container'>
 								{/* <LooseAnimation /> */}
 								<ul>
-									{}
+									{challengeResponce.map((e,i)=><li key={i}>question {i+1} is {e&&"true"} {!e&&"false"} </li>)}
+									<li>{true}</li>
 								</ul>
 							</div>
 						)}
@@ -226,6 +237,7 @@ const DropArea = ({ user, setUser, close }) => {
 						{view.win && (
 							<div className='dnd-container'>
 								{/* <WinAnimation /> */}
+								congratulation
 							</div>
 						)}
 					</div>
