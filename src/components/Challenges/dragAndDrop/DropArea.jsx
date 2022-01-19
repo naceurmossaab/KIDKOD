@@ -18,8 +18,8 @@ const DropArea = ({ user, setUser, close }) => {
 	const [submitFlag, setsubmitFlag] = useState(false);
 	const [handAnimation, sethandAnimation] = useState(true);
 	const [view, setview] = useState({
-		challenge: false,
-		win: true,
+		challenge: true,
+		win: false,
 		loose: false,
 	});
 
@@ -215,14 +215,17 @@ const DropArea = ({ user, setUser, close }) => {
 					<div>
 						{view.loose && (
 							<div className='dnd-container'>
-								<LooseAnimation />
+								{/* <LooseAnimation /> */}
+								<ul>
+									{}
+								</ul>
 							</div>
 						)}
 					</div>
 					<div>
 						{view.win && (
 							<div className='dnd-container'>
-								<WinAnimation />
+								{/* <WinAnimation /> */}
 							</div>
 						)}
 					</div>
