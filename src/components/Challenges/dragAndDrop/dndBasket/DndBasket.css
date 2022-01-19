@@ -1,8 +1,8 @@
 .drg-item-image {
 	height: 180px;
 	width: 180px;
-    margin-right: -50px;
-    margin-top: -20px;
+	margin-right: -50px;
+	margin-top: -20px;
 }
 .choices-pics {
 	display: grid;
@@ -11,7 +11,28 @@
 	grid-column-gap: 0px;
 	grid-row-gap: 0px;
 }
-.dnd-container{
-    display: flex;
-    flex-direction: column;
+.dnd-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.dnd-container2 {
+	height: 1000px;
+	width: 1200px;
+	background-image: url("	https://img.freepik.com/free-vector/blue-sunburst-…ound_349999-40.jpg?size=626&ext=jpg&uid=R45309517");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.basket-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 20px;
+	padding-right:20px ;
+}
+
+.basket{
+	height: 300px;
+	width: 300px;
+	border: dashed white 10px;
 }

@@ -153,7 +153,7 @@ const DndBasket = ({ user, setUser, close }) => {
 		accept: "drag",
 		drop: (item) => {
 			let ids = baskerType1.map((choice) => choice.id);
-			if (!ids.includes(item.id)) setbaskerType1([...choices, item]);
+			if (!ids.includes(item.id)) setbaskerType1([...baskerType1, item]);
 			setchoices(choices.filter((rest) => item.name !== rest.name));
 			setbaskerType2(
 				baskerType2.filter((rest) => item.name !== rest.name)
@@ -167,7 +167,7 @@ const DndBasket = ({ user, setUser, close }) => {
 		accept: "drag",
 		drop: (item) => {
 			let ids = baskerType2.map((choice) => choice.id);
-			if (!ids.includes(item.id)) setbaskerType2([...choices, item]);
+			if (!ids.includes(item.id)) setbaskerType2([...baskerType2, item]);
 			setchoices(choices.filter((rest) => item.name !== rest.name));
 			setbaskerType1(
 				baskerType1.filter((rest) => item.name !== rest.name)
@@ -180,7 +180,7 @@ const DndBasket = ({ user, setUser, close }) => {
 	return (
 		<React.Fragment>
 			{view.challenge ? (
-				<div className='dnd-container'>
+				<div className='dnd-container2'>
 					{/* {handAnimation && (
 						<div className='hand-animation'>
 							<video
@@ -216,16 +216,18 @@ const DndBasket = ({ user, setUser, close }) => {
 							fluent with them.
 						</div>
 					)}
-					<div className='switch-question-container'>
-						<div className='dnd-sub-container'>
-							<div className='question-and-responce'>
+					<div className='question-container'>
+						<div className='sub-container'>
+							<div className='question-responce'>
 								<div className='question'>
 									Which is the missing number ?
 								</div>
-								<div className='responce'>
+
+								<div className='choices'>
 									{/* <div className='responce-detail'>
 										{equation}
 									</div> */}
+									
 									<div
 										className='choices-pics'
 										ref={dropChoiceRef}
@@ -242,9 +244,10 @@ const DndBasket = ({ user, setUser, close }) => {
 									</div>
 								</div>
 							</div>
+							
 							<div className='basket-container'>
 								<div
-									className='choices single'
+									className='basket  basket-typt-1'
 									ref={dropBasket1Ref}
 								>
 									{baskerType1.map((item, index) => (
@@ -257,8 +260,9 @@ const DndBasket = ({ user, setUser, close }) => {
 										/>
 									))}
 								</div>
+								
 								<div
-									className='choices single'
+									className='basket  basket-typt-2'
 									ref={dropBasket2Ref}
 								>
 									{baskerType2.map((item, index) => (
@@ -293,12 +297,12 @@ const DndBasket = ({ user, setUser, close }) => {
 				<div>
 					<div>
 						{view.loose && (
-							<div className='dnd-container'>LOOOOOSE</div>
+							<div className='dnd-container2'>LOOOOOSE</div>
 						)}
 					</div>
 					<div>
 						{view.win && (
-							<div className='dnd-container'>
+							<div className='dnd-container2'>
 								{/* <WinAnimation /> */}
 							</div>
 						)}
