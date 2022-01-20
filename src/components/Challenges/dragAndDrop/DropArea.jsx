@@ -5,22 +5,22 @@ import Drag from "./Drag.jsx";
 import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
 
 const DropArea = ({ user, setUser, close }) => {
-  const [challengeData, setchallengeData] = useState([
-    { choices: [], equation: "" },
-  ]);
-  const [index, setIndex] = useState(0);
-  const [choices, setchoices] = useState(challengeData[index].choices);
-  const [equation, setequation] = useState(challengeData[index].equation);
-  const [responce, setresponce] = useState([]);
-  const [goal, setGoal] = useState(false);
-  const [challengeResponce, setchallengeResponce] = useState([]);
-  const [submitFlag, setsubmitFlag] = useState(false);
-  const [handAnimation, sethandAnimation] = useState(true);
-  const [view, setview] = useState({
-    challenge: true,
-    win: false,
-    loose: false,
-  });
+	const [challengeData, setchallengeData] = useState([
+		{ choices: [], equation: "" },
+	]);
+	const [index, setIndex] = useState(0);
+	const [choices, setchoices] = useState(challengeData[index].choices);
+	const [equation, setequation] = useState(challengeData[index].equation);
+	const [responce, setresponce] = useState([]);
+	const [goal, setGoal] = useState(false);
+	const [challengeResponce, setchallengeResponce] = useState([]);
+	const [submitFlag, setsubmitFlag] = useState(false);
+	const [handAnimation, sethandAnimation] = useState(true);
+	const [view, setview] = useState({
+		challenge: true,
+		win: false,
+		loose: false,
+	});
 
   useEffect(() => {
     axios.get("http://localhost:8000/api/dndChallenge/1").then(({ data }) => {
