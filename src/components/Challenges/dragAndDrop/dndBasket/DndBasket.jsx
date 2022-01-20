@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import axios from "axios";
 import DragItem from "./DragItem.jsx";
-import "./DndBasket.css"
+import "./DndBasket.css";
 // import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
 
 const question = {
@@ -10,44 +10,54 @@ const question = {
 		{
 			id: 1,
 			name: "grap",
+			categorie: "type1",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/grape-4521297-3753411.png",
 		},
 		{
 			id: 2,
 			name: "pear",
+			categorie: "type1",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pear-4521299-3753413.png",
 		},
 		{
 			id: 3,
 			name: "banana",
+			categorie: "type1",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/banana-4521290-3753404.png",
 		},
 		{
 			id: 4,
 			name: "pineapple",
+			categorie: "type1",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pineapple-4521281-3753395.png",
 		},
 		{
 			id: 5,
 			name: "tomato",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/tomato-4383810-3640392.png",
+			categorie: "type2",
+			image: "https://cdn3d.iconscout.com/3d/premium/thumb/chili-4339984-3600611.png",
+			// image: "https://cdn3d.iconscout.com/3d/premium/thumb/tomato-4383810-3640392.png",
 		},
 		{
 			id: 6,
 			name: "carotte",
+			categorie: "type2",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/carrot-4383840-3640388.png",
 		},
 		{
 			id: 7,
 			name: "potato",
+			categorie: "type2",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/potato-4339974-3600620.png",
 		},
 		{
 			id: 8,
 			name: "pumpkin",
+			categorie: "type2",
 			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pumpkin-4383223-3640402.png",
 		},
 	],
+	basketsNames: ["Fruits", "Vegetables"],
 };
 
 const DndBasket = ({ user, setUser, close }) => {
@@ -55,7 +65,6 @@ const DndBasket = ({ user, setUser, close }) => {
 		{ choices: question.choices, equation: "" },
 	]);
 	const [index, setIndex] = useState(0);
-	// const [equation, setequation] = useState(challengeData[index].equation);
 	const [choices, setchoices] = useState(challengeData[index].choices);
 	const [baskerType1, setbaskerType1] = useState([]);
 	const [baskerType2, setbaskerType2] = useState([]);
@@ -94,10 +103,9 @@ const DndBasket = ({ user, setUser, close }) => {
 		if (index < challengeData.length - 1) {
 			setIndex(index + 1);
 			setchoices(challengeData[index + 1].choices);
-			setequation(challengeData[index + 1].equation);
-			setresponce([]);
+			setbaskerType1([]);
+			setbaskerType2([]);
 		}
-		console.log(challengeResponce);
 		if (challengeResponce.length < challengeData.length) {
 			if (responce[0]) {
 				setchallengeResponce([
@@ -108,6 +116,8 @@ const DndBasket = ({ user, setUser, close }) => {
 				setchallengeResponce([...challengeResponce, false]);
 			}
 		}
+
+		console.log(challengeResponce);
 
 		if (challengeResponce.length === challengeData.length)
 			setsubmitFlag(true);
@@ -199,6 +209,7 @@ const DndBasket = ({ user, setUser, close }) => {
 							src='https://cdn3d.iconscout.com/3d/premium/thumb/down-arrow-2871138-2384397.png'
 							onClick={handelGoalClick}
 						/>
+
 						<img
 							className='challenge-close icon'
 							src='https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png'
@@ -222,12 +233,11 @@ const DndBasket = ({ user, setUser, close }) => {
 								<div className='question'>
 									Which is the missing number ?
 								</div>
-
 								<div className='choices'>
 									{/* <div className='responce-detail'>
 										{equation}
 									</div> */}
-									
+
 									<div
 										className='choices-pics'
 										ref={dropChoiceRef}
@@ -244,36 +254,44 @@ const DndBasket = ({ user, setUser, close }) => {
 									</div>
 								</div>
 							</div>
-							
 							<div className='basket-container'>
-								<div
-									className='basket  basket-typt-1'
-									ref={dropBasket1Ref}
-								>
-									{baskerType1.map((item, index) => (
-										<DragItem
-											draggable
-											id={item.id}
-											key={index}
-											name={item.name}
-											image={item.image}
-										/>
-									))}
+								<div className='basket-and-basket-label'>
+									<div
+										className='basket  basket-typt-1'
+										ref={dropBasket1Ref}
+									>
+										{baskerType1.map((item, index) => (
+											<DragItem
+												draggable
+												id={item.id}
+												key={index}
+												name={item.name}
+												image={item.image}
+											/>
+										))}
+									</div>
+									<div className='basket-label'>
+										{question.basketsNames[0]}
+									</div>
 								</div>
-								
-								<div
-									className='basket  basket-typt-2'
-									ref={dropBasket2Ref}
-								>
-									{baskerType2.map((item, index) => (
-										<DragItem
-											draggable
-											id={item.id}
-											key={index}
-											name={item.name}
-											image={item.image}
-										/>
-									))}
+								<div className='basket-and-basket-label'>
+									<div
+										className='basket  basket-typt-2'
+										ref={dropBasket2Ref}
+									>
+										{baskerType2.map((item, index) => (
+											<DragItem
+												draggable
+												id={item.id}
+												key={index}
+												name={item.name}
+												image={item.image}
+											/>
+										))}
+									</div>
+									<div className='basket-label'>
+										{question.basketsNames[1]}
+									</div>
 								</div>
 							</div>
 							{submitFlag && (
@@ -284,13 +302,23 @@ const DndBasket = ({ user, setUser, close }) => {
 								</div>
 							)}
 						</div>
-						{!submitFlag && (
-							<img
-								src='https://cdn3d.iconscout.com/3d/premium/thumb/right-arrow-3711690-3105412.png'
-								className='challenge-arrow right-arrow'
-								onClick={passeToNext}
-							/>
-						)}
+						<div className='next-arrow'>
+							{!submitFlag && (
+								<div  className="next-label">
+									<div>NEXT</div>
+									<video
+										loading='lazy'
+										muted='muted'
+										src='https://cdnl.iconscout.com/lottie/premium/thumb/forward-3428862-2914892.mp4'
+										width='45.06976744186045'
+										height='45.06976744186045'
+										type='video/mp4'
+										autoplay='autoplay'
+										loop='loop'
+									></video>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			) : (
