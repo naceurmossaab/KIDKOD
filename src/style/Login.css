@@ -58,7 +58,7 @@
   flex-direction: column;
   margin: 1rem 0;
   width : 75vw;
-  height: 75vh;
+  height: 85vh;
 }
 .contact > *{
   margin: .5rem 0;
@@ -155,4 +155,9 @@
 .connexion-method img{
   width: 100px;
   margin-left: 6rem;
+}
+
+.disable{
+  cursor: no-drop !important;
+  opacity: .7;
 }
