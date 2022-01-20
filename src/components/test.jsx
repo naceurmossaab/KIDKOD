@@ -5,7 +5,7 @@ import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from "cannon";
+import CANNON, { Vec3 } from "cannon";
 import "../style/test.css";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
@@ -778,7 +778,9 @@ scene.add( cone );
 		// cubeFolder.add(housebody.scale, 'z')
 		// cubeFolder.open()
 		// scene.add(boxtest)
-
+var carPositionX=1
+var carPositionz=1
+var carRotation=Math.PI
 		var groundMaterial = new CANNON.Material("groundMaterial");
 		var wheelMaterial = new CANNON.Material("wheelMaterial");
 		var wheelGroundContactMaterial = new CANNON.ContactMaterial(
@@ -797,8 +799,10 @@ scene.add( cone );
 		var chassisShape = new CANNON.Box(new CANNON.Vec3(1, 0.3, 2));
 		var chassisBody = new CANNON.Body({ mass: 150 });
 		chassisBody.addShape(chassisShape);
-		chassisBody.position.set(0, 0.2, 0);
+		chassisBody.position.set(carPositionX, 0.2, carPositionz);
+		chassisBody.quaternion.setFromAxisAngle(new Vec3(0,1,0),carRotation)
 		chassisBody.angularVelocity.set(0, 0, 0); // initial velocity
+		
 
 		// car visual body
 		var geometry = new THREE.BoxGeometry(0.5, 0.2, 2); // double chasis shape
@@ -882,6 +886,7 @@ scene.add( cone );
 			wheelVisuals.push(cylinder);
 			scene.add(cylinder);
 		});
+		
 
 		// update the wheels to match the physics
 		world.addEventListener("postStep", function () {
@@ -896,6 +901,7 @@ scene.add( cone );
 				wheelVisuals[i].quaternion.copy(t.quaternion);
 			}
 		});
+		
 
 		const floorShape = new CANNON.Plane();
 		const floorBody = new CANNON.Body();
