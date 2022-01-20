@@ -1,8 +1,9 @@
 import "./admin.css";
-import 'font-awesome/css/font-awesome.min.css';
+import "font-awesome/css/font-awesome.min.css";
 import Sidebar from "./components/Sidebar";
 import Tasks   from "./components/Tasks";
 import Charts  from "./components/Charts";
+import Users  from "./components/Users";
 import { useState, useEffect } from "react";
 
 const Admin = () => {
@@ -43,8 +44,9 @@ const Admin = () => {
                     {view === 'dashboard' ? 
                     (<div>
                          <Charts type="all" chartData={chartData} displayLegend={false}/>
-                         <Users />
+                         {/* <Users /> */}
                     </div>) : (<div />)}
+                    {view === 'users' ? (<Users />) : (<div />)}
                     {view === 'tasks' ? (<Tasks />) : (<div />)}
                     {view === 'charts' ? (<Charts type={chartType} chartData={chartData} displayLegend={false} />) : (<div />)}
                </main>

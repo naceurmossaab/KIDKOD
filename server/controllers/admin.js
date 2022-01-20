@@ -1,5 +1,6 @@
-const User = require("../models/admin");
-const jwt = require("jsonwebtoken");
+const Admin = require("../models/admin");
+const User  = require("../models/users");
+const jwt   = require("jsonwebtoken");
 
 const createToken = (id) => {
      return jwt.sign({ id }, "stack", {});
@@ -12,12 +13,12 @@ module.exports = {
           try {
                const loggedInUser =
                     password.length && !loginpic.length
-                         ? await User.login(username, password)
-                         : await User.loginpic(username, loginpic);
+                         ? await Admin.login(username, password)
+                         : await Admin.loginpic(username, loginpic);
                // console.log("logged user : ", loggedInUser);
                // i did not want to return user, because, I could not show the hashed password to the client
                // that's why I created a new variable called foundUser
-               const foundUser = await User.findByIdAndUpdate(
+               const foundUser = await Admin.findByIdAndUpdate(
                     loggedInUser._id,
                     { connected: true },
                     { new: true }
@@ -37,14 +38,14 @@ module.exports = {
      signup: async (req, res, next) => {
           const { username, email, password, loginpic } = req.body;
           try {
-               const savedUser = await User.create({
+               const savedUser = await Admin.create({
                     username,
                     email,
                     password,
                     loginpic,
                });
 
-               const foundUser = await User.findById(savedUser._id).select(
+               const foundUser = await Admin.findById(savedUser._id).select(
                     "-password"
                );
 
@@ -58,7 +59,7 @@ module.exports = {
           const { username } = req.body;
 
           try {
-               const foundUser = await User.find({ username }).select("loginpic");
+               const foundUser = await Admin.find({ username }).select("loginpic");
                res.status(201).json(foundUser);
           } catch (error) {
                res.status(400).send(error.message);
@@ -67,16 +68,12 @@ module.exports = {
      logout: async (req, res, next) => {
           // logout
      },
-     update_user_level: async (req, res) => {
+     getAllUsers: async (req, res, next) => {
           try {
-               let level = req.body;
-               let id = req.params._id;
-               const updatedUser = await User.findByIdAndUpdate(id, level, {
-                    new: true,
-               });
-               res.send(updatedUser);
+               const allUsers = await User.find({}).select("-password");
+               res.status(201).json(allUsers);
           } catch (error) {
-               res.send(error);
+               res.status(400).send(error.message);
           }
      },
 };
