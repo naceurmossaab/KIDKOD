@@ -1,0 +1,60 @@
+.infocardContainer {
+     position:absolute;
+     top : 5px;
+     left: 5px;
+     display: flex;
+     justify-content: space-around;
+     height : 100px;
+     width  : 300px;
+     border-radius: 50%;
+     background: transparent;
+     transition: all .3s ease-in;
+     /* outline: 1px solid red; */
+}
+.infocardContainer div * {
+     display : flex;
+     overflow: hidden;
+     text-overflow: hidden;
+     color: white;
+     white-space: nowrap;
+     width : 200px;
+     height: auto;
+     transition: all .3s ease-in;
+     transition-delay: .5s;
+     padding-top  : .5rem;
+}
+.infocardContainer img {
+     width: 80px;
+     margin: 0 !important;
+     border-radius: 5px;
+}
+
+.logoutBTN {
+     padding: .5rem;
+     width : 60px !important;
+     color : rgb(255, 255, 255);
+     background-color: #ea512e;
+     border-radius   : 5px;
+     cursor: pointer;
+     border: none;
+}
+.logoutBTN :hover {
+     background-color: #f5890d;
+}
+
+a{
+     text-decoration: none;
+}
+.image {
+position: absolute;
+border-radius: 20px;
+border: brown solid 3px;
+left: 21%;
+bottom:150px;
+z-index: 99;
+width: 60%;
+}
+
+
+
+

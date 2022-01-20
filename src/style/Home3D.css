@@ -7,54 +7,100 @@
 	left: 0;
 }
 
-.mainNav{
-	position:absolute;
-	top:50%;
-	left:50%;
+.mainNav {
+	/* position: absolute; */
+	top: 50%;
+	left: 80%;
 	color: aliceblue;
 }
 
-
-body {
+/* body {
   font-family: "Abril Fatface", cursive;
   margin: 0;
   overflow: hidden;
-}
+} */
 
 #stage {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .mainNav {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
 
-  transform: translate(-50%, -50%);
-  z-index: 10;
+	transform: translate(-50%, -50%);
+	z-index: 10;
 
-  pointer-events: none;
+	pointer-events: none;
 }
 
 .mainNav__list {
-  list-style: none;
-  text-align: center;
-  padding-left: 0;
-  margin: 0;
+	list-style: none;
+	text-align: center;
+	padding-left: 0;
+	margin: 0;
 }
 
 .mainNav__el:not(:last-child) {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 .mainNav__link {
-  display: inline-block;
-  font-size: 170px;
-  text-decoration: none;
-  opacity: 0;
-  line-height: 0.8;
+	display: inline-block;
+	font-size: 170px;
+	text-decoration: none;
+	opacity: 0;
+	line-height: 0.8;
+}
+
+/* .loginBTN {
+	margin-left: 820px;
+}
+.btn :hover {
+	background-image: linear-gradient(
+		to right,
+		rgb(255, 80, 80),
+		rgb(255, 25, 159)
+	);
+}
+
+.signupBTN {
+	margin-left: 900px;
+}
+.refreshBTN {
+	margin-left: 180px;
+}
+
+.homeBTN {
+	margin-left: -600px;
+}
+.btn {
+	margin: 2%;
+	width: 100px;
+	padding: 2%;
+	border-radius: 5px;
+	border: none;
+	background-image: linear-gradient(
+		to right,
+		rgb(255, 49, 49),
+		rgb(255, 0, 149)
+	);
+	font-size: large;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+	position: fixed;
+	margin-top: -155px;
+	z-index: 100;
+}
+.text {
+	z-index: 100;
+} */
+.navigation {
+	z-index: 10;
+	position: absolute;
 }

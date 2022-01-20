@@ -30,7 +30,7 @@ const FirstExercice = () => {
   const compareAnswers = () => {
     var array = fetchChallengeData.quations;
     var correctAnswers = [];
-    if (userChallengeAnswers.length < 3) {
+    if (userChallengeAnswers.length < 5) {
       userChallengeAnswers.push(selectedOption);
     }
     for (var i = 0; i < array.length; i++) {
@@ -46,27 +46,27 @@ const FirstExercice = () => {
         counter++;
       }
     }
-    var challengeID = "61da00024cc951fb1aa31012";
+    var challengeID = "61df5172c27faa6ea8376ef5";
     var userID = "61dc987ae63acf3b4959f473";
     if (counter === 0) {
-      axios
-        .get(`http://localhost:8000/api/answer/${challengeID}/${userID}`)
-        .then(({ data }) => console.log("response data", data));
+      // axios
+      //   .get(`http://localhost:8000/api/answer/${challengeID}/${userID}`)
+      //   .then(({ data }) => console.log("response data", data));
       console.log("truee");
     } else {
-      axios
-        .post("http://localhost:8000/api/answer/add", userChallengeAnswers)
-        .then(({ data }) => console.log("response data", data));
+      // axios
+      //   .post("http://localhost:8000/api/answer/add", userChallengeAnswers)
+      //   .then(({ data }) => console.log("response data", data));
       console.log("falsee");
     }
   };
 
   const passToNextChallenge = () => {
     var newChallNbr = challNbr + 1;
-    if (challNbr < 2) {
+    if (challNbr < 4) {
       setchallNbr(newChallNbr);
     }
-    if (userChallengeAnswers.length < 3) {
+    if (userChallengeAnswers.length < 5) {
       userChallengeAnswers.push(selectedOption);
     }
     setselectedOption("");
@@ -75,9 +75,10 @@ const FirstExercice = () => {
   };
 
   const fetchChallenges = () => {
-    axios.get("http://localhost:8000/api/challenge/1").then(({ data }) => {
-      setfetchChallengeData(data);
-    });
+    // axios.get("http://localhost:8000/api/challenge/1").then(({ data }) => {
+    //   setfetchChallengeData(data);
+    // });
+    console.log("false");
   };
 
   return (
@@ -85,7 +86,7 @@ const FirstExercice = () => {
       <div>
         <h1>{fetchChallengeData.quations[challNbr].announcement}</h1>
         <div>
-          <div>
+          <div className="label">
             <input
               type="radio"
               value={fetchChallengeData.quations[challNbr].choices[0]}
