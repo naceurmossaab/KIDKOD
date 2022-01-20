@@ -57,7 +57,14 @@
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
-  width : 700px;
+  width : 75vw;
+  height: 85vh;
+}
+.contact > *{
+  margin: .5rem 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
 }
 .contact input {
   font-size: 17px;
@@ -66,30 +73,22 @@
   outline: none;
   padding-left: 0.5rem;
   margin: 1rem 0;
-  background-color: #dddddd;
+  background-color: #fff;
   border: none;
   align-items: center;
-  border-radius: 7px;
-}
-.contact textarea {
-  font-size: 17px;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  background-color: var(--input-bg);
-  border: none;
-  outline: none;
-  border-radius: 7px;
+  border-radius: 10px;
+  font-weight: 500;
 }
 .contact button {
   margin: 0.5rem 0;
   margin-right: 1rem;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   font-size: 20px;
-  width: 100px;
+  width: 150px;
   height: 40px;
   color: rgb(255, 255, 255);
   background-color: #ea512e;
-  border-radius: 10px;
+  border-radius: 7px;
   cursor: pointer;
   border: none;
   font-size: larger;
@@ -156,4 +155,9 @@
 .connexion-method img{
   width: 100px;
   margin-left: 6rem;
+}
+
+.disable{
+  cursor: no-drop !important;
+  opacity: .7;
 }
