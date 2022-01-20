@@ -226,6 +226,11 @@ const DropArea = ({ user, setUser, close }) => {
 						{view.loose && (
 							<div className='dnd-container'>
 								{/* <LooseAnimation /> */}
+								<img
+							className='challenge-close icon'
+							src='https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png'
+							onClick={close}
+						/>
 								<ul>
 									{challengeResponce.map((e,i)=><li key={i}>question {i+1} is {e&&"true"} {!e&&"false"} </li>)}
 									<li>{true}</li>
@@ -236,6 +241,11 @@ const DropArea = ({ user, setUser, close }) => {
 					<div>
 						{view.win && (
 							<div className='dnd-container'>
+										<img
+							className='challenge-close icon'
+							src='https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png'
+							onClick={close}
+						/>
 								{/* <WinAnimation /> */}
 								congratulation
 							</div>

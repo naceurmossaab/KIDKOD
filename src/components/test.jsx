@@ -19,8 +19,8 @@ const Vis = () => {
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(1);
-
-	const session = () =>
+	
+	const session = async() =>
 		JSON.parse(localStorage.getItem("user"))
 			? setUser(JSON.parse(localStorage.getItem("user")))
 			: setUser(null);
@@ -35,9 +35,16 @@ const Vis = () => {
 		settask(true);
 		// console.log(task);
 	}
+	
+
+	
+	
+	
+	
 	useEffect(() => {
 		session();
 		// Sound
+	
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.shadowMap.enabled = true;
@@ -348,6 +355,25 @@ const Vis = () => {
 
 		//     },
 		// );
+
+//arrow
+
+const cone = new THREE.Mesh( new THREE.ConeGeometry( 0.5, 1, 3,1 ),new THREE.MeshBasicMaterial( {color: 0xff0000} ));
+cone.rotation.x=Math.PI
+cone.rotation.y=Math.PI/5
+
+
+// if (user.level===1){
+// 	cone.position.x=1
+// cone.position.z=1}
+// cone.position.set(0,5,0)
+
+scene.add( cone );
+
+
+
+
+
 		//grass
 		const grass = new THREE.Group();
 		scene.add(grass);
@@ -1109,6 +1135,8 @@ const Vis = () => {
 		 * Renderer
 		 */
 
+
+
 		renderer.setSize(sizes.width, sizes.height);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		// renderer.setClearColor("#cyan");
@@ -1122,6 +1150,8 @@ const Vis = () => {
 			const elapsedTime = clock.getElapsedTime();
 			var deltaTime = elapsedTime - oldElaspsedTime;
 			oldElaspsedTime = elapsedTime;
+
+			cone.position.y=Math.sin(2*elapsedTime-1)+4
 
 			if (mixer) {
 				mixer.update(deltaTime);
@@ -1196,6 +1226,7 @@ const Vis = () => {
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
 		};
+		
 		tick();
 
 		mount.current.appendChild(renderer.domElement);
