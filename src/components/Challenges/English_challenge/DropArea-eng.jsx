@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import axios from "axios";
-import Drag from "./Drag.jsx";
+import Drag from "./Drag-eng.jsx";
 import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
 
 const DropArea = ({ user, setUser, close }) => {
@@ -109,7 +109,7 @@ const DropArea = ({ user, setUser, close }) => {
   return (
     <React.Fragment>
       {view.challenge ? (
-        <div className="dnd-container">
+        <div className="dnd-containerr">
           {/* {handAnimation && (
             <div className="hand-animation">
               <video
@@ -146,10 +146,10 @@ const DropArea = ({ user, setUser, close }) => {
           <div className="switch-question-container">
             <div className="dnd-sub-container">
               <div className="question-and-responce">
-                <div className="question">What is the missing number ?</div>
+                <div className="question">Put the correct answer</div>
                 <div className="responce">
                   <div className="responce-detail">{equation}</div>
-                  <div className="choices single" ref={dropRef2}>
+                  <div className="choices singlee" ref={dropRef2}>
                     {responce.map((pet, index) => (
                       <Drag draggable id={pet.id} key={index} name={pet.name} />
                     ))}
@@ -157,9 +157,11 @@ const DropArea = ({ user, setUser, close }) => {
                   </div>
                 </div>
               </div>
-              <div className="choices multiple" ref={dropRef}>
+              <div className="choices multiplee" ref={dropRef}>
                 {choices.map((pet, index) => (
-                  <Drag draggable id={pet.id} key={index} name={pet.name} />
+                  <div className="disp">
+                    <Drag draggable id={pet.id} key={index} name={pet.name} />
+                  </div>
                 ))}
               </div>
               {submitFlag && (

@@ -10,7 +10,7 @@ import CubeTowerGame from "./components/CubeTowerGame.jsx";
 
 import React from "react";
 import DnD from "./components/Challenges/dragAndDrop/DnD";
-import EnglishDnD from "./components/Challenges/English_challenge/DnD";
+import EnglishDnD from "./components/Challenges/English_challenge/DnD-eng";
 import DragAndDrop from "./components/Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx";
 import Challenge from "./components/Challenges/mathChallenge/challenge";
 import InstractionOne from "./components/Instructions/InstractionOne";
