@@ -1,4 +1,4 @@
-import "./style/tasks.css";
+import "../style/tasks.css";
 import { useState } from "react";
 import axios from "axios";
 
@@ -95,7 +95,7 @@ const Tasks = () =>{
                                    <input type="text" name="choix-1" className="name" placeholder="choix 1" onChange={(e)=>setChoice1({id: 1, name: e.target.value})} />
                                    <input type="text" name="choix-2" className="name" placeholder="choix 2" onChange={(e)=>setChoice2({id: 2, name: e.target.value})} />
                                    <input type="text" name="choix-3" className="name" placeholder="choix 3" onChange={(e)=>setChoice3({id: 3, name: e.target.value})} />
-                                   <input type="text" name="choix-4" className="name" placeholder="choix 4" onChange={(e)=>setChoice4({id: 3, name: e.target.value})} />
+                                   <input type="text" name="choix-4" className="name" placeholder="choix 4" onChange={(e)=>setChoice4({id: 4, name: e.target.value})} />
                               </label>
                               <label className="answer"> <input type="text" name="correct" className="name" placeholder="answer" onChange={(e)=>setCorrect(e.target.value)} /> </label>
                               </label>

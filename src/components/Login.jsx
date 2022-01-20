@@ -70,6 +70,7 @@ const Login = () => {
                setSignin({
                     username: "",
                     password: "",
+                    method: "picture",
                     loginpic: "",
                     status: "",
                });

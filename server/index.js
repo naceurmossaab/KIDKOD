@@ -32,8 +32,10 @@ const challengeRouter = require("./routers/challenges");
 const answerRouter = require("./routers/answers");
 const randomPictures = require("./routers/random-pictures");
 const dndChallenges = require("./routers/dragAndDropChallenges");
+const admin = require("./routers/admin");
 
 /******************** Routes ********************/
+app.use("/api/admin", admin);
 app.use("/api/users", users);
 app.use("/api/quation", quationRouter);
 app.use("/api/course", courseRouter);
