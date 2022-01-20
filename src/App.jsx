@@ -7,12 +7,14 @@ import Envirement from "./components/Envirement.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import Challenges from "./components/Challenges/Challenges.jsx";
 import CubeTowerGame from "./components/CubeTowerGame.jsx";
-
 import React from "react";
 import DnD from "./components/Challenges/dragAndDrop/DnD";
+import DnDBasket from "./components/Challenges/dragAndDrop/dndBasket/BasketChallenge.jsx";
+import EnglishDnD from "./components/Challenges/English_challenge/DnD-eng";
 import DragAndDrop from "./components/Challenges/dragAndDrop/EvenOdd/EvenOdd.jsx";
 import Challenge from "./components/Challenges/mathChallenge/challenge";
 import InstractionOne from "./components/Instructions/InstractionOne";
+
 import Admin from "./admin";
 
 function App() {
@@ -29,7 +31,7 @@ function App() {
 					path='/instractionOne'
 					element={<InstractionOne />}
 				></Route>
-				{/* <Route path='/evenodd' element={<EvenOdd />}></Route> */}
+				<Route path='/dndbasket' element={<DnDBasket />}></Route>
 				<Route
 					path='/game/cubetowergame'
 					element={<CubeTowerGame />}

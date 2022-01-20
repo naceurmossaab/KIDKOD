@@ -29,6 +29,12 @@ const Sidebar = (props) => {
                                         <span>Dashboard</span>
                                    </a>
                               </li>
+                              <li className={props.active === 'users' ? "sidebar-dropdown active" : "sidebar-dropdown"} onClick={(e) => props.view('users')}>
+                                   <a href="#">
+                                        <i className="fa fa-globe" />
+                                        <span>Users</span>
+                                   </a>
+                              </li>
                               <li className={props.active === 'tasks' ? "sidebar-dropdown active" : "sidebar-dropdown"} onClick={(e) => props.view('tasks')}>
                                    <a href="#">
                                         <i className="fa fa-shopping-cart" />
@@ -40,12 +46,6 @@ const Sidebar = (props) => {
                                    <a href="#">
                                         <i className="fa fa-pie-chart" />
                                         <span>Charts</span>
-                                   </a>
-                              </li>
-                              <li className={props.active === 'maps' ? "sidebar-dropdown active" : "sidebar-dropdown"} onClick={(e) => props.view('maps')}>
-                                   <a href="#">
-                                        <i className="fa fa-globe" />
-                                        <span>Maps</span>
                                    </a>
                               </li>
                               <li className="header-menu">

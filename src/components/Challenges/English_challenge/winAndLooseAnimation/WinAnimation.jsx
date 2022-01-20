@@ -8,7 +8,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 const WinAnimation = () => {
 	const { useRef, useEffect, useState } = React;
 	const mount = useRef(null);
-	// const controls = useRef(null);
+	const controls = useRef(null);
 
 	useEffect(() => {
 		let width = 800;

@@ -11,11 +11,12 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+// import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
 var level = "";
 const Vis = () => {
-	const { useRef, useEffect, useState } = React;
+	const { useRef, useEffect, useState, useLayoutEffect } = React;
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(1);
@@ -37,7 +38,7 @@ const Vis = () => {
 	}
 	useEffect(() => {
 		session();
-		// Sound
+		console.log("================>", user);
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.shadowMap.enabled = true;
@@ -1242,7 +1243,7 @@ const Vis = () => {
 			{quests()}
 			{user ? (
 				<div className='infocardContainer'>
-					<div className="user-avatar">
+					<div className='user-avatar'>
 						<img src={user.loginpic}></img>
 					</div>
 					<div id='textbois'>

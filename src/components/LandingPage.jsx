@@ -411,7 +411,7 @@ const LandingPage = () => {
       });
     };
 
-    renderer.setClearColor("#000020");
+    renderer.setClearColor("#ddd");
 
     ///constraint pivot
 

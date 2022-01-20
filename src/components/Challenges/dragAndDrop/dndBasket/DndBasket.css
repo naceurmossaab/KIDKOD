@@ -1,0 +1,111 @@
+.drg-item-image {
+	height: 120px;
+	width: 120px;
+	margin-right: -20px;
+	margin-top: -20px;
+}
+.choices-pics {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	grid-template-rows: repeat(0, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	width: 850px;
+	height: 110px;
+	margin-left: 0px;
+	margin-bottom: 40px;
+	border: 5px inset;
+	border-radius: 8px;
+	padding-top: 10px;
+	padding-right: 20px;
+}
+.icons {
+	margin: 0px;
+}
+
+.question-responce {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+/* .dnd-container {
+	display: flex;
+	flex-direction: column;
+} */
+.question {
+	margin-bottom: 30px;
+	margin-top: -30px;
+}
+
+.dnd-container2 {
+	height: 600px;
+	width: 1000px;
+	background-image: url("	https://img.freepik.com/free-vector/blue-sunburst-…ound_349999-40.jpg?size=626&ext=jpg&uid=R45309517");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.basket-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.basket {
+	height: 300px;
+	width: 400px;
+	background-size: cover;
+	background-image: url("https://media.discordapp.net/attachments/902991650727538769/933801915362467870/basket__1_-removebg-preview_3.png");
+	padding-top: 70px;
+	padding-left: 70px;
+	padding-right: 60px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(0, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+}
+
+.basket img {
+	height: 80px;
+	width: 80px;
+	/* margin: 0px; */
+}
+
+.basket-and-basket-label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.basket-label {
+	margin-top: 20px;
+	font-family: "Bangers", cursive;
+	font-size: 22px;
+	text-shadow: 0px 0px 0 rgb(61, 20, 243), 1px 1px 0 rgb(61, 20, 243),
+		2px 2px 0 rgb(61, 20, 243), 3px 3px 0 rgb(61, 20, 243),
+		4px 4px 0 rgb(61, 20, 243), 5px 5px 0 rgb(61, 20, 243),
+		6px 6px 0 rgb(61, 20, 243), 7px 7px 0 rgb(61, 20, 243);
+}
+.next-arrow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.next-arrow video {
+	margin-top: -40px;
+	border-radius: 40%;
+}
+.next-label {
+	color: black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.next-label div {
+	position: absolute;
+}
