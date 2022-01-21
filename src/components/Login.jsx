@@ -56,9 +56,9 @@ const Login = () => {
                .then(({ data }) => {
                     let pics = [];
                     for (var i = 0; i < 9; i++) {
-                         // let random = Math.floor(Math.random()*data.length);
-                         // pics.push(data[random]);
-                         pics.push(data[i]);
+                         let random = Math.floor(Math.random()*data.length);
+                         pics.push(data[random]);
+                         // pics.push(data[i]);
                     }
                     setPictures(pics);
                })
@@ -129,7 +129,14 @@ const Login = () => {
                     setView("signin-2");
                     setSignin({ ...signin, status: "" });
                     axios.post("http://localhost:8000/api/users/loginpic", { username: signin.username })
-                         .then(({ data }) => console.log("get secret picture : ", data[0].loginpic))
+                         .then(({ data }) => {
+                              let arr1 = [...pictures.slice(1), {'_id': data[0]._id, 'url': data[0].loginpic}];
+                              let arr2 = [];
+                              while (arr1.length) {
+                                   arr2.splice(Math.floor(Math.random() * (arr2.length + 1)), 0, arr1.pop());
+                              }
+                              setPictures(arr2);
+                         })
                          .catch((err) => console.log("get secret picture error : ", err));
                }
                else {
@@ -248,7 +255,7 @@ const Login = () => {
                               ):(
                               <div className="contact" id="signup-2">
                                    <div id="title">
-                                        Choose a picture and memorize it, we will used as method to login later
+                                        Choose a picture to login
                                    </div>
                                    <div id="pictures">
                                         <div className="random-pictures">
