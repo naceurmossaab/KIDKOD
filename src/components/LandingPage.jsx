@@ -396,7 +396,7 @@ const LandingPage = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      mount.current.removeChild(renderer.domElement);
+      // mount.current.removeChild(renderer.domElement);
     };
   }, []);
 
