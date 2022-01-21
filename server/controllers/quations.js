@@ -43,7 +43,7 @@ module.exports = {
 	},
 	find_all_quations: async (req, res) => {
 		try {
-			const quations = await Quations.find();
+			const  quations= await Quations.find();
 			res.send(quations);
 		} catch (error) {
 			res.send(error);
