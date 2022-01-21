@@ -66,8 +66,9 @@ button:active,
 }
 
 .container {
+	border: 1px solid #fff;
 	background: #ddd;
-	width: 700px;
+	width: 900px;
      height: 60vh;
 	position: absolute;
 	top: 50%;
