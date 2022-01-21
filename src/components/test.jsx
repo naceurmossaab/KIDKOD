@@ -38,17 +38,18 @@ const Vis = () => {
     // console.log(task);
   }
 
-     
+ 
    
   
  useMemo(()=>{
 	 if(!user){
 		 session()
 	 }
+  
  })
 
   useEffect(() => {
-    session();
+   
     console.log("================>", user);
 
 
@@ -849,7 +850,7 @@ const Vis = () => {
         wheel.radius / 2,
         20
       );
-      var body = new CANNON.Body({ mass: 1, material: wheelMaterial });
+      var body = new CANNON.Body({ mass: 20, material: wheelMaterial });
       var q = new CANNON.Quaternion();
       q.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
       body.addShape(shape, new CANNON.Vec3(), q);
