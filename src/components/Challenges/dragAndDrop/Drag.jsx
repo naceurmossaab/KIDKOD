@@ -12,7 +12,6 @@ const Drag = ({ id, name }) => {
 	return (
 		<div className='drag-card' ref={dragRef}>
 			{name}
-			{isDragging && "😱"}
 		</div>
 	);
 };

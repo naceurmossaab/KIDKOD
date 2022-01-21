@@ -24,8 +24,32 @@ const Login = () => {
           loginpic: "",
           status: "",
      });
+     const [countpic, setCountpic] = useState(0);
 
      useEffect(() => getRandomPictures(), []);
+
+     // disable login with picture for 1 hour for specific username using cookie
+     const disablePic = (cookieName, cookieValue, hourToExpire) => {
+          let date = new Date();
+          date.setTime(date.getTime() + (hourToExpire * 60 * 60 * 1000));
+          document.cookie = cookieName + " = " + cookieValue + "; expires = " + date.toGMTString();
+     }
+
+     const getdisableUsername = (cname) => {
+          let name = cname + "=";
+          let decodedCookie = decodeURIComponent(document.cookie);
+          let ca = decodedCookie.split(';');
+          for (let i = 0; i < ca.length; i++) {
+               let c = ca[i];
+               while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+               }
+               if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+               }
+          }
+          return "";
+     }
 
      const getRandomPictures = () => {
           axios.get("http://localhost:8000/api/random-pictures/getAll")
@@ -46,6 +70,7 @@ const Login = () => {
                setSignin({
                     username: "",
                     password: "",
+                    method: "picture",
                     loginpic: "",
                     status: "",
                });
@@ -117,6 +142,7 @@ const Login = () => {
                     else if (!signin.loginpic.length && signin.method === "picture")
                          setSignin({ ...signin, status: "select a picture" })
                     else {
+                         setCountpic(countpic+1);
                          axios.post("http://localhost:8000/api/users/signin", { username, password, loginpic })
                               .then(({ data }) => {
                                    console.log("response signin :", data);
@@ -185,27 +211,41 @@ const Login = () => {
                                    </span>
                               </span>
                               <input value={signin.username} onChange={(e) => setSignin({ ...signin, username: e.target.value })} name="username" placeholder="username" type="text" />
-                              choose a method :
+                              <span>choose a method :</span>
                               <div className="connexion-method" id="connexion-method">
-                                   <label name="picture" className={signin.method === "picture" ? "checked-radio" : ""} onClick={(e) => setSignin({ ...signin, method: "picture" })}>
-                                        <input type="radio" name="picture" value="picture" />
-                                        <img src="https://img.icons8.com/fluency/48/000000/picture.png" />
-                                        picture
-                                   </label>
-                                   <label name="password" className={signin.method === "password" ? "checked-radio" : ""} onClick={(e) => setSignin({ ...signin, method: "password" })}>
+                                        {!getdisableUsername(`__${signin.username}`) ? (
+                                        <label name="picture" className={signin.method === "picture" ? "checked-radio" : ""} onClick={(e) => setSignin({ ...signin, method: "picture" })}>
+                                             <input type="radio" name="picture" value="picture" />
+                                             <img src="https://cdn3d.iconscout.com/3d/premium/thumb/image-4059094-3364017.png" />
+                                             picture
+                                        </label>
+                                        
+                                   ):(
+                                        <label className="disable">
+                                             <img src="https://cdn3d.iconscout.com/3d/premium/thumb/image-4059094-3364017.png" />
+                                             picture
+                                        </label>
+                                   )}
+                                   <label name="password" className={signin.method === "password" || getdisableUsername(`__${signin.username}`) ? "checked-radio" : ""} onClick={(e) => setSignin({ ...signin, method: "password" })}>
                                         <input type="radio" name="password" value="password" />
-                                        <img src="https://img.icons8.com/color-glass/48/000000/password.png" />
+                                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/lock-and-key-4727261-3928178.png" />
                                         password
                                    </label>
                               </div>
-                              {/* <input value={signin.password} onChange={(e) => setSignin({ ...signin, password: e.target.value }) } name="password" placeholder="password" type="password" /> */}
                               <div>
-                                   <button onClick={signinFN}> next </button>
+                                   <button onClick={()=>{signinFN(); getdisableUsername(`__${signin.username}`)?setSignin({...signin, method:'password'}):''}}> next </button>
                                    <span style={{ fontSize: "20px", color: "red" }}> {signin.status} </span>
                               </div>
                          </div>
                     ) : (
                          signin.method === "picture" ? (
+                              countpic > 3 ? (
+                                        <div className="contact">
+                                             {countpic > 3 && disablePic(`__${signin.username}`, signin.username, 1)}
+                                             <span style={{ fontSize: "20px", color: "red" }}>sorry, you try more then 3 times</span><br />
+                                             <span>try to connect with password <span onClick={() => { setSignin({ ...signin, method: "password", loginpic: "", status: "" }); cookie('picture', signin.username, 1)}}><u>here</u></span> </span>
+                                        </div>
+                              ):(
                               <div className="contact" id="signup-2">
                                    <div id="title">
                                         Choose a picture and memorize it, we will used as method to login later
@@ -219,11 +259,12 @@ const Login = () => {
                                         </div>
                                    </div>
                                    <div>
-                                        <button onClick={signinFN}>Sign In</button>
+                                        <button onClick={signinFN}>Sign In {countpic||''}</button>
                                         <span style={{ fontSize: "20px", color: "red" }}> {signin.status} </span>
                                    </div>
-                              </div>) : (
+                              </div>)) : (
                               <div className="contact">
+                                   <div><span>username : {signin.username}</span></div>
                                    <input value={signin.password} onChange={(e) => setSignin({ ...signin, password: e.target.value })} name="password" placeholder="password" type="password" />
                                    <div>
                                         <button onClick={signinFN}>Sign In</button>

@@ -128,8 +128,7 @@ const LandingPage = () => {
 
           world.addBody(words.ground);
 
-          const pick = (arr) =>
-            arr[Math.floor(Math.random() * arr.length)];
+          const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
           // color palet
           const colors = [
@@ -142,28 +141,28 @@ const LandingPage = () => {
               to: new THREE.Color("#527ee1"),
             },
             {
-              from: new THREE.Color("#ee663f"),
-              to: new THREE.Color("#f5678d"),
+              from: new THREE.Color("#ee863f"),
+              to: new THREE.Color("#F9195D"),
             },
             {
-              from: new THREE.Color("#ee9ca7"),
-              to: new THREE.Color("#ffdde1"),
+              from: new THREE.Color("#00EE5F"),
+              to: new THREE.Color("#683fee"),
             },
             {
               from: new THREE.Color("#f7971e"),
               to: new THREE.Color("#ffd200"),
             },
             {
-              from: new THREE.Color("#56ccf2"),
-              to: new THREE.Color("#2f80ed"),
+              from: new THREE.Color("#5089f0"),
+              to: new THREE.Color("#002FFF"),
             },
             {
               from: new THREE.Color("#fc5c7d"),
               to: new THREE.Color("#6a82fb"),
             },
             {
-              from: new THREE.Color("#dce35b"),
-              to: new THREE.Color("#45b649"),
+              from: new THREE.Color("#F9195D"),
+              to: new THREE.Color("#fc5c7d"),
             },
           ];
 
@@ -173,9 +172,7 @@ const LandingPage = () => {
           Array.from(innerText).forEach((letter, j) => {
             const progress = j / (innerText.length - 1);
             const material = new THREE.MeshPhongMaterial({
-              color: randomColor.from
-                .clone()
-                .lerp(randomColor.to, progress),
+              color: randomColor.from.clone().lerp(randomColor.to, progress),
             });
 
             const geometry = new TextGeometry(letter, fontOption);
@@ -184,31 +181,20 @@ const LandingPage = () => {
 
             const mesh = new THREE.Mesh(geometry, material);
             // Get size of our entire mesh
-            mesh.size = mesh.geometry.boundingBox.getSize(
-              new THREE.Vector3()
-            );
+            mesh.size = mesh.geometry.boundingBox.getSize(new THREE.Vector3());
             // We'll use accumulator to get the offset of each letter. Notice that is not perfect because each character of each font has specific kerning.
             words.letterOff += mesh.size.x;
             // Create the shape of our letter
             // Note that we need to scale down our geometry because of Box's Cannon.js class setup
-            const box = new C.Box(
-              new C.Vec3().copy(mesh.size).scale(0.5)
-            );
+            const box = new C.Box(new C.Vec3().copy(mesh.size).scale(0.5));
             mesh.body = new C.Body({
               // We divide the totalmass by the length of the string to have a common weight for each words.
               mass: totalMass / innerText.length,
-              position: new C.Vec3(
-                words.letterOff,
-                getOffsetY(i),
-                0
-              ),
+              position: new C.Vec3(words.letterOff, getOffsetY(i), 0),
               material: letterMat,
             });
             const { center } = mesh.geometry.boundingSphere;
-            mesh.body.addShape(
-              box,
-              new C.Vec3(center.x, center.y, center.z)
-            );
+            mesh.body.addShape(box, new C.Vec3(center.x, center.y, center.z));
             // Add the body to our world
             world.addBody(mesh.body);
             words.add(mesh);
@@ -217,8 +203,7 @@ const LandingPage = () => {
           });
           // Recenter each body based on the whole string.
           words.children.forEach((letter) => {
-            letter.body.position.x -=
-              letter.size.x + words.letterOff * 0.5;
+            letter.body.position.x -= letter.size.x + words.letterOff * 0.5;
           });
 
           wordss.push(words);
@@ -255,10 +240,7 @@ const LandingPage = () => {
 
         // calculate objects intersecting the picking ray
         // It will return an array with intersecting objects
-        const intersects = raycaster.intersectObjects(
-          scene.children,
-          true
-        );
+        const intersects = raycaster.intersectObjects(scene.children, true);
 
         if (intersects.length > 0) {
           const obj = intersects[0];
@@ -387,21 +369,15 @@ const LandingPage = () => {
           // We get the current letter and the next letter (if it's not the penultimate)
           const letter = word.children[i];
           const nextLetter =
-            i === word.children.length - 1
-              ? null
-              : word.children[i + 1];
+            i === word.children.length - 1 ? null : word.children[i + 1];
 
           if (!nextLetter) continue;
 
           // ConeTwistConstraint because it's more rigid that other constraints
-          const c = new C.ConeTwistConstraint(
-            letter.body,
-            nextLetter.body,
-            {
-              pivotA: new C.Vec3(letter.size.x, 0, 0),
-              pivotB: new C.Vec3(0, 0, 0),
-            }
-          );
+          const c = new C.ConeTwistConstraint(letter.body, nextLetter.body, {
+            pivotA: new C.Vec3(letter.size.x, 0, 0),
+            pivotB: new C.Vec3(0, 0, 0),
+          });
 
           // Optionnal but it gives us a more realistic render in my opinion
           c.collideConnected = true;
@@ -411,7 +387,7 @@ const LandingPage = () => {
       });
     };
 
-    renderer.setClearColor("#000020");
+    renderer.setClearColor("#679CFF");
 
     ///constraint pivot
 
@@ -420,12 +396,11 @@ const LandingPage = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      mount.current.removeChild(renderer.domElement);
+      // mount.current.removeChild(renderer.domElement);
     };
   }, []);
 
   const refresh = () => {
-    console.log("hhhhhh");
     window.location.reload();
   };
   const [userWorld, setuserWorld] = useState("");
@@ -454,26 +429,26 @@ const LandingPage = () => {
 			<button className='btn loginBTN'>Login</button>
 			<button className='btn signupBTN'>Sign up</button> */}
 
-      <div className='home3D' ref={mount}></div>
-      <nav className='mainNav'>
-        <ul className='mainNav__list'>
-          <li className='mainNav__el'>
-            <a href='#' className='mainNav__link'>
+      <div className="home3D" ref={mount}></div>
+      <nav className="mainNav">
+        <ul className="mainNav__list">
+          <li className="mainNav__el">
+            <a href="#" className="mainNav__link">
               {userWorld}
             </a>
           </li>
-          <li className='mainNav__el'>
-            <a href='#' className='mainNav__link'>
+          <li className="mainNav__el">
+            <a href="#" className="mainNav__link">
               Grow
             </a>
           </li>
-          <li className='mainNav__el'>
-            <a href='#' className='mainNav__link'>
+          <li className="mainNav__el">
+            <a href="#" className="mainNav__link">
               Learn
             </a>
           </li>
-          <li className='mainNav__el'>
-            <a href='#' className='mainNav__link'>
+          <li className="mainNav__el">
+            <a href="#" className="mainNav__link">
               play
             </a>
           </li>{" "}

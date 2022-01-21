@@ -3,6 +3,7 @@
      top : 5px;
      left: 5px;
      display: flex;
+     justify-content: space-around;
      height : 100px;
      width  : 300px;
      border-radius: 50%;
@@ -16,15 +17,16 @@
      text-overflow: hidden;
      color: white;
      white-space: nowrap;
-     width : 100%;
+     width : 200px;
      height: auto;
      transition: all .3s ease-in;
      transition-delay: .5s;
      padding-top  : .5rem;
 }
 .infocardContainer img {
-     width: 100px;
-     border-radius: 50%;
+     width: 80px;
+     margin: 0 !important;
+     border-radius: 5px;
 }
 
 .logoutBTN {
@@ -52,5 +54,7 @@ bottom:150px;
 z-index: 99;
 width: 60%;
 }
+
+
 
 

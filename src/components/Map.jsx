@@ -484,7 +484,7 @@ const Vis = () => {
 			
 			// wheel options
 			var options = {
-			  radius: 0.4,
+			  radius: 2,
 			  directionLocal: new CANNON.Vec3(0, -1, 0),
 			  suspensionStiffness: 45,
 			  suspensionRestLength: 0.4,
@@ -578,14 +578,11 @@ function navigate(e) {
 	if (e.type != 'keydown' && e.type != 'keyup') ;
 	var keyup = e.type == 'keyup';
   
-	//optionnal
-	vehicle.setBrake(0, 2);
-	vehicle.setBrake(0, 1);
-	vehicle.setBrake(0, 2);
-	vehicle.setBrake(0, 3);
+
+	
   
-	var engineForce = 500,
-		maxSteerVal = 0.7;
+	var engineForce = 2000,
+		maxSteerVal = 0.2;
 	switch(e.keyCode) {
   
 	  case 38: // forward
@@ -622,7 +619,10 @@ function navigate(e) {
 
 
 	  case 32:
-	    vehicle.setBrake(10,1)
+		vehicle.setBrake(10, 0);
+		vehicle.setBrake(10, 1);
+		vehicle.setBrake(10, 2);
+		vehicle.setBrake(10, 3);
 
 
 
