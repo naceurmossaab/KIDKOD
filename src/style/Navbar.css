@@ -37,7 +37,7 @@
 .navbar span {
   text-decoration: none;
   background: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149));
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
   /*border-image-source: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149)); */
   text-align: center;

@@ -296,7 +296,7 @@ const DndBasket = ({ user, setUser, close }) => {
 					<div className='question-container'>
 						<div className='sub-container'>
 							<div className='question-responce'>
-								<div className='question'>
+								<div className='question-basket'>
 									Try to group elements matching together in
 									the same basket ?
 								</div>
