@@ -33,9 +33,12 @@
 	display: flex;
 	flex-direction: column;
 } */
-.question {
+.question-basket {
 	margin-bottom: 30px;
-	margin-top: -30px;
+	margin-top: -40px;
+	color: #ffffff;
+	text-shadow: 0px 0px 0 rgb(61, 20, 243), 1px 1px 0 rgb(61, 20, 243),
+		2px 2px 0 rgb(61, 20, 243), 3px 3px 0 rgb(61, 20, 243);
 }
 
 .dnd-container2 {
@@ -44,7 +47,11 @@
 	background-image: url("	https://img.freepik.com/free-vector/blue-sunburst-…ound_349999-40.jpg?size=626&ext=jpg&uid=R45309517");
 	background-size: cover;
 	background-repeat: no-repeat;
+	border-radius: 20px;
+	font-family: "Mochiy Pop P One", sans-serif;
+	font-size: 20px;
 }
+
 .basket-container {
 	display: flex;
 	align-items: center;
@@ -82,8 +89,8 @@
 }
 .basket-label {
 	margin-top: 20px;
-	font-family: "Bangers", cursive;
-	font-size: 22px;
+	/* font-family: "Bangers", cursive; */
+	font-size: 20px;
 	text-shadow: 0px 0px 0 rgb(61, 20, 243), 1px 1px 0 rgb(61, 20, 243),
 		2px 2px 0 rgb(61, 20, 243), 3px 3px 0 rgb(61, 20, 243),
 		4px 4px 0 rgb(61, 20, 243), 5px 5px 0 rgb(61, 20, 243),
@@ -96,7 +103,7 @@
 	justify-content: center;
 }
 .next-arrow video {
-	margin-top: -40px;
+	margin-top: -55px;
 	border-radius: 40%;
 }
 .next-label {
@@ -108,4 +115,6 @@
 }
 .next-label div {
 	position: absolute;
+	margin-top: 10px;
+	font-size: 10px;
 }

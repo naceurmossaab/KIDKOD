@@ -31,6 +31,7 @@
   z-index: 1000;
 }
 .navbar img {
+  position: relative;
   margin-left: 0rem;
   margin-top: 5rem;
   height: 170px;
@@ -75,4 +76,3 @@
   height: 40px;
   border-radius: 50%;
 }
-
