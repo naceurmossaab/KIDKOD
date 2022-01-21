@@ -21,11 +21,14 @@ const Users = () => {
                                         <table className="table user-list">
                                              <thead>
                                                   <tr>
+                                                       <th className="text-center">total : {users.length}</th>
+                                                  </tr>
+                                                  <tr>
                                                        <th><span>User</span></th>
                                                        <th><span>Email</span></th>
-                                                       <th className="text-center"><span>Status</span></th>
+                                                       <th><span>Level</span></th>
                                                        <th><span>Created</span></th>
-                                                       <th>&nbsp;</th>
+                                                       {/* <th>&nbsp;</th> */}
                                                   </tr>
                                              </thead>
                                              <tbody>
@@ -38,12 +41,12 @@ const Users = () => {
                                                        </td>
                                                        <td>{user.email}</td>
                                                        <td className="text-center">
-                                                            <span>pending</span>
+                                                            <span>{user.level}</span>
                                                        </td>
                                                        <td>
                                                             <span>{user.createdAt.slice(0,10)}</span>
                                                        </td>
-                                                       <td style={{ width: '20%' }}>
+                                                       {/* <td style={{ width: '20%' }}>
                                                             <a href="#" className="table-link text-warning">
                                                                  <span className="fa-stack">
                                                                       <i className="fa fa-square fa-stack-2x" />
@@ -62,7 +65,7 @@ const Users = () => {
                                                                       <i className="fa fa-trash-o fa-stack-1x fa-inverse" />
                                                                  </span>
                                                             </a>
-                                                       </td>
+                                                       </td> */}
                                                   </tr>))}
                                              </tbody>
                                         </table>

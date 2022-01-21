@@ -53,3 +53,10 @@
 a:hover{
 text-decoration:none;
 }
+
+.text-center{
+    text-align: center;
+}
+.text-left{
+    text-align: left;
+}
