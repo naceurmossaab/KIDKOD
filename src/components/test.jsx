@@ -13,10 +13,10 @@ import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 var level = "";
 const Vis = () => {
-	const { useRef, useEffect, useState, useLayoutEffect } = React;
+	const { useRef, useEffect, useState, useMemo } = React;
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(1);
@@ -36,8 +36,12 @@ const Vis = () => {
 		settask(true);
 		// console.log(task);
 	}
+	useMemo(() => {
+		if (!user) {
+			session();
+		}
+	}, [user]);
 	useEffect(() => {
-		session();
 		console.log("================>", user);
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
