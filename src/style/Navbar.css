@@ -36,12 +36,14 @@
   height: 170px;
   width : 170px;
   animation-name: logo;
-  animation-duration: 2s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
 }
 @keyframes logo {
   0%    {left:0px;   top:0px;}
-  100%  {left:250px; top:0px;}
+  50%   {left:0px;   top:0px;}
+  75%   {left:250px; top:0px;}
+  100%  {left:0px;   top:0px;}
 }
 
 .navbar span {
