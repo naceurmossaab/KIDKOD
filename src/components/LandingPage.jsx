@@ -14,18 +14,16 @@ const LandingPage = () => {
 	const [isAnimating, setAnimating] = useState(true);
 	const controls = useRef(null);
 
-
-
 	useEffect(() => {
 		let width = mount.current.clientWidth;
 		let height = mount.current.clientHeight;
 
 		const scene = new THREE.Scene();
-    const texloader = new THREE.TextureLoader();
+		const texloader = new THREE.TextureLoader();
 		const texture = texloader.load(
 			"/src/components/static/Giraffe-Desktop.jpg"
 		);
-		scene.background=texture;
+		scene.background = texture;
 
 		const clock = new THREE.Clock();
 		///camera

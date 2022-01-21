@@ -2,6 +2,7 @@ body {
   background-color: #ddd;
   color: #fff;
 }
+
 .container {
   width: 700px;
   height: 400px;
@@ -31,4 +32,3 @@ input {
   width: 20px;
   height: 20px;
 }
-
