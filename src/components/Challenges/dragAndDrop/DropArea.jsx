@@ -23,29 +23,27 @@ const DropArea = ({ user, setUser, close }) => {
 		loose: false,
 	});
 
-	useEffect(() => {
-		axios
-			.get("http://localhost:8000/api/dndChallenge/1")
-			.then(({ data }) => {
-				setchallengeData(data.challengeData);
-				setchoices(data.challengeData[index].choices);
-				setequation(data.challengeData[index].equation);
-			});
-		stopHandAnimation();
-	}, []);
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/dndChallenge/1").then(({ data }) => {
+      setchallengeData(data.challengeData);
+      setchoices(data.challengeData[index].choices);
+      setequation(data.challengeData[index].equation);
+    });
+    stopHandAnimation();
+  }, []);
 
-	const stopHandAnimation = () => {
-		console.log("wait 3 sec");
-		setTimeout(() => {
-			console.log("done");
-			sethandAnimation(false);
-		}, 11000);
-	};
+  const stopHandAnimation = () => {
+    console.log("wait 3 sec");
+    setTimeout(() => {
+      console.log("done");
+      sethandAnimation(false);
+    }, 11000);
+  };
 
-	const handelGoalClick = () => {
-		setGoal(!goal);
-		console.log(goal);
-	};
+  const handelGoalClick = () => {
+    setGoal(!goal);
+    console.log(goal);
+  };
 
 	const passeToNext = () => {
 		if (index < challengeData.length - 1) {
@@ -66,9 +64,8 @@ const DropArea = ({ user, setUser, close }) => {
 			}
 		}
 
-		if (challengeResponce.length === challengeData.length)
-			setsubmitFlag(true);
-	};
+    if (challengeResponce.length === challengeData.length) setsubmitFlag(true);
+  };
 
 	const submitResponce = () => {
 		let test = challengeResponce.reduce(

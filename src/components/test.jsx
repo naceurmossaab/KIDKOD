@@ -11,6 +11,8 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+import axios from "axios";
+// import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
 var level = "";
@@ -20,15 +22,18 @@ const Vis = () => {
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(1);
 	
+	
 	const session = async() =>
 		JSON.parse(localStorage.getItem("user"))
 			? setUser(JSON.parse(localStorage.getItem("user")))
 			: setUser(null);
 
 	const logout = () => {
+		
 		localStorage.removeItem("user");
 		setUser(null);
 	};
+	
 	// const controls = useRef(null);
 	const [task, settask] = useState(true);
 	function close() {
@@ -44,6 +49,7 @@ const Vis = () => {
 	useEffect(() => {
 		session();
 		// Sound
+		
 	
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -1153,6 +1159,8 @@ var carRotation=Math.PI
 		const clock = new THREE.Clock();
 		var oldElaspsedTime = 0;
 		const tick = () => {
+
+			
 			const elapsedTime = clock.getElapsedTime();
 			var deltaTime = elapsedTime - oldElaspsedTime;
 			oldElaspsedTime = elapsedTime;

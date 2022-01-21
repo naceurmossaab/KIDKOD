@@ -11,13 +11,11 @@ const Admin = () => {
      }, [view])
 
      return(
-          <div className="page-wrapper chiller-theme toggled">
+          <div className="background page-wrapper chiller-theme toggled">
                <Sidebar active={view} view={setView}/>
                {/* sidebar-wrapper  */}
                <main className="page-content">
-                    <div className="container-fluid">
                          {view === 'dashboard' ? (<div>dashboard content</div>) : (<Tasks />)}
-                    </div>
                </main>
           </div>
      );
