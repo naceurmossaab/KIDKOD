@@ -10,7 +10,10 @@ const Users = (props) => {
      const [result, setResult] = useState([]);
 
      useEffect(()=> axios.get("http://localhost:8000/api/admin/users")
-                         .then(({data})=> {setUsers(data); setResult(data)})
+                         .then(({data})=> {
+                              setUsers(data); 
+                              setResult(data);
+                         })
                          .catch((error)=>console.log("useeffect admin error", error)),[search.value]);
 
      const searchFN = () =>{

@@ -1,6 +1,5 @@
 import "../style/login.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //prettier ignore
@@ -24,6 +23,7 @@ const Login = (props) => {
                     .then(({ data }) => {
                          console.log("response signin :", data);
                          setSignin({ username: "", password: "", status: "", });
+                         localStorage.setItem("admin", JSON.stringify(data));
                          props.admin(data);
                     })
                     .catch((error) => setSignin({ ...signin, status: error.response.data }));
