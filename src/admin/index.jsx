@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 
 const Admin = () => {
      const [view, setView] = useState("dashboard");
-     const [chartType, setChartType] = useState("bar"); // "all", "bar", "line", "pie"
+     const [chartType, setChartType] = useState("bar"); // "all", "bar", "line", "pie", "radar"
      const [chartData, setChartData] = useState({
           labels: [
                'Boston',

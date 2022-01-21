@@ -1,6 +1,7 @@
 .charts{
      display: flex;
-     justify-content: space-between;
+     justify-content: space-evenly;
+     align-items: center;
 }
 .charts > canvas{
      padding: .5rem;
