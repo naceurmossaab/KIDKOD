@@ -1,0 +1,15 @@
+.charts{
+     display: flex;
+     justify-content: space-between;
+}
+.charts > canvas{
+     padding: .5rem;
+     border: 1px solid #fff;
+     border-radius: 5px;
+}
+
+.chart{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
