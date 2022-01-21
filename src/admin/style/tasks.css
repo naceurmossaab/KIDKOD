@@ -66,12 +66,13 @@ button:active,
 }
 
 .container {
+	border: 1px solid #fff;
 	background: #ddd;
-	width: 700px;
+	width: 900px;
      height: 60vh;
 	position: absolute;
 	top: 50%;
-	left: calc(100% - 250px);
+	left: calc(100% - 17%);
 	-webkit-transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);

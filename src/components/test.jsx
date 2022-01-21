@@ -5,18 +5,19 @@ import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from "cannon";
+import CANNON, { Vec3 } from "cannon";
 import "../style/test.css";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 var level = "";
 const Vis = () => {
-	const { useRef, useEffect, useState, useLayoutEffect } = React;
+	const { useRef, useEffect, useState, useMemo } = React;
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(1);
@@ -36,9 +37,27 @@ const Vis = () => {
 		settask(true);
 		// console.log(task);
 	}
+	useMemo(() => {
+		if (!user) {
+			session();
+		}
+	});
+
 	useEffect(() => {
-		session();
 		console.log("================>", user);
+		var carPositionX;
+		var carPositionz;
+		var currentlevel = user.level;
+		if (currentlevel === 1) {
+			carPositionX = 32.5;
+			carPositionz = -1.7;
+		} else if (currentlevel === 2) {
+			carPositionX = 69.07;
+			carPositionz = -53.2;
+		} else if (currentlevel === 3) {
+			carPositionX = 6.15;
+			carPositionz = -109.2;
+		}
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.shadowMap.enabled = true;
@@ -52,6 +71,13 @@ const Vis = () => {
 		let mixer2 = null;
 		let mixer3 = null;
 		let mixer4 = null;
+		let mixer5 = null;
+		let mixer6 = null;
+		let mixer7 = null;
+		let mixer8 = null;
+		let mixer9 = null;
+		let mixer10 = null;
+		let mixer11 = null;
 
 		// Models
 		//adding the old man
@@ -126,21 +152,171 @@ const Vis = () => {
 				object.scale.set(0.02, 0.02, 0.02);
 				object.rotation.set(0, 13, 0);
 				scene.add(object);
+			}
+		);
+		loader.load(
+			"/src/components/static/models/Angry.fbx",
+			function (object) {
+				mixer6 = new THREE.AnimationMixer(object);
+				const action = mixer6.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-117, 0, -147);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
+		loader.load(
+			"/src/components/static/models/sailor.fbx",
+			function (object) {
+				mixer5 = new THREE.AnimationMixer(object);
+				const action = mixer5.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(20, 0, -177);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 5.5, 0);
+				scene.add(object);
+			}
+		);
+		loader.load(
+			"/src/components/static/models/jerryExcited.fbx",
+			function (object) {
+				mixer7 = new THREE.AnimationMixer(object);
+				const action = mixer7.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-81, 0, -63);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 10, 0);
+				scene.add(object);
+			}
+		);
+		loader.load(
+			"/src/components/static/models/jerryhiphop.fbx",
+			function (object) {
+				mixer8 = new THREE.AnimationMixer(object);
+				const action = mixer8.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-116, 0, -55);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 8, 0);
+				scene.add(object);
+			}
+		);
+		loader.load(
+			"/src/components/static/models/jerrystanding.fbx",
+			function (object) {
+				mixer9 = new THREE.AnimationMixer(object);
+				const action = mixer9.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-134, 0, -88);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
+		loader.load(
+			"/src/components/static/models/jerryyamyel.fbx",
+			function (object) {
+				mixer10 = new THREE.AnimationMixer(object);
+				const action = mixer10.clipAction(object.animations[0]);
+				action.play();
+
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-95, 0, -106);
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 6, 0);
+				scene.add(object);
 				// const cubeFolder1 = gui.addFolder('position')
 				// cubeFolder1.add(object.position, 'x')
 				// cubeFolder1.add(object.position, 'y')
 				// cubeFolder1.add(object.position, 'z')
 				// cubeFolder1.open()
 				// const cubeFolder = gui.addFolder('scale')
-				// cubeFolder.add(object.rotation, 'x')
-				// cubeFolder.add(object.rotation, 'y')
-				// cubeFolder.add(object.rotation, 'z')
+				// cubeFolder.add(object.scale, 'x')
+				// cubeFolder.add(object.scale, 'y')
+				// cubeFolder.add(object.scale, 'z')
 				// cubeFolder.open()
 				// const cubeFolder2 = gui.addFolder('rotation')
 				// cubeFolder2.add(object.rotation, 'x')
 				// cubeFolder2.add(object.rotation, 'y')
 				// cubeFolder2.add(object.rotation, 'z')
 				// cubeFolder2.open()
+			}
+		);
+		loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer11 = new THREE.AnimationMixer(object);
+				const action = mixer11.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.x = 46;
+				object.position.z = -7.1;
+				object.position.y = -2;
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 6, 0);
+				scene.add(object);
+				const cubeFolder1 = gui.addFolder("position");
+				cubeFolder1.add(object.position, "x");
+				cubeFolder1.add(object.position, "y");
+				cubeFolder1.add(object.position, "z");
+				cubeFolder1.open();
+				const cubeFolder = gui.addFolder("scale");
+				cubeFolder.add(object.scale, "x");
+				cubeFolder.add(object.scale, "y");
+				cubeFolder.add(object.scale, "z");
+				cubeFolder.open();
+				const cubeFolder2 = gui.addFolder("rotation");
+				cubeFolder2.add(object.rotation, "x");
+				cubeFolder2.add(object.rotation, "y");
+				cubeFolder2.add(object.rotation, "z");
+				cubeFolder2.open();
 			}
 		);
 		// function passmesh(mesh){
@@ -168,31 +344,19 @@ const Vis = () => {
 					child.receiveShadow = true;
 				}
 			});
+			gltf.scene.traverse((child) => {
+				if (child.type == "SkinnedMesh") {
+					child.frustumCulled = false;
+				}
+			});
 			scene.add(gltf.scene);
-			//              const cubeFolder1 = gui.addFolder('position')
-			// cubeFolder1.add(gltf.scene.position, 'x')
-			// cubeFolder1.add(gltf.scene.position, 'y')
-			// cubeFolder1.add(gltf.scene.position, 'z')
-			// cubeFolder1.open()
-			// const cubeFolder = gui.addFolder('scale')
-			// cubeFolder.add(gltf.scene.rotation, 'x')
-			// cubeFolder.add(gltf.scene.rotation, 'y')
-			// cubeFolder.add(gltf.scene.rotation, 'z')
-			// cubeFolder.open()
-			// const cubeFolder2 = gui.addFolder('rotation')
-			// cubeFolder2.add(gltf.scene.rotation, 'x')
-			// cubeFolder2.add(gltf.scene.rotation, 'y')
-			// cubeFolder2.add(gltf.scene.rotation, 'z')
-			// cubeFolder2.open()
 		});
 		//adding the car
 		gltfLoader.load(
 			"/src/components/static/models/car.glb",
 			function (gltf) {
 				mixer2 = gltf.scene;
-				gltf.scene.position.set(box.position.x, 3, box.position.z);
-				// .copy(box.position);
-				console.log(gltf.scene.position.y);
+				gltf.scene.position.copy(box.position);
 				gltf.scene.rotation.y = 102.1;
 
 				// object.rotateY(-Math.PI/2)
@@ -511,11 +675,11 @@ const Vis = () => {
 		const grassNormalTexture = textureLoader.load(
 			"/src/all models/wassim.jfif"
 		);
-		// grassNormalTexture.repeat.set(1000, 1000);
-		// grassNormalTexture.wrapT = THREE.RepeatWrapping;
-		// grassNormalTexture.wrapS = THREE.RepeatWrapping;
+		grassNormalTexture.repeat.set(50, 50);
+		grassNormalTexture.wrapT = THREE.RepeatWrapping;
+		grassNormalTexture.wrapS = THREE.RepeatWrapping;
 
-		//floor
+		// floor
 		const floor = new THREE.Mesh(
 			new THREE.PlaneBufferGeometry(380, 380),
 			new THREE.MeshStandardMaterial({
@@ -570,6 +734,11 @@ const Vis = () => {
 		const moonLight = new THREE.DirectionalLight("#b9d5ff", 0.5);
 		moonLight.position.set(4, 5, -2);
 		moonLight.castShadow = true;
+		// 		var side = 500;
+		// moonLight.shadow.camera.top = side;
+		// moonLight.shadow.camera.bottom = -side;
+		// moonLight.shadow.camera.left = side;
+		// moonLight.shadow.camera.right = -side;
 		scene.add(moonLight, light);
 
 		function between(x, min, max) {
@@ -753,7 +922,7 @@ const Vis = () => {
 		// cubeFolder.add(housebody.scale, 'z')
 		// cubeFolder.open()
 		// scene.add(boxtest)
-
+		var carRotation = (2 * Math.PI) / 3;
 		var groundMaterial = new CANNON.Material("groundMaterial");
 		var wheelMaterial = new CANNON.Material("wheelMaterial");
 		var wheelGroundContactMaterial = new CANNON.ContactMaterial(
@@ -772,7 +941,8 @@ const Vis = () => {
 		var chassisShape = new CANNON.Box(new CANNON.Vec3(1, 0.3, 2));
 		var chassisBody = new CANNON.Body({ mass: 150 });
 		chassisBody.addShape(chassisShape);
-		chassisBody.position.set(0, 0.2, 0);
+		chassisBody.position.set(carPositionX, 0.2, carPositionz);
+		chassisBody.quaternion.setFromAxisAngle(new Vec3(0, 1, 0), carRotation);
 		chassisBody.angularVelocity.set(0, 0, 0); // initial velocity
 
 		// car visual body
@@ -1133,7 +1303,7 @@ const Vis = () => {
 			// 	const horse = horses[i];
 
 			// 	horse.position.x += horse.speed * deltaTime;
-
+			//
 			// 	if (horse.position.x > 200) {
 			// 		horse.position.x = -200;
 			// 	}
@@ -1184,7 +1354,28 @@ const Vis = () => {
 			if (mixer4) {
 				mixer4.update(deltaTime);
 			}
-
+			if (mixer5) {
+				mixer5.update(deltaTime);
+			}
+			if (mixer6) {
+				mixer6.update(deltaTime);
+			}
+			if (mixer7) {
+				mixer7.update(deltaTime);
+			}
+			if (mixer8) {
+				mixer8.update(deltaTime);
+			}
+			if (mixer9) {
+				mixer9.update(deltaTime);
+			}
+			if (mixer10) {
+				mixer10.update(deltaTime);
+			}
+			if (mixer11) {
+				mixer11.update(deltaTime);
+			}
+			// console.log(box.position);
 			// Update controls
 			renderer.clear();
 			// controls.update()

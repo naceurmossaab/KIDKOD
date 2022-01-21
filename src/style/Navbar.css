@@ -1,63 +1,71 @@
-*, *::after, *::before{
-     padding: 0;
-     margin: 0;
-     box-sizing: border-box;
-     /* outline: 1px solid red; */
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* outline: 1px solid red; */
 }
 
 .spacer {
-     flex: 0.5;
+  flex: 0.5;
 }
 
 .spacer-right {
-     flex: 1;
+  flex: 1;
 }
 
 .navbar {
-     position: absolute;
-     top: 0;
-     left: 0;
-     right: 0;
-     height: 60px;
-     display: flex;
-     align-items: center;
-     background-color: transparent;
-     font-size: 22px;
-     font-weight: 700;
-     padding: 3rem;
-     width: 100vw !important;
-     z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 3rem;
+  width: 100vw !important;
+  z-index: 1000;
 }
 .navbar img {
-     margin-left: 5rem;
-     margin-right: 0;
+  margin-left: 5rem;
+  margin-right: 0;
 }
 .navbar span {
-     text-decoration: none;
-     background: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149));
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
-     /*border-image-source: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149)); */
-     text-align: center;
-     position: relative;
-     cursor: pointer;
-     padding: 0.2rem;
-     margin-right: 5rem;
-     transition: .5s ease-in-out;
-}
- 
-.border{
-     border: 2px solid rgb(255, 0, 149);
-     border-radius: 25px 25px 25px 25px;
-     padding: .2rem 1rem !important;
-     transition: .05s ease-in-out;
-} 
-.border:hover{
-     border: 2px solid rgb(62, 194, 255);
+  text-decoration: none;
+  background: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149));
+  /* -webkit-background-clip: text; */
+  -webkit-text-fill-color: transparent;
+  /*border-image-source: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149)); */
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  padding: 0.2rem;
+  margin-right: 5rem;
+  transition: 0.5s ease-in-out;
 }
 
-.user-logo{
-     width : 40px;
-     height: 40px;
-     border-radius: 50%;
+.border {
+  border: 2px solid rgb(255, 0, 149);
+  border-radius: 25px 25px 25px 25px;
+  padding: 0.2rem 1rem !important;
+  transition: 0.05s ease-in-out;
+}
+.border:hover {
+  border: 2px solid rgb(62, 194, 255);
+}
+
+.user-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.logo img {
+  margin-top: 90px;
+  margin-left: -40px;
+  height: 170px;
+  width: 170px;
 }
