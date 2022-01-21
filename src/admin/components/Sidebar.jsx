@@ -8,7 +8,7 @@ const Sidebar = (props) => {
                          </div>
                          <div className="user-info">
                               <span className="user-name">
-                                   <strong>Naceur Mossaab</strong>
+                                   <strong>{props.admin.username}</strong>
                               </span>
                               <span className="user-role">Administrator</span>
                               <span className="user-status">
@@ -69,7 +69,7 @@ const Sidebar = (props) => {
                          <i className="fa fa-cog" />
                          <span className="badge-sonar" />
                     </a>
-                    <a href="#">
+                    <a href="#" onClick={()=>props.logout()}>
                          <i className="fa fa-power-off" />
                     </a>
                </div>
