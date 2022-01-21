@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
-import Home from "./components/Home";
+
 import Vis from "./components/test.jsx";
 import Envirement from "./components/Envirement.jsx";
 import LandingPage from "./components/LandingPage.jsx";

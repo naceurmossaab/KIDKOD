@@ -5,12 +5,13 @@ import gsap from "gsap";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
-import CANNON from "cannon";
+import CANNON, { Vec3 } from "cannon";
 import "../style/test.css";
 import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
@@ -349,6 +350,25 @@ const Vis = () => {
 
 		//     },
 		// );
+
+//arrow
+
+const cone = new THREE.Mesh( new THREE.ConeGeometry( 0.5, 1, 3,1 ),new THREE.MeshBasicMaterial( {color: 0xff0000} ));
+cone.rotation.x=Math.PI
+cone.rotation.y=Math.PI/5
+
+
+// if (user.level===1){
+// 	cone.position.x=1
+// cone.position.z=1}
+// cone.position.set(0,5,0)
+
+scene.add( cone );
+
+
+
+
+
 		//grass
 		const grass = new THREE.Group();
 		scene.add(grass);
@@ -753,7 +773,9 @@ const Vis = () => {
 		// cubeFolder.add(housebody.scale, 'z')
 		// cubeFolder.open()
 		// scene.add(boxtest)
-
+var carPositionX=1
+var carPositionz=1
+var carRotation=Math.PI
 		var groundMaterial = new CANNON.Material("groundMaterial");
 		var wheelMaterial = new CANNON.Material("wheelMaterial");
 		var wheelGroundContactMaterial = new CANNON.ContactMaterial(
@@ -772,8 +794,10 @@ const Vis = () => {
 		var chassisShape = new CANNON.Box(new CANNON.Vec3(1, 0.3, 2));
 		var chassisBody = new CANNON.Body({ mass: 150 });
 		chassisBody.addShape(chassisShape);
-		chassisBody.position.set(0, 0.2, 0);
+		chassisBody.position.set(carPositionX, 0.2, carPositionz);
+		chassisBody.quaternion.setFromAxisAngle(new Vec3(0,1,0),carRotation)
 		chassisBody.angularVelocity.set(0, 0, 0); // initial velocity
+		
 
 		// car visual body
 		var geometry = new THREE.BoxGeometry(0.5, 0.2, 2); // double chasis shape
@@ -791,7 +815,7 @@ const Vis = () => {
 
 		// wheel options
 		var options = {
-			radius: 0.4,
+			radius: 0.3,
 			directionLocal: new CANNON.Vec3(0, -1, 0),
 			suspensionStiffness: 45,
 			suspensionRestLength: 0.4,
@@ -816,10 +840,10 @@ const Vis = () => {
 		options.chassisConnectionPointLocal.set(-axlewidth, 0, -1);
 		vehicle.addWheel(options);
 
-		options.chassisConnectionPointLocal.set(axlewidth, 0, 1);
+		options.chassisConnectionPointLocal.set(axlewidth, 0, 0.5);
 		vehicle.addWheel(options);
 
-		options.chassisConnectionPointLocal.set(-axlewidth, 0, 1);
+		options.chassisConnectionPointLocal.set(-axlewidth, 0, 0.5);
 		vehicle.addWheel(options);
 
 		vehicle.addToWorld(world);
@@ -857,6 +881,7 @@ const Vis = () => {
 			wheelVisuals.push(cylinder);
 			scene.add(cylinder);
 		});
+		
 
 		// update the wheels to match the physics
 		world.addEventListener("postStep", function () {
@@ -871,6 +896,7 @@ const Vis = () => {
 				wheelVisuals[i].quaternion.copy(t.quaternion);
 			}
 		});
+		
 
 		const floorShape = new CANNON.Plane();
 		const floorBody = new CANNON.Body();
@@ -952,7 +978,7 @@ const Vis = () => {
 		//  */
 		// third person camera
 		var camera, goal;
-		var test = 2; //camera disctance from the car
+		var test = 10; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -1110,9 +1136,11 @@ const Vis = () => {
 		 * Renderer
 		 */
 
+
+
 		renderer.setSize(sizes.width, sizes.height);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-		renderer.setClearColor("#cyan");
+		// renderer.setClearColor("#cyan");
 
 		/**
 		 * Animate
@@ -1123,6 +1151,8 @@ const Vis = () => {
 			const elapsedTime = clock.getElapsedTime();
 			var deltaTime = elapsedTime - oldElaspsedTime;
 			oldElaspsedTime = elapsedTime;
+
+			cone.position.y=Math.sin(2*elapsedTime-1)+4
 
 			if (mixer) {
 				mixer.update(deltaTime);
@@ -1197,6 +1227,7 @@ const Vis = () => {
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
 		};
+		
 		tick();
 
 		mount.current.appendChild(renderer.domElement);
