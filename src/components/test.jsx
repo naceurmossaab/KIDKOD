@@ -313,8 +313,8 @@ const Vis = () => {
 				});	
 				object.position.x=46;
 				object.position.z=-7.1;
-				object.position.y=-2;
-				object.scale.set(0.02, 0.02, 0.02);
+				object.position.y=1;
+				object.scale.set(0.008, 0.005, 0.008);
 				object.rotation.set(0, 6, 0); 
 				scene.add(object);
 				const cubeFolder1 = gui.addFolder('position')
