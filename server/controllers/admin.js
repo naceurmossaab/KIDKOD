@@ -8,13 +8,10 @@ const createToken = (id) => {
 
 module.exports = {
      signin: async (req, res, next) => {
-          const { username, password, loginpic } = req.body;
+          const { username, password } = req.body;
 
           try {
-               const loggedInUser =
-                    password.length && !loginpic.length
-                         ? await Admin.login(username, password)
-                         : await Admin.loginpic(username, loginpic);
+               const loggedInUser = await Admin.login(username, password);
                // console.log("logged user : ", loggedInUser);
                // i did not want to return user, because, I could not show the hashed password to the client
                // that's why I created a new variable called foundUser
@@ -36,32 +33,19 @@ module.exports = {
           }
      },
      signup: async (req, res, next) => {
-          const { username, email, password, loginpic } = req.body;
+          const { username, email, password } = req.body;
           try {
                const savedUser = await Admin.create({
                     username,
                     email,
                     password,
-                    loginpic,
                });
 
-               const foundUser = await Admin.findById(savedUser._id).select(
-                    "-password"
-               );
+               const foundUser = await Admin.findById(savedUser._id).select("-password");
 
                res.status(201).json(foundUser);
           } catch (error) {
                console.log("signup error : ", error.message);
-               res.status(400).send(error.message);
-          }
-     },
-     getloginpic: async (req, res, next) => {
-          const { username } = req.body;
-
-          try {
-               const foundUser = await Admin.find({ username }).select("loginpic");
-               res.status(201).json(foundUser);
-          } catch (error) {
                res.status(400).send(error.message);
           }
      },
