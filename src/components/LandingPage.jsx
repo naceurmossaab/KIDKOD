@@ -411,7 +411,7 @@ const LandingPage = () => {
       });
     };
 
-    renderer.setClearColor("#000020");
+    renderer.setClearColor("#ddd");
 
     ///constraint pivot
 
@@ -420,7 +420,7 @@ const LandingPage = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      mount.current.removeChild(renderer.domElement);
+      // mount.current.removeChild(renderer.domElement);
     };
   }, []);
 
