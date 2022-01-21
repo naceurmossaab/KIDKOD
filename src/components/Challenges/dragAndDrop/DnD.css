@@ -118,9 +118,13 @@
   width: 1100px;
 }
 
-/* .submit-btn button{
-
-} */
+.submit-btn button {
+  padding: 15px;
+  font-size: large;
+  border-radius: 7px;
+  border: black solid 1px;
+  background-color: rgb(255, 93, 255);
+}
 .hand-animation {
   border-radius: 20px;
   position: absolute;
@@ -141,7 +145,6 @@
   width: 800px;
   margin-left: auto;
   border-radius: 20px;
-  background-color: rgb(41, 41, 41);
 }
 .winVideo {
   margin-top: 15%;
@@ -153,3 +156,22 @@ h4 {
   margin-top: 50px;
 }
 
+.resultList {
+  margin-left: 20px;
+  list-style: none;
+}
+.looseVideo {
+  margin-left: 50px;
+  margin-top: 30px;
+  border-radius: 20px;
+}
+.resultList li {
+  margin-left: 360px;
+  font-size: 45px;
+}
+.correct {
+  color: rgb(0, 194, 26);
+}
+.wrong {
+  color: tomato;
+}

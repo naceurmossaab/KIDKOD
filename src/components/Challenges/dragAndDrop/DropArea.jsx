@@ -194,6 +194,17 @@ const DropArea = ({ user, setUser, close }) => {
           <div>
             {view.loose && (
               <div className="dnd-container">
+                <video
+                  className="looseVideo"
+                  loading="lazy"
+                  muted="muted"
+                  src="https://cdnl.iconscout.com/lottie/premium/thumb/oops-3853513-3198274.mp4"
+                  width="174.6"
+                  height="174.6"
+                  type="video/mp4"
+                  autoplay="autoplay"
+                  loop="loop"
+                ></video>
                 {/* <LooseAnimation /> */}
                 <img
                   className="challenge-close icon"
@@ -201,9 +212,9 @@ const DropArea = ({ user, setUser, close }) => {
                   onClick={close}
                 />
 
-                <ul>
+                <ul className="resultList">
                   {challengeResponce.map((e, i) => (
-                    <li key={i}>
+                    <li key={i} className={e ? "correct" : "wrong"}>
                       question {i + 1} is {e && "correct"} {!e && "wrong"}{" "}
                     </li>
                   ))}
