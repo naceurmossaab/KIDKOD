@@ -117,3 +117,8 @@ text-decoration:none;
     font-weight: 600;
     font-size: 1rem;
 }
+
+.w70{
+    margin: 3rem 0;
+    width: 70%;
+}

@@ -69,7 +69,7 @@ const Sidebar = (props) => {
                          <i className="fa fa-cog" />
                          <span className="badge-sonar" />
                     </a>
-                    <a href="#">
+                    <a href="#" onClick={()=>props.admin({})}>
                          <i className="fa fa-power-off" />
                     </a>
                </div>

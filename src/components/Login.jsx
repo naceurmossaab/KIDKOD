@@ -55,7 +55,7 @@ const Login = () => {
           axios.get("http://localhost:8000/api/random-pictures/getAll")
                .then(({ data }) => {
                     let pics = [];
-                    for (var i = 0; i < 8; i++) {
+                    for (var i = 0; i < 9; i++) {
                          let random = Math.floor(Math.random()*data.length);
                          pics.push(data[random]);
                          // pics.push(data[i]);
@@ -130,7 +130,7 @@ const Login = () => {
                     setSignin({ ...signin, status: "" });
                     axios.post("http://localhost:8000/api/users/loginpic", { username: signin.username })
                          .then(({ data }) => {
-                              let arr1 = [...pictures, {'_id': data[0]._id, 'url': data[0].loginpic}];
+                              let arr1 = [...pictures.slice(1), {'_id': data[0]._id, 'url': data[0].loginpic}];
                               let arr2 = [];
                               while (arr1.length) {
                                    arr2.splice(Math.floor(Math.random() * (arr2.length + 1)), 0, arr1.pop());
