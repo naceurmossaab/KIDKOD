@@ -386,9 +386,8 @@ const LandingPage = () => {
         }
       });
     };
-
     renderer.setClearColor("#679CFF");
-
+    
     ///constraint pivot
 
     mount.current.appendChild(renderer.domElement);
