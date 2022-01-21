@@ -59,8 +59,6 @@ const Vis = () => {
 	  
 		
 		  var currentlevel =  user.level;
-		  console.log("user", user);
-		  console.log("aa", currentlevel);
 		  if (currentlevel === 1) {
 			carPositionX = 32.5;
 			carPositionz = -1.7;
@@ -383,21 +381,7 @@ const Vis = () => {
     //     },
     // );
 
-    //arrow
-
-    const cone = new THREE.Mesh(
-      new THREE.ConeGeometry(0.5, 1, 3, 1),
-      new THREE.MeshBasicMaterial({ color: 0xff0000 })
-    );
-    cone.rotation.x = Math.PI;
-    cone.rotation.y = Math.PI / 5;
-
-    // if (user.level===1){
-    // 	cone.position.x=1
-    // cone.position.z=1}
-    // cone.position.set(0,5,0)
-
-    scene.add(cone);
+  
 
     //grass
     const grass = new THREE.Group();
@@ -1157,7 +1141,7 @@ const Vis = () => {
       var deltaTime = elapsedTime - oldElaspsedTime;
       oldElaspsedTime = elapsedTime;
 
-      cone.position.y = Math.sin(2 * elapsedTime - 1) + 4;
+      
 
       if (mixer) {
         mixer.update(deltaTime);
