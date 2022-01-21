@@ -175,6 +175,10 @@ const LandingPage = () => {
               color: randomColor.from.clone().lerp(randomColor.to, progress),
             });
 
+            renderer.setClearColor(
+              randomColor.from.clone().lerp(randomColor.to, progress/10)
+            );
+
             const geometry = new TextGeometry(letter, fontOption);
             geometry.computeBoundingBox();
             geometry.computeBoundingSphere();
@@ -386,8 +390,6 @@ const LandingPage = () => {
         }
       });
     };
-
-    renderer.setClearColor("#679CFF");
 
     ///constraint pivot
 

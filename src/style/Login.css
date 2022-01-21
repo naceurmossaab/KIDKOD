@@ -10,7 +10,7 @@
 }
 
 :root {
-  --input-bg  : #cecbcb;
+  --input-bg: #cecbcb;
   --search-btn: #4ca2cb;
   --search-btn-hover: #67b26b;
 }
@@ -24,7 +24,7 @@
 .login {
   display: flex;
   justify-content: center;
-  margin-top : 5rem;
+  margin-top: 5rem;
   margin-left: 50%;
 }
 
@@ -32,14 +32,14 @@
   font-weight: 600;
   color: #fff;
   font-size: 20px;
-  top : 0;
+  top: 0;
   left: 0;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10rem 1rem;
-  background-image: url("https://images.unsplash.com/photo-1484820540004-14229fe36ca4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80");
+  background-image: url("https://cdn.discordapp.com/attachments/902266709568782436/934082914839318528/szszs.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 35vw;
@@ -57,18 +57,18 @@
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
-  width : 75vw;
+  width: 75vw;
   height: 85vh;
 }
-.contact > *{
-  margin: .5rem 0;
+.contact > * {
+  margin: 0.5rem 0;
   font-size: 18px;
   font-weight: 600;
   color: #222;
 }
 .contact input {
   font-size: 17px;
-  width : 300px;
+  width: 300px;
   height: 40px;
   outline: none;
   padding-left: 0.5rem;
@@ -97,13 +97,13 @@
   background-color: #f5890d;
 }
 
-#pictures{
+#pictures {
   margin-top: 1rem;
   display: flex;
   width: 500px;
 }
 
-.random-pictures{
+.random-pictures {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.1rem;
@@ -111,23 +111,23 @@
   align-items: center;
   max-width: 400px;
 }
-.random-pictures img{
+.random-pictures img {
   width: 120px;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
   margin: 0 !important;
 }
-.random-pictures img:hover{
+.random-pictures img:hover {
   transform: scale(120%);
 }
 
-#preview{
-  margin-left : 1rem;
+#preview {
+  margin-left: 1rem;
   display: flex;
-  width  : 100%;
+  width: 100%;
   max-width: 100%;
 }
 
-[type=radio] { 
+[type="radio"] {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -138,11 +138,11 @@
   outline: 2px solid #f5890d;
 }
 
-.connexion-method{
+.connexion-method {
   display: flex;
   margin: 1rem 0;
 }
-.connexion-method label{
+.connexion-method label {
   max-width: 100px;
   display: flex;
   flex-direction: column;
@@ -152,12 +152,12 @@
   margin: 0 1rem;
   /* outline: 1px solid red; */
 }
-.connexion-method img{
+.connexion-method img {
   width: 100px;
   margin-left: 6rem;
 }
 
-.disable{
+.disable {
   cursor: no-drop !important;
-  opacity: .7;
+  opacity: 0.7;
 }
