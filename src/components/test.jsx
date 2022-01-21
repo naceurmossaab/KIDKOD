@@ -17,40 +17,29 @@ import axios from "axios";
 const gui = new dat.GUI();
 var level = "";
 const Vis = () => {
-	const { useRef, useEffect, useState } = React;
+	const { useRef, useEffect, useState, useLayoutEffect } = React;
 	const mount = useRef(null);
 	const [user, setUser] = useState(null);
 	const [image, setImage] = useState(1);
-	
-	
-	const session = async() =>
+
+	const session = () =>
 		JSON.parse(localStorage.getItem("user"))
 			? setUser(JSON.parse(localStorage.getItem("user")))
 			: setUser(null);
 
 	const logout = () => {
-		
 		localStorage.removeItem("user");
 		setUser(null);
 	};
-	
 	// const controls = useRef(null);
 	const [task, settask] = useState(true);
 	function close() {
 		settask(true);
 		// console.log(task);
 	}
-	
-
-	
-	
-	
-	
 	useEffect(() => {
 		session();
-		// Sound
-		
-	
+		console.log("================>", user);
 
 		const renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.shadowMap.enabled = true;
@@ -1159,8 +1148,6 @@ var carRotation=Math.PI
 		const clock = new THREE.Clock();
 		var oldElaspsedTime = 0;
 		const tick = () => {
-
-			
 			const elapsedTime = clock.getElapsedTime();
 			var deltaTime = elapsedTime - oldElaspsedTime;
 			oldElaspsedTime = elapsedTime;
@@ -1287,7 +1274,7 @@ var carRotation=Math.PI
 			{quests()}
 			{user ? (
 				<div className='infocardContainer'>
-					<div className="user-avatar">
+					<div className='user-avatar'>
 						<img src={user.loginpic}></img>
 					</div>
 					<div id='textbois'>
