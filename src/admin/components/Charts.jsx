@@ -71,6 +71,7 @@ const Charts = (props) => {
                          }}
                     />
                ):(<div />)}
+               
           </div>
      )
 }

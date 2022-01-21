@@ -1,17 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap");
 .home3D {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .mainNav {
-	/* position: absolute; */
-	top: 50%;
-	left: 80%;
-	color: aliceblue;
+  /* position: absolute; */
+  top: 50%;
+  left: 80%;
+  color: rgb(248, 255, 240);
 }
 
 /* body {
@@ -21,41 +21,41 @@
 } */
 
 #stage {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .mainNav {
-	position: fixed;
-	top: 50%;
-	left: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
 
-	transform: translate(-50%, -50%);
-	z-index: 10;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 
-	pointer-events: none;
+  pointer-events: none;
 }
 
 .mainNav__list {
-	list-style: none;
-	text-align: center;
-	padding-left: 0;
-	margin: 0;
+  list-style: none;
+  text-align: center;
+  padding-left: 0;
+  margin: 0;
 }
 
 .mainNav__el:not(:last-child) {
-	margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .mainNav__link {
-	display: inline-block;
-	font-size: 170px;
-	text-decoration: none;
-	opacity: 0;
-	line-height: 0.8;
+  display: inline-block;
+  font-size: 170px;
+  text-decoration: none;
+  opacity: 0;
+  line-height: 0.8;
 }
 
 /* .loginBTN {
@@ -101,6 +101,6 @@
 	z-index: 100;
 } */
 .navigation {
-	z-index: 10;
-	position: absolute;
+  z-index: 10;
+  position: absolute;
 }
