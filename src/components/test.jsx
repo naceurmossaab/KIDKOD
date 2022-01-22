@@ -302,21 +302,42 @@ const Vis = () => {
 				object.scale.set(0.02, 0.02, 0.02);
 				object.rotation.set(0, 6, 0);
 				scene.add(object);
-				const cubeFolder1 = gui.addFolder("position");
-				cubeFolder1.add(object.position, "x");
-				cubeFolder1.add(object.position, "y");
-				cubeFolder1.add(object.position, "z");
-				cubeFolder1.open();
-				const cubeFolder = gui.addFolder("scale");
-				cubeFolder.add(object.scale, "x");
-				cubeFolder.add(object.scale, "y");
-				cubeFolder.add(object.scale, "z");
-				cubeFolder.open();
-				const cubeFolder2 = gui.addFolder("rotation");
-				cubeFolder2.add(object.rotation, "x");
-				cubeFolder2.add(object.rotation, "y");
-				cubeFolder2.add(object.rotation, "z");
-				cubeFolder2.open();
+				// const cubeFolder1 = gui.addFolder("position");
+				// cubeFolder1.add(object.position, "x");
+				// cubeFolder1.add(object.position, "y");
+				// cubeFolder1.add(object.position, "z");
+				// cubeFolder1.open();
+				// const cubeFolder = gui.addFolder("scale");
+				// cubeFolder.add(object.scale, "x");
+				// cubeFolder.add(object.scale, "y");
+				// cubeFolder.add(object.scale, "z");
+				// cubeFolder.open();
+				// const cubeFolder2 = gui.addFolder("rotation");
+				// cubeFolder2.add(object.rotation, "x");
+				// cubeFolder2.add(object.rotation, "y");
+				// cubeFolder2.add(object.rotation, "z");
+				// cubeFolder2.open();
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer11 = new THREE.AnimationMixer(object);
+				const action = mixer11.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.x = 46;
+				object.position.z = -7.1;
+				object.position.y = -2;
+				object.scale.set(0.02, 0.02, 0.02);
+				object.rotation.set(0, 6, 0);
+				scene.add(object);
 			}
 		);
 		// function passmesh(mesh){
