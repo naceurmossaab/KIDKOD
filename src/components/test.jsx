@@ -83,6 +83,7 @@ const Vis = () => {
 		let mixer14 = null;
 		let mixer15 = null;
 		let mixer16 = null;
+		let mixer17 = null;
 
 		// Models
 		//adding the old man
@@ -425,8 +426,8 @@ const Vis = () => {
     loader.load(
 			"/src/components/static/models/ARROW.fbx",
 			function (object) {
-				mixer15 = new THREE.AnimationMixer(object);
-				const action = mixer15.clipAction(object.animations[1]);
+				mixer17 = new THREE.AnimationMixer(object);
+				const action = mixer17.clipAction(object.animations[1]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -435,10 +436,25 @@ const Vis = () => {
 						child.receiveShadow = true;
 					}
 				});
-        object.position.set(-116, 0.5, -55);
+        object.position.set(-117, 0.9, -147);
 				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 7, 0);
 				scene.add(object);
+        const cubeFolder1 = gui.addFolder("position");
+				cubeFolder1.add(object.position, "x");
+				cubeFolder1.add(object.position, "y");
+				cubeFolder1.add(object.position, "z");
+				cubeFolder1.open();
+				const cubeFolder = gui.addFolder("scale");
+				cubeFolder.add(object.scale, "x");
+				cubeFolder.add(object.scale, "y");
+				cubeFolder.add(object.scale, "z");
+				cubeFolder.open();
+				const cubeFolder2 = gui.addFolder("rotation");
+				cubeFolder2.add(object.rotation, "x");
+				cubeFolder2.add(object.rotation, "y");
+				cubeFolder2.add(object.rotation, "z");
+				cubeFolder2.open();
 			}
 		);
 		// function passmesh(mesh){
@@ -1435,6 +1451,9 @@ const Vis = () => {
 			}
       if (mixer16) {
 				mixer16.update(deltaTime);
+			}
+      if (mixer17) {
+				mixer17.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls
