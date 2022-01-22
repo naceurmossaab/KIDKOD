@@ -11,6 +11,7 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+// import DnDEnglish from "./Challenges/English_challange/DnD-eng.jsx";
 import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -920,6 +921,13 @@ console.log(task);
 				between(box.position.z, -57.65, -48.32)
 			) {
 				setlevel(2);}
+        if (
+          e.keyCode === 13 &&
+          between(box.position.x, 1.65, 13.12) &&
+          between(box.position.z, -133.43, -99.76)
+        ) {
+          console.log('hi');
+          setlevel(3);}
 		};
     //second level
   
