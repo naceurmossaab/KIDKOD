@@ -78,6 +78,7 @@ const Vis = () => {
 		let mixer9 = null;
 		let mixer10 = null;
 		let mixer11 = null;
+		let mixer12 = null;
 
 		// Models
 		//adding the old man
@@ -284,10 +285,10 @@ const Vis = () => {
 			}
 		);
 		loader.load(
-			"/src/components/static/models/ARROW.fbx",
+			"/src/components/static/models/ARROWRED.fbx",
 			function (object) {
 				mixer11 = new THREE.AnimationMixer(object);
-				const action = mixer11.clipAction(object.animations[1]);
+				const action = mixer11.clipAction(object.animations[0]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -296,10 +297,8 @@ const Vis = () => {
 						child.receiveShadow = true;
 					}
 				});
-				object.position.x = 46;
-				object.position.z = -7.1;
-				object.position.y = -2;
-				object.scale.set(0.02, 0.02, 0.02);
+        object.position.set(70, -0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 6, 0);
 				scene.add(object);
 				// const cubeFolder1 = gui.addFolder("position");
@@ -322,8 +321,8 @@ const Vis = () => {
     loader.load(
 			"/src/components/static/models/ARROW.fbx",
 			function (object) {
-				mixer11 = new THREE.AnimationMixer(object);
-				const action = mixer11.clipAction(object.animations[1]);
+				mixer12 = new THREE.AnimationMixer(object);
+				const action = mixer12.clipAction(object.animations[1]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -334,8 +333,8 @@ const Vis = () => {
 				});
 				object.position.x = 46;
 				object.position.z = -7.1;
-				object.position.y = -2;
-				object.scale.set(0.02, 0.02, 0.02);
+				object.position.y = -0.5;
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 6, 0);
 				scene.add(object);
 			}
@@ -1395,6 +1394,9 @@ const Vis = () => {
 			}
 			if (mixer11) {
 				mixer11.update(deltaTime);
+			}
+      if (mixer12) {
+				mixer12.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls
