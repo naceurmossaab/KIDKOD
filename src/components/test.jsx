@@ -14,7 +14,7 @@ import DnD from "./Challenges/dragAndDrop/DnD.jsx";
 import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-// const gui = new dat.GUI();
+const gui = new dat.GUI();
 var level = "";
 const Vis = () => {
 	const { useRef, useEffect, useState, useMemo } = React;
@@ -79,6 +79,7 @@ const Vis = () => {
 		let mixer10 = null;
 		let mixer11 = null;
 		let mixer12 = null;
+		let mixer13 = null;
 
 		// Models
 		//adding the old man
@@ -342,8 +343,8 @@ const Vis = () => {
     loader.load(
 			"/src/components/static/models/ARROW.fbx",
 			function (object) {
-				mixer12 = new THREE.AnimationMixer(object);
-				const action = mixer12.clipAction(object.animations[1]);
+				mixer13 = new THREE.AnimationMixer(object);
+				const action = mixer13.clipAction(object.animations[1]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -352,12 +353,59 @@ const Vis = () => {
 						child.receiveShadow = true;
 					}
 				});
-				object.position.x = 46;
-				object.position.z = -7.1;
-				object.position.y = -0.5;
+        object.position.set(5, 0.5, -111);
 				object.scale.set(0.01, 0.01, 0.01);
-				object.rotation.set(0, 6, 0);
+				object.rotation.set(0, 7, 0);
 				scene.add(object);
+        	const cubeFolder1 = gui.addFolder("position");
+				cubeFolder1.add(object.position, "x");
+				cubeFolder1.add(object.position, "y");
+				cubeFolder1.add(object.position, "z");
+				cubeFolder1.open();
+				const cubeFolder = gui.addFolder("scale");
+				cubeFolder.add(object.scale, "x");
+				cubeFolder.add(object.scale, "y");
+				cubeFolder.add(object.scale, "z");
+				cubeFolder.open();
+				const cubeFolder2 = gui.addFolder("rotation");
+				cubeFolder2.add(object.rotation, "x");
+				cubeFolder2.add(object.rotation, "y");
+				cubeFolder2.add(object.rotation, "z");
+				cubeFolder2.open();
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer13 = new THREE.AnimationMixer(object);
+				const action = mixer13.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(5, 0.5, -111);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+        	const cubeFolder1 = gui.addFolder("position");
+				cubeFolder1.add(object.position, "x");
+				cubeFolder1.add(object.position, "y");
+				cubeFolder1.add(object.position, "z");
+				cubeFolder1.open();
+				const cubeFolder = gui.addFolder("scale");
+				cubeFolder.add(object.scale, "x");
+				cubeFolder.add(object.scale, "y");
+				cubeFolder.add(object.scale, "z");
+				cubeFolder.open();
+				const cubeFolder2 = gui.addFolder("rotation");
+				cubeFolder2.add(object.rotation, "x");
+				cubeFolder2.add(object.rotation, "y");
+				cubeFolder2.add(object.rotation, "z");
+				cubeFolder2.open();
 			}
 		);
 		// function passmesh(mesh){
@@ -1418,6 +1466,9 @@ const Vis = () => {
 			}
       if (mixer12) {
 				mixer12.update(deltaTime);
+			}
+      if (mixer13) {
+				mixer13.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls
