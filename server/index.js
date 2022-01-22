@@ -4,7 +4,7 @@ const users = require("./routers/users.js");
 const cookieSession = require("cookie-session");
 const db = require("./config/database");
 require("dotenv").config();
-const port = process.env.PORT || 8000;
+const port = 8000;
 var cors = require("cors");
 
 /******************** Mongoose ********************/

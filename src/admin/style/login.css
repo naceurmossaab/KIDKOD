@@ -1,0 +1,154 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* outline: 1px solid red; */
+}
+
+:root {
+  --input-bg  : #cecbcb;
+  --search-btn: #4ca2cb;
+  --search-btn-hover: #67b26b;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  margin-top : 20rem;
+  margin-left: 50%;
+}
+
+.left-div-admin {
+  font-weight: 600;
+  color: #fff;
+  font-size: 20px;
+  top : 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10rem 1rem;
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  background-image: url("https://i.pinimg.com/originals/b6/ae/b5/b6aeb507a9e66a0a05e255f287c432e1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 35vw;
+  height: 100vh;
+}
+.left-div h1 {
+  font-weight: 900;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  width : 75vw;
+  height: 100vh;
+}
+.contact > *{
+  margin: .5rem 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+.contact input {
+  font-size: 17px;
+  width : 300px;
+  height: 40px;
+  outline: none;
+  padding-left: 0.5rem;
+  margin: 1rem 0;
+  background-color: #fff;
+  border: none;
+  align-items: center;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.contact button {
+  margin: 0.5rem 0;
+  margin-right: 1rem;
+  padding: 0 1rem;
+  font-size: 20px;
+  width: 150px;
+  height: 40px;
+  color: rgb(255, 255, 255);
+  background-color: #ea512e;
+  border-radius: 7px;
+  cursor: pointer;
+  border: none;
+  font-size: larger;
+}
+.contact button:hover {
+  background-color: #f5890d;
+}
+
+#pictures{
+  display: flex;
+  width: 500px;
+}
+
+.random-pictures{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.1rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+}
+.random-pictures img{
+  width: 120px;
+  transition: .5s ease-in-out;
+  margin: 0 !important;
+}
+.random-pictures img:hover{
+  transform: scale(120%);
+}
+
+#preview{
+  margin-left : 1rem;
+  display: flex;
+  width  : 100%;
+  max-width: 100%;
+}
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checked-radio {
+  outline: 2px solid #f5890d;
+}
+
+.connexion-method{
+  display: flex;
+  margin: 1rem 0;
+}
+.connexion-method label{
+  max-width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin : 0 1rem;
+  /* outline: 1px solid red; */
+}
+.connexion-method img{
+  width: 100px;
+  margin-left: 6.2rem;  /* modify this value to fix position of pictures in choose method */
+}
+
+.disable{
+  cursor: no-drop !important;
+  opacity: .7;
+}

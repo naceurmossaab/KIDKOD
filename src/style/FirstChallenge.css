@@ -2,6 +2,7 @@ body {
   background-color: #ddd;
   color: #fff;
 }
+
 .container {
   width: 700px;
   height: 400px;
@@ -30,4 +31,9 @@ input {
 #test1 {
   width: 20px;
   height: 20px;
+}
+.icon {
+  height: 50px;
+  width: 50px;
+  margin-left: 80%;
 }

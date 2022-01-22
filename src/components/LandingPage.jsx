@@ -19,6 +19,9 @@ const LandingPage = () => {
     let height = mount.current.clientHeight;
 
     const scene = new THREE.Scene();
+    const texloader = new THREE.TextureLoader();
+    const texture = texloader.load("/src/components/static/sasa.jpg");
+    scene.background = texture;
 
     const clock = new THREE.Clock();
     ///camera
@@ -141,28 +144,28 @@ const LandingPage = () => {
               to: new THREE.Color("#527ee1"),
             },
             {
-              from: new THREE.Color("#ee863f"),
-              to: new THREE.Color("#F9195D"),
+              from: new THREE.Color("#ee663f"),
+              to: new THREE.Color("#f5678d"),
             },
             {
-              from: new THREE.Color("#00EE5F"),
-              to: new THREE.Color("#683fee"),
+              from: new THREE.Color("#ee9ca7"),
+              to: new THREE.Color("#ffdde1"),
             },
             {
               from: new THREE.Color("#f7971e"),
               to: new THREE.Color("#ffd200"),
             },
             {
-              from: new THREE.Color("#5089f0"),
-              to: new THREE.Color("#002FFF"),
+              from: new THREE.Color("#56ccf2"),
+              to: new THREE.Color("#2f80ed"),
             },
             {
               from: new THREE.Color("#fc5c7d"),
               to: new THREE.Color("#6a82fb"),
             },
             {
-              from: new THREE.Color("#F9195D"),
-              to: new THREE.Color("#fc5c7d"),
+              from: new THREE.Color("#dce35b"),
+              to: new THREE.Color("#45b649"),
             },
           ];
 
@@ -387,7 +390,7 @@ const LandingPage = () => {
       });
     };
 
-    renderer.setClearColor("#679CFF");
+    renderer.setClearColor("#ddd");
 
     ///constraint pivot
 
@@ -396,11 +399,12 @@ const LandingPage = () => {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      // mount.current.removeChild(renderer.domElement);
+      mount.current.removeChild(renderer.domElement);
     };
   }, []);
 
   const refresh = () => {
+    console.log("hhhhhh");
     window.location.reload();
   };
   const [userWorld, setuserWorld] = useState("");
