@@ -1,6 +1,33 @@
+.search-div{
+    padding: 20px 0;
+    margin: 0 2rem;
+    color: #222;
+    background: #FFFFFF;
+    -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -moz-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -o-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    -ms-box-shadow: 1px 1px 2px 0 #CCCCCC;
+    box-shadow: 1px 1px 2px 0 #CCCCCC;
+    margin-bottom: 16px;
+    -webikt-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
 .main-box.no-header {
     padding-top: 20px;
+    margin: 0 1rem;
 }
+
+@media screen and (min-width: 1400px) {
+	.main-box.no-header {
+        margin: 0 10rem;
+    }
+    .search-div{
+        margin: 1rem 10rem;
+    }
+}
+
 .main-box {
     color: #222;
     background: #FFFFFF;
@@ -26,9 +53,9 @@
     font-weight: 600;
 }
 .user-list tbody td .user-link {
-    display: block;
+    display: flex;
     padding-top: 3px;
-    margin-left: 60px;
+    margin-left: 50%;
 }
 
 .user-list tbody td>img {
@@ -52,4 +79,46 @@
 }
 a:hover{
 text-decoration:none;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.user-subhead{
+    font-size: 1rem;
+}
+
+.user-label{
+    min-width: 20% !important;
+}
+
+.search-div .input{
+    width : 200px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0 .5rem;
+}
+
+.search-div .select{
+    width : 120px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0 .5rem;
+}
+
+.search-div .button{
+    padding: .4rem 2rem;
+    border: none;
+    background-color: #16c1ff;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.w70{
+    margin: 3rem 0;
+    width: 70%;
 }

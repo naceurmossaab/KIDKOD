@@ -5,67 +5,123 @@ import DragItem from "./DragItem.jsx";
 import "./DndBasket.css";
 // import WinAnimation from "./winAndLooseAnimation/WinAnimation.jsx";
 
-const question = {
-	choices: [
-		{
-			id: 1,
-			name: "grap",
-			categorie: "type1",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/grape-4521297-3753411.png",
-		},
-		{
-			id: 2,
-			name: "pear",
-			categorie: "type1",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pear-4521299-3753413.png",
-		},
-		{
-			id: 3,
-			name: "banana",
-			categorie: "type1",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/banana-4521290-3753404.png",
-		},
-		{
-			id: 4,
-			name: "pineapple",
-			categorie: "type1",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pineapple-4521281-3753395.png",
-		},
-		{
-			id: 5,
-			name: "tomato",
-			categorie: "type2",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/chili-4339984-3600611.png",
-			// image: "https://cdn3d.iconscout.com/3d/premium/thumb/tomato-4383810-3640392.png",
-		},
-		{
-			id: 6,
-			name: "carotte",
-			categorie: "type2",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/carrot-4383840-3640388.png",
-		},
-		{
-			id: 7,
-			name: "potato",
-			categorie: "type2",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/potato-4339974-3600620.png",
-		},
-		{
-			id: 8,
-			name: "pumpkin",
-			categorie: "type2",
-			image: "https://cdn3d.iconscout.com/3d/premium/thumb/pumpkin-4383223-3640402.png",
-		},
-	],
-	basketsNames: ["Fruits", "Vegetables"],
-};
+const challengeDataMock = [
+	{
+		choices: [
+			{
+				id: 1,
+				name: "grap",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/grape-4521297-3753411.png",
+			},
+			{
+				id: 2,
+				name: "pear",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/pear-4521299-3753413.png",
+			},
+			{
+				id: 3,
+				name: "banana",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/banana-4521290-3753404.png",
+			},
+			{
+				id: 4,
+				name: "pineapple",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/pineapple-4521281-3753395.png",
+			},
+			{
+				id: 5,
+				name: "pepare",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/chili-4339984-3600611.png",
+				// image: "https://cdn3d.iconscout.com/3d/premium/thumb/tomato-4383810-3640392.png",
+			},
+			{
+				id: 6,
+				name: "carotte",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/carrot-4383840-3640388.png",
+			},
+			{
+				id: 7,
+				name: "potato",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/potato-4339974-3600620.png",
+			},
+			{
+				id: 8,
+				name: "pumpkin",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/pumpkin-4383223-3640402.png",
+			},
+		],
+		basketsNames: ["Fruits", "Vegetables"],
+	},
+	{
+		choices: [
+			{
+				id: 1,
+				name: "milk",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/milk-pack-and-glass-4295822-3569917.png",
+			},
+			{
+				id: 2,
+				name: "cheese",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/cheese-4387396-3640310.png",
+			},
+			{
+				id: 3,
+				name: "butter",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/butter-4062762-3370581.png",
+			},
+			{
+				id: 4,
+				name: "milkshake",
+				categorie: "type1",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/milkshake-4633889-3864146.png",
+			},
+			{
+				id: 5,
+				name: "steak",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/meat-steak-4461142-3702732.png",
+			},
+			{
+				id: 6,
+				name: "meat",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/meat-4375614-3632382.png",
+			},
+			{
+				id: 7,
+				name: "chicken-box",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/chicken-box-4349347-3612387.png",
+			},
+			{
+				id: 8,
+				name: "meat-steak",
+				categorie: "type2",
+				image: "https://cdn3d.iconscout.com/3d/premium/thumb/meat-4509323-3773459.png",
+			},
+		],
+		basketsNames: ["Milky products", "Meat products"],
+	},
+];
 
 const DndBasket = ({ user, setUser, close }) => {
-	const [challengeData, setchallengeData] = useState([
-		{ choices: question.choices, equation: "" },
-	]);
+	const [challengeData, setchallengeData] = useState(challengeDataMock);
 	const [index, setIndex] = useState(0);
 	const [choices, setchoices] = useState(challengeData[index].choices);
+	const [basketNames, setbasketNames] = useState(
+		challengeData[index].basketsNames
+	);
 	const [baskerType1, setbaskerType1] = useState([]);
 	const [baskerType2, setbaskerType2] = useState([]);
 	const [goal, setGoal] = useState(false);
@@ -103,22 +159,32 @@ const DndBasket = ({ user, setUser, close }) => {
 		if (index < challengeData.length - 1) {
 			setIndex(index + 1);
 			setchoices(challengeData[index + 1].choices);
+			setbasketNames(challengeData[index + 1].basketsNames);
 			setbaskerType1([]);
 			setbaskerType2([]);
 		}
 		if (challengeResponce.length < challengeData.length) {
-			if (responce[0]) {
-				setchallengeResponce([
-					...challengeResponce,
-					responce[0].name === challengeData[index].correct,
-				]);
-			} else {
-				setchallengeResponce([...challengeResponce, false]);
-			}
+			let resBasket1 = baskerType1.length
+				? baskerType1.reduce(
+						(acc, ele) => ele.categorie === "type1" && acc,
+						true
+				  )
+				: false;
+			console.log("b111111111111", resBasket1);
+			let resBasket2 = baskerType2.length
+				? baskerType2.reduce(
+						(acc, ele) => ele.categorie === "type2" && acc,
+						true
+				  )
+				: false;
+			console.log("b222222222", resBasket2);
+
+			setchallengeResponce([
+				...challengeResponce,
+				resBasket1 && resBasket2,
+			]);
 		}
-
 		console.log(challengeResponce);
-
 		if (challengeResponce.length === challengeData.length)
 			setsubmitFlag(true);
 	};
@@ -230,8 +296,9 @@ const DndBasket = ({ user, setUser, close }) => {
 					<div className='question-container'>
 						<div className='sub-container'>
 							<div className='question-responce'>
-								<div className='question'>
-									Which is the missing number ?
+								<div className='question-basket'>
+									Try to group elements matching together in
+									the same basket ?
 								</div>
 								<div className='choices'>
 									{/* <div className='responce-detail'>
@@ -249,6 +316,7 @@ const DndBasket = ({ user, setUser, close }) => {
 												key={index}
 												name={item.name}
 												image={item.image}
+												categorie={item.categorie}
 											/>
 										))}
 									</div>
@@ -267,11 +335,12 @@ const DndBasket = ({ user, setUser, close }) => {
 												key={index}
 												name={item.name}
 												image={item.image}
+												categorie={item.categorie}
 											/>
 										))}
 									</div>
 									<div className='basket-label'>
-										{question.basketsNames[0]}
+										{basketNames[0]}
 									</div>
 								</div>
 								<div className='basket-and-basket-label'>
@@ -286,11 +355,12 @@ const DndBasket = ({ user, setUser, close }) => {
 												key={index}
 												name={item.name}
 												image={item.image}
+												categorie={item.categorie}
 											/>
 										))}
 									</div>
 									<div className='basket-label'>
-										{question.basketsNames[1]}
+										{basketNames[1]}
 									</div>
 								</div>
 							</div>
@@ -304,7 +374,10 @@ const DndBasket = ({ user, setUser, close }) => {
 						</div>
 						<div className='next-arrow'>
 							{!submitFlag && (
-								<div  className="next-label">
+								<div
+									className='next-label'
+									onClick={passeToNext}
+								>
 									<div>NEXT</div>
 									<video
 										loading='lazy'
@@ -313,7 +386,7 @@ const DndBasket = ({ user, setUser, close }) => {
 										width='45.06976744186045'
 										height='45.06976744186045'
 										type='video/mp4'
-										autoplay='autoplay'
+										autoPlay='autoPlay'
 										loop='loop'
 									></video>
 								</div>
