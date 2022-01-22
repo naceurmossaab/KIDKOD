@@ -32,7 +32,7 @@ const Login = (props) => {
 
      return (
      <div className="login">
-          <div className="left-div"></div>
+          <div className="left-div-admin"></div>
           <div className="contact">
                <h3>Sign In</h3>
                <input value={signin.username} onChange={(e) => setSignin({ ...signin, username: e.target.value })} name="username" placeholder="username" type="text" />
