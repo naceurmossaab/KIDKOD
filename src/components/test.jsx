@@ -658,53 +658,53 @@ const Vis = () => {
 		//     },
 		// );
 		//grass
-		const grass = new THREE.Group();
-		scene.add(grass);
-		for (let i = 0; i < 1000; i++) {
-			gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
-				const angle = Math.random() * Math.PI * 80;
-				const radius = 3 + Math.random() * 100;
-				gltf.scene.position.set(
-					Math.sin(angle) * radius,
-					0,
-					Math.cos(angle) * radius
-				);
-				gltf.scene.scale.set(0.5, 0.5, 0.5);
-				grass.add(gltf.scene);
-			});
-		}
-		//flowers
-		const flowers = new THREE.Group();
-		scene.add(flowers);
-		for (let i = 0; i < 1000; i++) {
-			gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
-				const angle = Math.random() * Math.PI * 80;
-				const radius = 3 + Math.random() * 100;
-				gltf.scene.position.set(
-					Math.sin(angle) * radius,
-					0,
-					Math.cos(angle) * radius
-				);
-				gltf.scene.scale.set(0.5, 0.5, 0.5);
-				grass.add(gltf.scene);
-			});
-		}
-		//mushroms
-		const mushroms = new THREE.Group();
-		scene.add(mushroms);
-		for (let i = 0; i < 300; i++) {
-			gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
-				const angle = Math.random() * Math.PI * 80;
-				const radius = 3 + Math.random() * 100;
-				gltf.scene.position.set(
-					Math.sin(angle) * radius,
-					0,
-					Math.cos(angle) * radius
-				);
-				gltf.scene.scale.set(0.3, 0.3, 0.3);
-				grass.add(gltf.scene);
-			});
-		}
+		// const grass = new THREE.Group();
+		// scene.add(grass);
+		// for (let i = 0; i < 1000; i++) {
+		// 	gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
+		// 		const angle = Math.random() * Math.PI * 80;
+		// 		const radius = 3 + Math.random() * 100;
+		// 		gltf.scene.position.set(
+		// 			Math.sin(angle) * radius,
+		// 			0,
+		// 			Math.cos(angle) * radius
+		// 		);
+		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
+		// 		grass.add(gltf.scene);
+		// 	});
+		// }
+		// //flowers
+		// const flowers = new THREE.Group();
+		// scene.add(flowers);
+		// for (let i = 0; i < 1000; i++) {
+		// 	gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
+		// 		const angle = Math.random() * Math.PI * 80;
+		// 		const radius = 3 + Math.random() * 100;
+		// 		gltf.scene.position.set(
+		// 			Math.sin(angle) * radius,
+		// 			0,
+		// 			Math.cos(angle) * radius
+		// 		);
+		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
+		// 		grass.add(gltf.scene);
+		// 	});
+		// }
+		// //mushroms
+		// const mushroms = new THREE.Group();
+		// scene.add(mushroms);
+		// for (let i = 0; i < 300; i++) {
+		// 	gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
+		// 		const angle = Math.random() * Math.PI * 80;
+		// 		const radius = 3 + Math.random() * 100;
+		// 		gltf.scene.position.set(
+		// 			Math.sin(angle) * radius,
+		// 			0,
+		// 			Math.cos(angle) * radius
+		// 		);
+		// 		gltf.scene.scale.set(0.3, 0.3, 0.3);
+		// 		grass.add(gltf.scene);
+		// 	});
+		// }
 
 		// trees
 		gltfLoader.load("/src/all models/trees1.gltf", function (gltf) {
@@ -1376,35 +1376,35 @@ const Vis = () => {
 			// 		horse.position.x = -200;
 			// 	}
 			// }
-			for (let i = 0; i < flamingos.length; i++) {
-				const flamingo = flamingos[i];
+			// for (let i = 0; i < flamingos.length; i++) {
+			// 	const flamingo = flamingos[i];
 
-				flamingo.position.x += flamingo.speed * deltaTime;
+			// 	flamingo.position.x += flamingo.speed * deltaTime;
 
-				if (flamingo.position.x > 150) {
-					flamingo.position.x = -150;
-				}
-			}
-			for (let i = 0; i < storks.length; i++) {
-				const stork = storks[i];
+			// 	if (flamingo.position.x > 150) {
+			// 		flamingo.position.x = -150;
+			// 	}
+			// }
+			// for (let i = 0; i < storks.length; i++) {
+			// 	const stork = storks[i];
 
-				stork.position.x += stork.speed * deltaTime;
-				stork.position.z = 5;
+			// 	stork.position.x += stork.speed * deltaTime;
+			// 	stork.position.z = 5;
 
-				if (stork.position.x > 300) {
-					stork.position.x = -300;
-				}
-			}
-			for (let i = 0; i < parrots.length; i++) {
-				const parrot = parrots[i];
+			// 	if (stork.position.x > 300) {
+			// 		stork.position.x = -300;
+			// 	}
+			// }
+			// for (let i = 0; i < parrots.length; i++) {
+			// 	const parrot = parrots[i];
 
-				parrot.position.x += parrot.speed * deltaTime;
-				parrot.position.z = -5;
+			// 	parrot.position.x += parrot.speed * deltaTime;
+			// 	parrot.position.z = -5;
 
-				if (parrot.position.x > 500) {
-					parrot.position.x = -500;
-				}
-			}
+			// 	if (parrot.position.x > 500) {
+			// 		parrot.position.x = -500;
+			// 	}
+			// }
 			if (mixer1) {
 				mixer1.update(deltaTime);
 			}
