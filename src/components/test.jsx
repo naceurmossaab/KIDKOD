@@ -15,7 +15,6 @@ import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
-var level = "";
 const Vis = () => {
 	const { useRef, useEffect, useState, useMemo } = React;
 	const mount = useRef(null);
@@ -32,7 +31,10 @@ const Vis = () => {
 		setUser(null);
 	};
 	// const controls = useRef(null);
-	const [task, settask] = useState(true);
+	const [task, settask] = useState("zero");
+  const [level, setlevel] = useState(0);
+console.log(level);
+console.log(task);
 	function close() {
 		settask(true);
 		// console.log(task);
@@ -897,7 +899,8 @@ const Vis = () => {
 				between(box.position.x, 38.39, 52.11) &&
 				between(box.position.z, -13.67, 0.92)
 			) {
-				level = "one";
+        console.log('hi');
+				setlevel(1);
 				const talk = new Audio(
 					"/src/components/static/Enregistrement.m4a"
 				);
@@ -911,8 +914,15 @@ const Vis = () => {
 					}, 6000);
 				}
 			}
+      if (
+				e.keyCode === 13 &&
+				between(box.position.x, 63.92, 73.72) &&
+				between(box.position.z, -57.65, -48.32)
+			) {
+				setlevel(2);}
 		};
-
+    //second level
+  
 		// Controls
 
 		// const horses = [];
@@ -1483,13 +1493,21 @@ const Vis = () => {
 	}, []);
 
 	function quests() {
-		if (task === false)
+		if (task === "one")
 			return <DnD close={close} user={user} setUser={setUser} />;
+      if (task === "two")
+			return <Challenges close={close} user={user} setUser={setUser} />;
+	
 	}
+  
 	document.onkeydown = function (e) {
-		if (e.keyCode === 13 && level === "one") settask(false);
-		level = "zero";
+		if (e.keyCode === 13 && level === 1) {settask("one");
+    console.log(task);
+		setlevel(0);}
+    if (e.keyCode === 13 && level === 2) {settask("two");
+	setlevel(0);}
 	};
+
 	function changeImagevariable() {
 		setImage(2);
 	}
