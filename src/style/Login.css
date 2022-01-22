@@ -56,7 +56,6 @@
 .contact {
   display: flex;
   flex-direction: column;
-  margin: 1rem 0;
   width: 75vw;
   height: 85vh;
 }
@@ -98,7 +97,6 @@
 }
 
 #pictures {
-  margin-top: 1rem;
   display: flex;
   width: 500px;
 }

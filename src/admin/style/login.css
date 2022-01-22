@@ -20,7 +20,7 @@
   margin-left: 50%;
 }
 
-.left-div {
+.left-div-admin {
   font-weight: 600;
   color: #fff;
   font-size: 20px;
@@ -49,9 +49,8 @@
 .contact {
   display: flex;
   flex-direction: column;
-  margin: 1rem 0;
   width : 75vw;
-  height: 85vh;
+  height: 100vh;
 }
 .contact > *{
   margin: .5rem 0;
@@ -91,7 +90,6 @@
 }
 
 #pictures{
-  margin-top: 1rem;
   display: flex;
   width: 500px;
 }
@@ -147,7 +145,7 @@
 }
 .connexion-method img{
   width: 100px;
-  margin-left: 3.8rem;
+  margin-left: 6.2rem;  /* modify this value to fix position of pictures in choose method */
 }
 
 .disable{
