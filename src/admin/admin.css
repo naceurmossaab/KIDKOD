@@ -318,3 +318,23 @@
 .chiller-theme .sidebar-footer > a:last-child {
   border-right: none;
 }
+
+.dashboard{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.number-users{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-right: 10rem;
+  border: 1px solid #fff;
+  height: 15vh;
+  width: 15vw;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+
