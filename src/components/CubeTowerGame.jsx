@@ -373,8 +373,10 @@ class Game {
         </div>
         <div className="game-ready">
           <div id="start-button">Start</div>
+
           <div></div>
         </div>
+        <div id="start-button" className="position"  onClick={close} >close</div>
       </div>
     </div>
   );
