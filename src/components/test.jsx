@@ -80,6 +80,7 @@ const Vis = () => {
 		let mixer11 = null;
 		let mixer12 = null;
 		let mixer13 = null;
+		let mixer14 = null;
 
 		// Models
 		//adding the old man
@@ -362,8 +363,8 @@ const Vis = () => {
     loader.load(
 			"/src/components/static/models/ARROWRED.fbx",
 			function (object) {
-				mixer13 = new THREE.AnimationMixer(object);
-				const action = mixer13.clipAction(object.animations[1]);
+				mixer14 = new THREE.AnimationMixer(object);
+				const action = mixer14.clipAction(object.animations[0]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -393,6 +394,7 @@ const Vis = () => {
 				cubeFolder2.open();
 			}
 		);
+    
 		// function passmesh(mesh){
 		//     mixer2.push(mesh)
 		//     console.log(mixer2);}
@@ -1454,6 +1456,9 @@ const Vis = () => {
 			}
       if (mixer13) {
 				mixer13.update(deltaTime);
+			}
+      if (mixer14) {
+				mixer14.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls
