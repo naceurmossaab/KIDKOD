@@ -11,7 +11,7 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
-// import DnDEnglish from "./Challenges/English_challange/DnD-eng.jsx";
+import DnDEnglish from "./Challenges/English_challenge/DnD-eng.jsx";
 import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -1505,6 +1505,8 @@ console.log(task);
 			return <DnD close={close} user={user} setUser={setUser} />;
       if (task === "two")
 			return <Challenges close={close} user={user} setUser={setUser} />;
+      if (task === "three")
+			return <DnDEnglish close={close} user={user} setUser={setUser} />;
 	
 	}
   
@@ -1513,6 +1515,8 @@ console.log(task);
     console.log(task);
 		setlevel(0);}
     if (e.keyCode === 13 && level === 2) {settask("two");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 3) {settask("three");
 	setlevel(0);}
 	};
 
