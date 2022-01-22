@@ -401,6 +401,27 @@ const Vis = () => {
 				scene.add(object);
 			}
 		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer14 = new THREE.AnimationMixer(object);
+				const action = mixer14.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-81, 0.5, -63);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+    
+			}
+		);
+    
 		// function passmesh(mesh){
 		//     mixer2.push(mesh)
 		//     console.log(mixer2);}
