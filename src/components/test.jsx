@@ -81,6 +81,7 @@ const Vis = () => {
 		let mixer12 = null;
 		let mixer13 = null;
 		let mixer14 = null;
+		let mixer15 = null;
 
 		// Models
 		//adding the old man
@@ -377,24 +378,29 @@ const Vis = () => {
 				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 7, 0);
 				scene.add(object);
-        	const cubeFolder1 = gui.addFolder("position");
-				cubeFolder1.add(object.position, "x");
-				cubeFolder1.add(object.position, "y");
-				cubeFolder1.add(object.position, "z");
-				cubeFolder1.open();
-				const cubeFolder = gui.addFolder("scale");
-				cubeFolder.add(object.scale, "x");
-				cubeFolder.add(object.scale, "y");
-				cubeFolder.add(object.scale, "z");
-				cubeFolder.open();
-				const cubeFolder2 = gui.addFolder("rotation");
-				cubeFolder2.add(object.rotation, "x");
-				cubeFolder2.add(object.rotation, "y");
-				cubeFolder2.add(object.rotation, "z");
-				cubeFolder2.open();
+    
 			}
 		);
     
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer15 = new THREE.AnimationMixer(object);
+				const action = mixer15.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(-116, 0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
 		// function passmesh(mesh){
 		//     mixer2.push(mesh)
 		//     console.log(mixer2);}
@@ -1257,83 +1263,7 @@ const Vis = () => {
 			mesh.visible = false;
 			scene.remove(mesh);
 		};
-		createBox(
-			35.9,
-			3,
-			0.1,
-			{ x: 65, y: 0, z: -31 },
-			{ x: 3.1, y: -1.187, z: 3.1 }
-		);
-		createBox(
-			26.15,
-			3,
-			0.1,
-			{ x: 58.6, y: 0, z: -31 },
-			{ x: 3.1, y: -1.187, z: 3.1 }
-		);
-		createBox(
-			75.3,
-			3.5,
-			0.1,
-			{ x: 37.7, y: 0, z: -73.4 },
-			{ x: 3.1, y: 0.747, z: 3.169 }
-		);
-		createBox(
-			73.8,
-			3.5,
-			0.1,
-			{ x: 40.8, y: 0, z: -82.3 },
-			{ x: 3.053, y: 0.771, z: 3.2 }
-		);
-		createBox(
-			78.6,
-			3.5,
-			0.1,
-			{ x: -36.8, y: 0, z: -95.3 },
-			{ x: 3.203, y: -0.175, z: 3.159 }
-		);
-		createBox(
-			75,
-			3.5,
-			0.1,
-			{ x: -42.5, y: 0, z: -101.7 },
-			{ x: 3.2, y: -0.14, z: 3.161 }
-		);
-		createBox(
-			13.2,
-			6.45,
-			8.5,
-			{ x: 77.9, y: 0, z: -69 },
-			{ x: 3.1, y: -0.915, z: 3.1 }
-		); //house
-		createBox(
-			1,
-			3.5,
-			1.15,
-			{ x: 79.1, y: 0, z: -54.1 },
-			{ x: 3.1, y: -0.91, z: 3.1 }
-		); // medium tree
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: -0.2, y: 0, z: -109.6 },
-			{ x: 3.2, y: -0.719, z: 3.2 }
-		); //ruin piller
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: 8.2, y: 0, z: -116.9 },
-			{ x: 3.2, y: -0.72, z: 3.2 }
-		); //ruin piller
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: 8.2, y: 0, z: -116.9 },
-			{ x: 3.2, y: -0.72, z: 3.2 }
-		); //ruin piller
+	
 
 		// const createBoxPhysics=(width,height,depth,position,rotation)=>{
 		// 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
@@ -1459,6 +1389,9 @@ const Vis = () => {
 			}
       if (mixer14) {
 				mixer14.update(deltaTime);
+			}
+      if (mixer15) {
+				mixer15.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls
