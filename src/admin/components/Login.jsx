@@ -22,7 +22,7 @@ const Login = (props) => {
                axios.post("http://localhost:8000/api/admin/signin", { username, password })
                     .then(({ data }) => {
                          console.log("response signin :", data);
-                         setSignin({ username: "", password: "", status: "", });
+                         setSignin({ username: "", password: "", status: "" });
                          localStorage.setItem("admin", JSON.stringify(data));
                          props.admin(data);
                     })

@@ -753,6 +753,7 @@ const Vis = () => {
 				between(box.position.x, 38.39, 52.11) &&
 				between(box.position.z, -13.67, 0.92)
 			) {
+				console.log('hi');
 				level = "one";
 				const talk = new Audio(
 					"/src/components/static/Enregistrement.m4a"
