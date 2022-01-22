@@ -70,6 +70,11 @@ const DropArea = ({ user, setUser, close }) => {
     let test = challengeResponce.reduce((acc, ele) => (ele ? acc + 1 : acc), 0);
     console.log(test);
     if (test > 3) {
+      setview({
+        challenge: false,
+        win: true,
+        loose: false,
+      });
       setUser({ ...user, level: user.level + 1 });
       axios
         .put(`http://localhost:8000/api/users/updateLevel/${user._id}`, {
@@ -79,6 +84,12 @@ const DropArea = ({ user, setUser, close }) => {
           console.log(data.level);
         })
         .catch((err) => console.log(err));
+    } else {
+      setview({
+        challenge: false,
+        win: false,
+        loose: true,
+      });
     }
   };
 
@@ -182,12 +193,58 @@ const DropArea = ({ user, setUser, close }) => {
       ) : (
         <div>
           <div>
-            {view.loose && <div className="dnd-container">LOOOOOSE</div>}
+            {view.loose && (
+              <div className="dnd-container">
+                <video
+                  className="looseVideo"
+                  loading="lazy"
+                  muted="muted"
+                  src="https://cdnl.iconscout.com/lottie/premium/thumb/oops-3853513-3198274.mp4"
+                  width="174.6"
+                  height="174.6"
+                  type="video/mp4"
+                  autoplay="autoplay"
+                  loop="loop"
+                ></video>
+                {/* <LooseAnimation /> */}
+                {/* <img
+                  className="challenge-close icon"
+                  src="https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png"
+                  onClick={close}
+                /> */}
+
+                <ul className="resultList">
+                  {challengeResponce.map((e, i) => (
+                    <li key={i} className={e ? "correct" : "wrong"}>
+                      question {i + 1} is {e && "correct"} {!e && "wrong"}{" "}
+                    </li>
+                  ))}
+                  <li>{true}</li>
+                </ul>
+                <button onClick={close} className="closeBTN">
+                  Close
+                </button>
+              </div>
+            )}
           </div>
           <div>
             {view.win && (
               <div className="dnd-container">
-                <WinAnimation />
+                <h4>Challenge Successfully passed</h4>
+                <video
+                  className="winVideo"
+                  loading="lazy"
+                  muted="muted"
+                  src="https://cdnl.iconscout.com/lottie/premium/thumb/congratulations-4156453-3444583.mp4"
+                  width="441.0714285714285"
+                  height="264.6428571428571"
+                  type="video/mp4"
+                  autoplay="autoplay"
+                  loop="loop"
+                ></video>{" "}
+                <button onClick={close} className="closeBTN">
+                  Close
+                </button>
               </div>
             )}
           </div>
