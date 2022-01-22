@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Challenges from "./Challenges/Challenges.jsx";
+import Game2 from "./Challenges/Game2.jsx";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
@@ -11,11 +12,14 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+import DnDEnglish from "./Challenges/English_challenge/DnD-eng.jsx";
 import axios from "axios";
+import DnDBasket from "./Challenges/dragAndDrop/dndBasket/BasketChallenge.jsx";
+import CubeTowerGame from "./CubeTowerGame"
+
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
-var level = "";
 const Vis = () => {
 	const { useRef, useEffect, useState, useMemo } = React;
 	const mount = useRef(null);
@@ -32,9 +36,12 @@ const Vis = () => {
 		setUser(null);
 	};
 	// const controls = useRef(null);
-	const [task, settask] = useState(true);
+	const [task, settask] = useState("zero");
+  const [level, setlevel] = useState(0);
+console.log(level);
+console.log(task);
 	function close() {
-		settask(true);
+		settask('false');
 		// console.log(task);
 	}
 	useMemo(() => {
@@ -897,7 +904,8 @@ const Vis = () => {
 				between(box.position.x, 38.39, 52.11) &&
 				between(box.position.z, -13.67, 0.92)
 			) {
-				level = "one";
+        console.log('hi');
+				setlevel(1);
 				const talk = new Audio(
 					"/src/components/static/Enregistrement.m4a"
 				);
@@ -911,8 +919,39 @@ const Vis = () => {
 					}, 6000);
 				}
 			}
+      if (
+				e.keyCode === 13 &&
+				between(box.position.x, 63.92, 73.72) &&
+				between(box.position.z, -57.65, -48.32)
+			) {
+				setlevel(2);}
+        if (
+          e.keyCode === 13 &&
+          between(box.position.x, 1.65, 13.12) &&
+          between(box.position.z, -133.43, -99.76)
+        ) {
+          setlevel(3);}
+          if (
+            e.keyCode === 13 &&
+            between(box.position.x, -88.34, -78.16) &&
+            between(box.position.z, -70.44, -58.82)
+          ) {
+            setlevel(4);}
+            if (
+              e.keyCode === 13 &&
+              between(box.position.x, -121.52, -110.52) &&
+              between(box.position.z, -61.23, -51.97)
+            ) {
+              setlevel(5);}
+              if (
+                e.keyCode === 13 &&
+                between(box.position.x, -138.05, -127.58) &&
+                between(box.position.z, -92.07, -80.76)
+              ) {
+                setlevel(6);}
 		};
-
+    //second level
+  
 		// Controls
 
 		// const horses = [];
@@ -1464,7 +1503,7 @@ const Vis = () => {
       if (mixer18) {
 				mixer18.update(deltaTime);
 			}
-			// console.log(box.position);
+			console.log(box.position);
 			// Update controls
 			renderer.clear();
 			// controls.update()
@@ -1483,13 +1522,37 @@ const Vis = () => {
 	}, []);
 
 	function quests() {
-		if (task === false)
+		if (task === "one")
 			return <DnD close={close} user={user} setUser={setUser} />;
+      if (task === "two")
+			return <Challenges close={close} user={user} setUser={setUser} />;
+      if (task === "three")
+			return <DnDEnglish close={close} user={user} setUser={setUser} />;
+      if (task === "four")
+      return < Game2 close={close} />
+      if (task === "five")
+      return < DnDBasket close={close} />
+      if (task === "six")
+      return < CubeTowerGame close={close} />
 	}
+  
 	document.onkeydown = function (e) {
-		if (e.keyCode === 13 && level === "one") settask(false);
-		level = "zero";
+		if (e.keyCode === 13 && level === 1) {settask("one");
+    console.log(task);
+		setlevel(0);}
+    if (e.keyCode === 13 && level === 2) {settask("two");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 3) {settask("three");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 4) {settask("four");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 5) {settask("five");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 6) {settask("six");
+	setlevel(0);}
 	};
+	
+
 	function changeImagevariable() {
 		setImage(2);
 	}
