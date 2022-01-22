@@ -14,8 +14,8 @@ import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
 import DnDEnglish from "./Challenges/English_challenge/DnD-eng.jsx";
 import axios from "axios";
-import DnDBasket from "./Challenges/dragAndDrop/dndBasket/BasketChallenge.jsx"
-// import CubeTowerGame from "./CubeTowerGame"
+import DnDBasket from "./Challenges/dragAndDrop/dndBasket/BasketChallenge.jsx";
+import CubeTowerGame from "./CubeTowerGame"
 
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -942,13 +942,13 @@ console.log(task);
               between(box.position.x, -121.52, -110.52) &&
               between(box.position.z, -61.23, -51.97)
             ) {
-              setlevel(4);}
+              setlevel(5);}
               if (
                 e.keyCode === 13 &&
                 between(box.position.x, -138.05, -127.58) &&
-                between(box.position.z, -92.07, -51.97)
+                between(box.position.z, -92.07, -80.76)
               ) {
-                setlevel(4);}
+                setlevel(6);}
 		};
     //second level
   
@@ -1532,6 +1532,8 @@ console.log(task);
       return < Game2 close={close} />
       if (task === "five")
       return < DnDBasket close={close} />
+      if (task === "six")
+      return < CubeTowerGame close={close} />
 	}
   
 	document.onkeydown = function (e) {
@@ -1544,9 +1546,12 @@ console.log(task);
 	setlevel(0);}
   if (e.keyCode === 13 && level === 4) {settask("four");
 	setlevel(0);}
-  if (e.keyCode === 13 && level === 4) {settask("five");
+  if (e.keyCode === 13 && level === 5) {settask("five");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 6) {settask("six");
 	setlevel(0);}
 	};
+	
 
 	function changeImagevariable() {
 		setImage(2);
