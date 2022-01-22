@@ -14,7 +14,7 @@ import DnD from "./Challenges/dragAndDrop/DnD.jsx";
 import axios from "axios";
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-// const gui = new dat.GUI();
+const gui = new dat.GUI();
 var level = "";
 const Vis = () => {
 	const { useRef, useEffect, useState, useMemo } = React;
@@ -78,6 +78,13 @@ const Vis = () => {
 		let mixer9 = null;
 		let mixer10 = null;
 		let mixer11 = null;
+		let mixer12 = null;
+		let mixer13 = null;
+		let mixer14 = null;
+		let mixer15 = null;
+		let mixer16 = null;
+		let mixer17 = null;
+		let mixer18 = null;
 
 		// Models
 		//adding the old man
@@ -187,7 +194,7 @@ const Vis = () => {
 					}
 				});
 				object.position.set(20, 0, -177);
-				object.scale.set(0.02, 0.02, 0.02);
+				object.scale.set(0.015, 0.015, 0.015);
 				object.rotation.set(0, 5.5, 0);
 				scene.add(object);
 			}
@@ -284,10 +291,44 @@ const Vis = () => {
 			}
 		);
 		loader.load(
-			"/src/components/static/models/ARROW.fbx",
+			"/src/components/static/models/ARROWRED.fbx",
 			function (object) {
 				mixer11 = new THREE.AnimationMixer(object);
-				const action = mixer11.clipAction(object.animations[1]);
+				const action = mixer11.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(70, -0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 6, 0);
+				scene.add(object);
+				// const cubeFolder1 = gui.addFolder("position");
+				// cubeFolder1.add(object.position, "x");
+				// cubeFolder1.add(object.position, "y");
+				// cubeFolder1.add(object.position, "z");
+				// cubeFolder1.open();
+				// const cubeFolder = gui.addFolder("scale");
+				// cubeFolder.add(object.scale, "x");
+				// cubeFolder.add(object.scale, "y");
+				// cubeFolder.add(object.scale, "z");
+				// cubeFolder.open();
+				// const cubeFolder2 = gui.addFolder("rotation");
+				// cubeFolder2.add(object.rotation, "x");
+				// cubeFolder2.add(object.rotation, "y");
+				// cubeFolder2.add(object.rotation, "z");
+				// cubeFolder2.open();
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer12 = new THREE.AnimationMixer(object);
+				const action = mixer12.clipAction(object.animations[1]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -298,25 +339,128 @@ const Vis = () => {
 				});
 				object.position.x = 46;
 				object.position.z = -7.1;
-				object.position.y = -2;
-				object.scale.set(0.02, 0.02, 0.02);
+				object.position.y = -0.5;
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 6, 0);
 				scene.add(object);
-				const cubeFolder1 = gui.addFolder("position");
-				cubeFolder1.add(object.position, "x");
-				cubeFolder1.add(object.position, "y");
-				cubeFolder1.add(object.position, "z");
-				cubeFolder1.open();
-				const cubeFolder = gui.addFolder("scale");
-				cubeFolder.add(object.scale, "x");
-				cubeFolder.add(object.scale, "y");
-				cubeFolder.add(object.scale, "z");
-				cubeFolder.open();
-				const cubeFolder2 = gui.addFolder("rotation");
-				cubeFolder2.add(object.rotation, "x");
-				cubeFolder2.add(object.rotation, "y");
-				cubeFolder2.add(object.rotation, "z");
-				cubeFolder2.open();
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer13 = new THREE.AnimationMixer(object);
+				const action = mixer13.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(5, 0.5, -111);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer14 = new THREE.AnimationMixer(object);
+				const action = mixer14.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-81, 0.5, -63);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+    
+			}
+		);
+    
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer15 = new THREE.AnimationMixer(object);
+				const action = mixer15.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(-116, 0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer16 = new THREE.AnimationMixer(object);
+				const action = mixer16.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-134, 0.5, -88);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+    
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer17 = new THREE.AnimationMixer(object);
+				const action = mixer17.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(-117, 0.9, -147);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+  
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer18 = new THREE.AnimationMixer(object);
+				const action = mixer18.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(20, 0.7, -177);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 8, 0);
+				scene.add(object)
 			}
 		);
 		// function passmesh(mesh){
@@ -514,53 +658,53 @@ const Vis = () => {
 		//     },
 		// );
 		//grass
-		const grass = new THREE.Group();
-		scene.add(grass);
-		for (let i = 0; i < 1000; i++) {
-			gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
-				const angle = Math.random() * Math.PI * 80;
-				const radius = 3 + Math.random() * 100;
-				gltf.scene.position.set(
-					Math.sin(angle) * radius,
-					0,
-					Math.cos(angle) * radius
-				);
-				gltf.scene.scale.set(0.5, 0.5, 0.5);
-				grass.add(gltf.scene);
-			});
-		}
-		//flowers
-		const flowers = new THREE.Group();
-		scene.add(flowers);
-		for (let i = 0; i < 1000; i++) {
-			gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
-				const angle = Math.random() * Math.PI * 80;
-				const radius = 3 + Math.random() * 100;
-				gltf.scene.position.set(
-					Math.sin(angle) * radius,
-					0,
-					Math.cos(angle) * radius
-				);
-				gltf.scene.scale.set(0.5, 0.5, 0.5);
-				grass.add(gltf.scene);
-			});
-		}
-		//mushroms
-		const mushroms = new THREE.Group();
-		scene.add(mushroms);
-		for (let i = 0; i < 300; i++) {
-			gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
-				const angle = Math.random() * Math.PI * 80;
-				const radius = 3 + Math.random() * 100;
-				gltf.scene.position.set(
-					Math.sin(angle) * radius,
-					0,
-					Math.cos(angle) * radius
-				);
-				gltf.scene.scale.set(0.3, 0.3, 0.3);
-				grass.add(gltf.scene);
-			});
-		}
+		// const grass = new THREE.Group();
+		// scene.add(grass);
+		// for (let i = 0; i < 1000; i++) {
+		// 	gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
+		// 		const angle = Math.random() * Math.PI * 80;
+		// 		const radius = 3 + Math.random() * 100;
+		// 		gltf.scene.position.set(
+		// 			Math.sin(angle) * radius,
+		// 			0,
+		// 			Math.cos(angle) * radius
+		// 		);
+		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
+		// 		grass.add(gltf.scene);
+		// 	});
+		// }
+		// //flowers
+		// const flowers = new THREE.Group();
+		// scene.add(flowers);
+		// for (let i = 0; i < 1000; i++) {
+		// 	gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
+		// 		const angle = Math.random() * Math.PI * 80;
+		// 		const radius = 3 + Math.random() * 100;
+		// 		gltf.scene.position.set(
+		// 			Math.sin(angle) * radius,
+		// 			0,
+		// 			Math.cos(angle) * radius
+		// 		);
+		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
+		// 		grass.add(gltf.scene);
+		// 	});
+		// }
+		// //mushroms
+		// const mushroms = new THREE.Group();
+		// scene.add(mushroms);
+		// for (let i = 0; i < 300; i++) {
+		// 	gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
+		// 		const angle = Math.random() * Math.PI * 80;
+		// 		const radius = 3 + Math.random() * 100;
+		// 		gltf.scene.position.set(
+		// 			Math.sin(angle) * radius,
+		// 			0,
+		// 			Math.cos(angle) * radius
+		// 		);
+		// 		gltf.scene.scale.set(0.3, 0.3, 0.3);
+		// 		grass.add(gltf.scene);
+		// 	});
+		// }
 
 		// trees
 		gltfLoader.load("/src/all models/trees1.gltf", function (gltf) {
@@ -1181,83 +1325,7 @@ const Vis = () => {
 			mesh.visible = false;
 			scene.remove(mesh);
 		};
-		createBox(
-			35.9,
-			3,
-			0.1,
-			{ x: 65, y: 0, z: -31 },
-			{ x: 3.1, y: -1.187, z: 3.1 }
-		);
-		createBox(
-			26.15,
-			3,
-			0.1,
-			{ x: 58.6, y: 0, z: -31 },
-			{ x: 3.1, y: -1.187, z: 3.1 }
-		);
-		createBox(
-			75.3,
-			3.5,
-			0.1,
-			{ x: 37.7, y: 0, z: -73.4 },
-			{ x: 3.1, y: 0.747, z: 3.169 }
-		);
-		createBox(
-			73.8,
-			3.5,
-			0.1,
-			{ x: 40.8, y: 0, z: -82.3 },
-			{ x: 3.053, y: 0.771, z: 3.2 }
-		);
-		createBox(
-			78.6,
-			3.5,
-			0.1,
-			{ x: -36.8, y: 0, z: -95.3 },
-			{ x: 3.203, y: -0.175, z: 3.159 }
-		);
-		createBox(
-			75,
-			3.5,
-			0.1,
-			{ x: -42.5, y: 0, z: -101.7 },
-			{ x: 3.2, y: -0.14, z: 3.161 }
-		);
-		createBox(
-			13.2,
-			6.45,
-			8.5,
-			{ x: 77.9, y: 0, z: -69 },
-			{ x: 3.1, y: -0.915, z: 3.1 }
-		); //house
-		createBox(
-			1,
-			3.5,
-			1.15,
-			{ x: 79.1, y: 0, z: -54.1 },
-			{ x: 3.1, y: -0.91, z: 3.1 }
-		); // medium tree
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: -0.2, y: 0, z: -109.6 },
-			{ x: 3.2, y: -0.719, z: 3.2 }
-		); //ruin piller
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: 8.2, y: 0, z: -116.9 },
-			{ x: 3.2, y: -0.72, z: 3.2 }
-		); //ruin piller
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: 8.2, y: 0, z: -116.9 },
-			{ x: 3.2, y: -0.72, z: 3.2 }
-		); //ruin piller
+	
 
 		// const createBoxPhysics=(width,height,depth,position,rotation)=>{
 		// 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
@@ -1308,35 +1376,35 @@ const Vis = () => {
 			// 		horse.position.x = -200;
 			// 	}
 			// }
-			for (let i = 0; i < flamingos.length; i++) {
-				const flamingo = flamingos[i];
+			// for (let i = 0; i < flamingos.length; i++) {
+			// 	const flamingo = flamingos[i];
 
-				flamingo.position.x += flamingo.speed * deltaTime;
+			// 	flamingo.position.x += flamingo.speed * deltaTime;
 
-				if (flamingo.position.x > 150) {
-					flamingo.position.x = -150;
-				}
-			}
-			for (let i = 0; i < storks.length; i++) {
-				const stork = storks[i];
+			// 	if (flamingo.position.x > 150) {
+			// 		flamingo.position.x = -150;
+			// 	}
+			// }
+			// for (let i = 0; i < storks.length; i++) {
+			// 	const stork = storks[i];
 
-				stork.position.x += stork.speed * deltaTime;
-				stork.position.z = 5;
+			// 	stork.position.x += stork.speed * deltaTime;
+			// 	stork.position.z = 5;
 
-				if (stork.position.x > 300) {
-					stork.position.x = -300;
-				}
-			}
-			for (let i = 0; i < parrots.length; i++) {
-				const parrot = parrots[i];
+			// 	if (stork.position.x > 300) {
+			// 		stork.position.x = -300;
+			// 	}
+			// }
+			// for (let i = 0; i < parrots.length; i++) {
+			// 	const parrot = parrots[i];
 
-				parrot.position.x += parrot.speed * deltaTime;
-				parrot.position.z = -5;
+			// 	parrot.position.x += parrot.speed * deltaTime;
+			// 	parrot.position.z = -5;
 
-				if (parrot.position.x > 500) {
-					parrot.position.x = -500;
-				}
-			}
+			// 	if (parrot.position.x > 500) {
+			// 		parrot.position.x = -500;
+			// 	}
+			// }
 			if (mixer1) {
 				mixer1.update(deltaTime);
 			}
@@ -1374,6 +1442,27 @@ const Vis = () => {
 			}
 			if (mixer11) {
 				mixer11.update(deltaTime);
+			}
+      if (mixer12) {
+				mixer12.update(deltaTime);
+			}
+      if (mixer13) {
+				mixer13.update(deltaTime);
+			}
+      if (mixer14) {
+				mixer14.update(deltaTime);
+			}
+      if (mixer15) {
+				mixer15.update(deltaTime);
+			}
+      if (mixer16) {
+				mixer16.update(deltaTime);
+			}
+      if (mixer17) {
+				mixer17.update(deltaTime);
+			}
+      if (mixer18) {
+				mixer18.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls

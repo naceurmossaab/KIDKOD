@@ -12,6 +12,7 @@
      /* outline: 1px solid red; */
 }
 .infocardContainer div * {
+     margin: 0 !important;
      display : flex;
      overflow: hidden;
      text-overflow: hidden;
