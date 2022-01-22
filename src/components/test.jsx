@@ -82,6 +82,7 @@ const Vis = () => {
 		let mixer13 = null;
 		let mixer14 = null;
 		let mixer15 = null;
+		let mixer16 = null;
 
 		// Models
 		//adding the old man
@@ -404,8 +405,8 @@ const Vis = () => {
     loader.load(
 			"/src/components/static/models/ARROWRED.fbx",
 			function (object) {
-				mixer14 = new THREE.AnimationMixer(object);
-				const action = mixer14.clipAction(object.animations[0]);
+				mixer16 = new THREE.AnimationMixer(object);
+				const action = mixer16.clipAction(object.animations[0]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -414,7 +415,7 @@ const Vis = () => {
 						child.receiveShadow = true;
 					}
 				});
-				object.position.set(-81, 0.5, -63);
+				object.position.set(-134, 0.5, -88);
 				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 7, 0);
 				scene.add(object);
@@ -1413,6 +1414,9 @@ const Vis = () => {
 			}
       if (mixer15) {
 				mixer15.update(deltaTime);
+			}
+      if (mixer16) {
+				mixer16.update(deltaTime);
 			}
 			// console.log(box.position);
 			// Update controls
