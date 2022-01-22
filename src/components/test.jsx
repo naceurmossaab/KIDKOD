@@ -357,25 +357,10 @@ const Vis = () => {
 				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 7, 0);
 				scene.add(object);
-        	const cubeFolder1 = gui.addFolder("position");
-				cubeFolder1.add(object.position, "x");
-				cubeFolder1.add(object.position, "y");
-				cubeFolder1.add(object.position, "z");
-				cubeFolder1.open();
-				const cubeFolder = gui.addFolder("scale");
-				cubeFolder.add(object.scale, "x");
-				cubeFolder.add(object.scale, "y");
-				cubeFolder.add(object.scale, "z");
-				cubeFolder.open();
-				const cubeFolder2 = gui.addFolder("rotation");
-				cubeFolder2.add(object.rotation, "x");
-				cubeFolder2.add(object.rotation, "y");
-				cubeFolder2.add(object.rotation, "z");
-				cubeFolder2.open();
 			}
 		);
     loader.load(
-			"/src/components/static/models/ARROW.fbx",
+			"/src/components/static/models/ARROWRED.fbx",
 			function (object) {
 				mixer13 = new THREE.AnimationMixer(object);
 				const action = mixer13.clipAction(object.animations[1]);
@@ -387,7 +372,7 @@ const Vis = () => {
 						child.receiveShadow = true;
 					}
 				});
-        object.position.set(5, 0.5, -111);
+				object.position.set(-81, 0.5, -63);
 				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 7, 0);
 				scene.add(object);
