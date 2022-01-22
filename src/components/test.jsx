@@ -422,7 +422,25 @@ const Vis = () => {
     
 			}
 		);
-    
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer15 = new THREE.AnimationMixer(object);
+				const action = mixer15.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(-116, 0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
 		// function passmesh(mesh){
 		//     mixer2.push(mesh)
 		//     console.log(mixer2);}
