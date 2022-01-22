@@ -31,9 +31,22 @@
   z-index: 1000;
 }
 .navbar img {
-  margin-left: 5rem;
-  margin-right: 0;
+  position: relative;
+  margin-left: 0rem;
+  margin-top: 5rem;
+  height: 170px;
+  width : 170px;
+  animation-name: logo;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
 }
+@keyframes logo {
+  0%    {left:0px;   top:0px;}
+  50%   {left:0px;   top:0px;}
+  75%   {left:250px; top:0px;}
+  100%  {left:0px;   top:0px;}
+}
+
 .navbar span {
   text-decoration: none;
   background: linear-gradient(to right, rgb(255, 49, 49), rgb(255, 0, 149));
@@ -62,10 +75,4 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-}
-.logo img {
-  margin-top: 90px;
-  margin-left: -40px;
-  height: 170px;
-  width: 170px;
 }
