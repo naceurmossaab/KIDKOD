@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Challenges from "./Challenges/Challenges.jsx";
+import Game2 from "./Challenges/Game2.jsx";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
@@ -13,7 +14,9 @@ import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
 import DnDEnglish from "./Challenges/English_challenge/DnD-eng.jsx";
 import axios from "axios";
-import CubeTowerGame from "./CubeTowerGame"
+import DnDBasket from "./Challenges/dragAndDrop/dndBasket/BasketChallenge.jsx"
+// import CubeTowerGame from "./CubeTowerGame"
+
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
@@ -38,7 +41,7 @@ const Vis = () => {
 console.log(level);
 console.log(task);
 	function close() {
-		settask(true);
+		settask('false');
 		// console.log(task);
 	}
 	useMemo(() => {
@@ -933,8 +936,19 @@ console.log(task);
             between(box.position.x, -88.34, -78.16) &&
             between(box.position.z, -70.44, -58.82)
           ) {
-            console.log('hi');
             setlevel(4);}
+            if (
+              e.keyCode === 13 &&
+              between(box.position.x, -121.52, -110.52) &&
+              between(box.position.z, -61.23, -51.97)
+            ) {
+              setlevel(4);}
+              if (
+                e.keyCode === 13 &&
+                between(box.position.x, -138.05, -127.58) &&
+                between(box.position.z, -92.07, -51.97)
+              ) {
+                setlevel(4);}
 		};
     //second level
   
@@ -1515,7 +1529,9 @@ console.log(task);
       if (task === "three")
 			return <DnDEnglish close={close} user={user} setUser={setUser} />;
       if (task === "four")
-      return < CubeTowerGame />
+      return < Game2 close={close} />
+      if (task === "five")
+      return < DnDBasket close={close} />
 	}
   
 	document.onkeydown = function (e) {
@@ -1527,6 +1543,8 @@ console.log(task);
   if (e.keyCode === 13 && level === 3) {settask("three");
 	setlevel(0);}
   if (e.keyCode === 13 && level === 4) {settask("four");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 4) {settask("five");
 	setlevel(0);}
 	};
 
