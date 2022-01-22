@@ -39,7 +39,7 @@
   flex-direction: column;
   align-items: center;
   padding: 10rem 1rem;
-  background-image: url("https://cdn.discordapp.com/attachments/902266709568782436/934082914839318528/szszs.png");
+  background-image: url("https://cdn.discordapp.com/attachments/902266709568782436/934281461371125780/loginPic.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 38vw;
@@ -56,13 +56,12 @@
 .contact {
   display: flex;
   flex-direction: column;
-  margin: 1rem 0;
   width: 75vw;
   height: 85vh;
 }
 .contact > * {
   margin: 0.5rem 0;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
   color: #222;
 }
@@ -98,7 +97,6 @@
 }
 
 #pictures {
-  margin-top: 1rem;
   display: flex;
   width: 500px;
 }
@@ -149,7 +147,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin : 0 1rem;
+  margin: 0 1rem;
   /* outline: 1px solid red; */
 }
 .connexion-method img {

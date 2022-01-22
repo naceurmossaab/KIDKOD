@@ -1,5 +1,6 @@
 import "./admin.css";
 import "font-awesome/css/font-awesome.min.css";
+import axios from "axios";
 import Sidebar from "./components/Sidebar";
 import Tasks   from "./components/Tasks";
 import Charts  from "./components/Charts";
@@ -41,9 +42,10 @@ const Admin = () => {
      };
      useEffect(() => session(), []);
      useEffect(() => { }, [view]);
-     useEffect(() => {
-          console.log(users);
-     }, [users]);
+     useEffect(() => axios.get("http://localhost:8000/api/admin/users")
+               .then(({ data }) => {
+                    setUsers(data);
+               }), []);
 
      return(
           <div>
@@ -55,7 +57,10 @@ const Admin = () => {
                     {view === 'dashboard' ? 
                     (<div>
                          <Charts type="all" chartData={chartData} displayLegend={true}/>
-                         <Users type={["username", "email"]} />
+                         <div className="dashboard">
+                              <Users type={["username", "email"]} />
+                              <div className="number-users">All users : {users.length}</div>
+                         </div>
                     </div>) : (<div />)}
                     {view === 'users' ? (<Users type={["all"]} />) : (<div />)}
                     {view === 'tasks' ? (<Tasks />) : (<div />)}

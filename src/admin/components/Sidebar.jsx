@@ -4,7 +4,7 @@ const Sidebar = (props) => {
                <div className="sidebar-content">
                     <div className="sidebar-header">
                          <div className="user-pic">
-                              <img className="img-responsive img-rounded" src="https://icon2.cleanpng.com/20180920/att/kisspng-user-logo-information-service-design-5ba34f886b6700.1362345615374293844399.jpg" alt="User picture" />
+                              <img className="img-responsive img-rounded" src={props.admin.picture} alt="User picture" />
                          </div>
                          <div className="user-info">
                               <span className="user-name">

@@ -206,11 +206,11 @@ const DropArea = ({ user, setUser, close }) => {
                   loop="loop"
                 ></video>
                 {/* <LooseAnimation /> */}
-                <img
+                {/* <img
                   className="challenge-close icon"
                   src="https://cdn3d.iconscout.com/3d/premium/thumb/close-4112733-3408782@0.png"
                   onClick={close}
-                />
+                /> */}
 
                 <ul className="resultList">
                   {challengeResponce.map((e, i) => (
@@ -220,6 +220,9 @@ const DropArea = ({ user, setUser, close }) => {
                   ))}
                   <li>{true}</li>
                 </ul>
+                <button onClick={close} className="closeBTN">
+                  Close
+                </button>
               </div>
             )}
           </div>
@@ -238,6 +241,9 @@ const DropArea = ({ user, setUser, close }) => {
                   autoplay="autoplay"
                   loop="loop"
                 ></video>{" "}
+                <button onClick={close} className="closeBTN">
+                  Close
+                </button>
               </div>
             )}
           </div>

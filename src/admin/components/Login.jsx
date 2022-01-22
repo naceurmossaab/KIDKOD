@@ -22,7 +22,7 @@ const Login = (props) => {
                axios.post("http://localhost:8000/api/admin/signin", { username, password })
                     .then(({ data }) => {
                          console.log("response signin :", data);
-                         setSignin({ username: "", password: "", status: "", });
+                         setSignin({ username: "", password: "", status: "" });
                          localStorage.setItem("admin", JSON.stringify(data));
                          props.admin(data);
                     })
@@ -32,7 +32,7 @@ const Login = (props) => {
 
      return (
      <div className="login">
-          <div className="left-div"></div>
+          <div className="left-div-admin"></div>
           <div className="contact">
                <h3>Sign In</h3>
                <input value={signin.username} onChange={(e) => setSignin({ ...signin, username: e.target.value })} name="username" placeholder="username" type="text" />
