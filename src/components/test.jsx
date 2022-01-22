@@ -926,8 +926,14 @@ console.log(task);
           between(box.position.x, 1.65, 13.12) &&
           between(box.position.z, -133.43, -99.76)
         ) {
-          console.log('hi');
           setlevel(3);}
+          if (
+            e.keyCode === 13 &&
+            between(box.position.x, -88.34, -78.16) &&
+            between(box.position.z, -70.44, -58.82)
+          ) {
+            console.log('hi');
+            setlevel(4);}
 		};
     //second level
   
@@ -1482,7 +1488,7 @@ console.log(task);
       if (mixer18) {
 				mixer18.update(deltaTime);
 			}
-			// console.log(box.position);
+			console.log(box.position);
 			// Update controls
 			renderer.clear();
 			// controls.update()
