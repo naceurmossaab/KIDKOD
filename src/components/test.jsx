@@ -13,6 +13,7 @@ import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
 import DnDEnglish from "./Challenges/English_challenge/DnD-eng.jsx";
 import axios from "axios";
+import CubeTowerGame from "./CubeTowerGame"
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 const gui = new dat.GUI();
@@ -1513,7 +1514,8 @@ console.log(task);
 			return <Challenges close={close} user={user} setUser={setUser} />;
       if (task === "three")
 			return <DnDEnglish close={close} user={user} setUser={setUser} />;
-	
+      if (task === "four")
+      return < CubeTowerGame />
 	}
   
 	document.onkeydown = function (e) {
@@ -1523,6 +1525,8 @@ console.log(task);
     if (e.keyCode === 13 && level === 2) {settask("two");
 	setlevel(0);}
   if (e.keyCode === 13 && level === 3) {settask("three");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 4) {settask("four");
 	setlevel(0);}
 	};
 
