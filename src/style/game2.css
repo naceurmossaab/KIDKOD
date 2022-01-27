@@ -1,0 +1,39 @@
+body {
+    background-color: #ddd;
+    color: #fff;
+  }
+  
+  .container {
+    width: 700px;
+    height: 400px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    padding: 40px;
+  }
+  
+  .challengeBTN {
+    padding: 7px;
+    background-image: linear-gradient(
+      to right,
+      rgb(255, 148, 148),
+      rgb(255, 212, 131)
+    );
+    font-size: larger;
+    margin: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  input {
+    margin: 15px;
+  }
+  
+  #test1 {
+    width: 20px;
+    height: 20px;
+  }
+  .icon {
+    height: 50px;
+    width: 50px;
+    /* margin-left: 80%; */
+  }

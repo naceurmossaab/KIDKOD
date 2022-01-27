@@ -1,6 +1,6 @@
 .dnd-containerr {
-  height: 850px;
-  width: 1020px;
+  height: 700px;
+  width: 900px;
   background-image: url("https://image.freepik.com/free-vector/hand-drawn-abstract-shapes-background_23-2149084635.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -8,7 +8,7 @@
   color: black;
   font-family: "Shadows Into Light", cursive;
   font-weight: bold;
-  font-size: 60px;
+  font-size: 40px;
 }
 .dnd-sub-container {
   display: flex;
@@ -21,18 +21,18 @@
 }
 
 .multiplee {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgb(221, 245, 255);
-  display: inline;
-  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 250px;
   width: 600px;
-  padding: 0 5rem;
+  padding: 20px 5rem;
   border-radius: 20px;
   border: dashed rgb(88, 86, 86);
   border-width: 8px;
-  font-size: 50px;
+  font-size: 30px;
   text-shadow: 0px 0px 0 rgb(255, 255, 255), 1px 1px 0 rgb(255, 255, 255),
     2px 2px 0 rgb(255, 255, 255), 3px 3px 0 rgb(255, 255, 255),
     4px 4px 0 rgb(255, 255, 255), 5px 5px 0 rgb(255, 255, 255),
@@ -47,8 +47,8 @@
   justify-content: space-between;
   background-color: rgb(221, 245, 255);
   height: 150px;
-  font-size: 50px;
-  width: 500px;
+  font-size: 30px;
+  width: 300px;
   padding: 0 5rem;
   margin-left: 3rem;
   margin-right: -3rem;
@@ -97,7 +97,7 @@
   padding: 10px;
   font-size: 25px;
   max-width: 400px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   /* margin-top: -10px; */
   background: rgba(93, 93, 218, 0.4);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -113,7 +113,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1100px;
+  width: 1000px;
   padding: 10px;
 }
 
@@ -123,7 +123,7 @@
   justify-content: center;
   column-gap: 70px;
   width: 1100px;
-  margin-left: 3rem;
+  /* margin-left: 3rem; */
 }
 
 /* .submit-btn button{
