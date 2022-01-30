@@ -55,11 +55,16 @@ const Login = () => {
           axios.get("http://localhost:8000/api/random-pictures/getAll")
                .then(({ data }) => {
                     let pics = [];
+                    let randomNumber = [];
+                    while (randomNumber.length < 9) {
+                         let random = Math.floor(Math.random() * data.length);
+                         if (randomNumber.indexOf(random) === -1) randomNumber.push(random);
+                    }
                     for (var i = 0; i < 9; i++) {
-                         let random = Math.floor(Math.random()*data.length);
-                         pics.push(data[random]);
+                         pics.push(data[randomNumber.pop()]);
                          // pics.push(data[i]);
                     }
+                    console.log("random pictures => ", pics);
                     setPictures(pics);
                })
                .catch((error) => console.log("error getRandomPictures : ", error));
