@@ -19,7 +19,7 @@ import CubeTowerGame from "./CubeTowerGame"
 
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-const gui = new dat.GUI();
+// const gui = new dat.GUI();
 const Vis = () => {
 	const { useRef, useEffect, useState, useMemo } = React;
 	const mount = useRef(null);
