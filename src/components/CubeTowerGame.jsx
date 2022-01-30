@@ -29,7 +29,7 @@ const CubeTowerGame = () => {
             antialias: true,
             alpha: false
         });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(1000, 800);
         this.renderer.setClearColor('#D0CBC7', 1);
         this.container.appendChild(this.renderer.domElement);
         // scene
@@ -38,7 +38,7 @@ const CubeTowerGame = () => {
 		this.ax=new THREE.AxesHelper(50)
 		this.scene.add(this.ax)
         // camera
-        let aspect = window.innerWidth / window.innerHeight;
+        let aspect = 1000 / 800;
         let d = 20;
         this.camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, -100, 1000);
         this.camera.position.x = 2;
@@ -60,11 +60,11 @@ const CubeTowerGame = () => {
     }
     onResize() {
         let viewSize = 30;
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.camera.left = window.innerWidth / -viewSize;
-        this.camera.right = window.innerWidth / viewSize;
-        this.camera.top = window.innerHeight / viewSize;
-        this.camera.bottom = window.innerHeight / -viewSize;
+        this.renderer.setSize(1000, 800);
+        this.camera.left = 1000 / -viewSize;
+        this.camera.right = 1000 / viewSize;
+        this.camera.top = 800 / viewSize;
+        this.camera.bottom = 800 / -viewSize;
         this.camera.updateProjectionMatrix();
     }
 }

@@ -41,7 +41,7 @@ const Vis = () => {
 console.log(level);
 console.log(task);
 	function close() {
-		settask('false');
+		settask(true);
 		// console.log(task);
 	}
 	useMemo(() => {
@@ -665,53 +665,53 @@ console.log(task);
 		//     },
 		// );
 		//grass
-		// const grass = new THREE.Group();
-		// scene.add(grass);
-		// for (let i = 0; i < 1000; i++) {
-		// 	gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
-		// 		const angle = Math.random() * Math.PI * 80;
-		// 		const radius = 3 + Math.random() * 100;
-		// 		gltf.scene.position.set(
-		// 			Math.sin(angle) * radius,
-		// 			0,
-		// 			Math.cos(angle) * radius
-		// 		);
-		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
-		// 		grass.add(gltf.scene);
-		// 	});
-		// }
-		// //flowers
-		// const flowers = new THREE.Group();
-		// scene.add(flowers);
-		// for (let i = 0; i < 1000; i++) {
-		// 	gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
-		// 		const angle = Math.random() * Math.PI * 80;
-		// 		const radius = 3 + Math.random() * 100;
-		// 		gltf.scene.position.set(
-		// 			Math.sin(angle) * radius,
-		// 			0,
-		// 			Math.cos(angle) * radius
-		// 		);
-		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
-		// 		grass.add(gltf.scene);
-		// 	});
-		// }
-		// //mushroms
-		// const mushroms = new THREE.Group();
-		// scene.add(mushroms);
-		// for (let i = 0; i < 300; i++) {
-		// 	gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
-		// 		const angle = Math.random() * Math.PI * 80;
-		// 		const radius = 3 + Math.random() * 100;
-		// 		gltf.scene.position.set(
-		// 			Math.sin(angle) * radius,
-		// 			0,
-		// 			Math.cos(angle) * radius
-		// 		);
-		// 		gltf.scene.scale.set(0.3, 0.3, 0.3);
-		// 		grass.add(gltf.scene);
-		// 	});
-		// }
+		const grass = new THREE.Group();
+		scene.add(grass);
+		for (let i = 0; i < 1000; i++) {
+			gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
+				const angle = Math.random() * Math.PI * 80;
+				const radius = 3 + Math.random() * 100;
+				gltf.scene.position.set(
+					Math.sin(angle) * radius,
+					0,
+					Math.cos(angle) * radius
+				);
+				gltf.scene.scale.set(0.5, 0.5, 0.5);
+				grass.add(gltf.scene);
+			});
+		}
+		//flowers
+		const flowers = new THREE.Group();
+		scene.add(flowers);
+		for (let i = 0; i < 1000; i++) {
+			gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
+				const angle = Math.random() * Math.PI * 80;
+				const radius = 3 + Math.random() * 100;
+				gltf.scene.position.set(
+					Math.sin(angle) * radius,
+					0,
+					Math.cos(angle) * radius
+				);
+				gltf.scene.scale.set(0.5, 0.5, 0.5);
+				grass.add(gltf.scene);
+			});
+		}
+		//mushroms
+		const mushroms = new THREE.Group();
+		scene.add(mushroms);
+		for (let i = 0; i < 300; i++) {
+			gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
+				const angle = Math.random() * Math.PI * 80;
+				const radius = 3 + Math.random() * 100;
+				gltf.scene.position.set(
+					Math.sin(angle) * radius,
+					0,
+					Math.cos(angle) * radius
+				);
+				gltf.scene.scale.set(0.3, 0.3, 0.3);
+				grass.add(gltf.scene);
+			});
+		}
 
 		// trees
 		gltfLoader.load("/src/all models/trees1.gltf", function (gltf) {
@@ -924,31 +924,37 @@ console.log(task);
 				between(box.position.x, 63.92, 73.72) &&
 				between(box.position.z, -57.65, -48.32)
 			) {
-				setlevel(2);}
+				setlevel(2);
+				settask("two")}
         if (
           e.keyCode === 13 &&
           between(box.position.x, 1.65, 13.12) &&
           between(box.position.z, -133.43, -99.76)
         ) {
-          setlevel(3);}
+          setlevel(3);
+		settask("three")
+		}
           if (
             e.keyCode === 13 &&
             between(box.position.x, -88.34, -78.16) &&
             between(box.position.z, -70.44, -58.82)
           ) {
-            setlevel(4);}
+            setlevel(4);
+			settask("four")}
             if (
               e.keyCode === 13 &&
               between(box.position.x, -121.52, -110.52) &&
               between(box.position.z, -61.23, -51.97)
             ) {
-              setlevel(5);}
+              setlevel(5);
+			  settask("five")}
               if (
                 e.keyCode === 13 &&
                 between(box.position.x, -138.05, -127.58) &&
                 between(box.position.z, -92.07, -80.76)
               ) {
-                setlevel(6);}
+                setlevel(6);
+				settask("six")}
 		};
     //second level
   
@@ -1200,8 +1206,8 @@ console.log(task);
 				32
 			);
 			var material = new THREE.MeshPhongMaterial({
-				color: 0xd0901d,
-				emissive: 0xaa0000,
+				color: 0x292929,
+				// emissive: 0xaa0000,
 				side: THREE.DoubleSide,
 				flatShading: true,
 			});
@@ -1253,27 +1259,28 @@ console.log(task);
 			var keyup = e.type == "keyup";
 
 			var engineForce = 2000,
-				maxSteerVal = 0.6;
+				maxSteerVal = 0.5;
 			switch (e.keyCode) {
 				case 38: // forward
 					vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
 					vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
-					// if(musicStatus===false){
-					// 	var music=new Audio("/src/components/static/soundTruck.mp3")
+					if(musicStatus===false){
+						var music=new Audio("/src/components/static/soundTruck.mp3")
 
-					// 	music.play()
-					// 	music.Loop=true
-					// 	musicStatus=true
-					// 	if(musicStatus===true){
-					// 		setTimeout(()=>{musicStatus=false},2222222)
-					// 	}
-					// }
+						music.play()
+						music.Loop=true
+						musicStatus=true
+						if(musicStatus===true){
+							setTimeout(()=>{musicStatus=false},2222222)
+						}
+					}
 
 					break;
 
 				case 40: // backward
 					vehicle.applyEngineForce(keyup ? 0 : engineForce, 2);
 					vehicle.applyEngineForce(keyup ? 0 : engineForce, 3);
+        
 					break;
 
 				case 39: // right
@@ -1305,7 +1312,7 @@ console.log(task);
 		//  */
 		// third person camera
 		var camera, goal;
-		var test = 2; //camera disctance from the car
+		var test = 4; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -1503,7 +1510,7 @@ console.log(task);
       if (mixer18) {
 				mixer18.update(deltaTime);
 			}
-			console.log(box.position);
+			// console.log(box.position);
 			// Update controls
 			renderer.clear();
 			// controls.update()
@@ -1538,11 +1545,15 @@ console.log(task);
   
 	document.onkeydown = function (e) {
 		if (e.keyCode === 13 && level === 1) {settask("one");
-    console.log(task);
-		setlevel(0);}
+		setlevel(0);
+	}
     if (e.keyCode === 13 && level === 2) {settask("two");
+	console.log(task);
+	console.log(level);
 	setlevel(0);}
   if (e.keyCode === 13 && level === 3) {settask("three");
+  console.log(task);
+	console.log(level);
 	setlevel(0);}
   if (e.keyCode === 13 && level === 4) {settask("four");
 	setlevel(0);}

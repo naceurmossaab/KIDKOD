@@ -269,7 +269,7 @@ const DndBasket = ({ user, setUser, close }) => {
 							></video>
 						</div>
 					)} */}
-					<div className='icons'>
+					<div className='iconsDnD'>
 						<img
 							className='challenge-goal icon'
 							src='https://cdn3d.iconscout.com/3d/premium/thumb/down-arrow-2871138-2384397.png'
