@@ -13,11 +13,13 @@ const Admin = () => {
      const [users, setUsers] = useState([]);
      const [view, setView] = useState("dashboard");
      const [chartType, setChartType] = useState("bar"); // "all", "bar", "line", "pie", "radar"
+     const [labels, setLabel] = useState([]);
+     const [dataSets, setDataSets] = useState([]);
      const [chartData, setChartData] = useState({
-          labels: ["wassim", "ghassen", "saddem", "wael", "gassen"],
+          labels:["wassim", "ghassen", "saddem", "wael", "gassen", "bob", "sakr"],
           datasets: [
                {
-                    data: [4, 2, 3, 1, 6, 5],
+                    data: [2, 3, 1, 1, 1, 1, 2],
                     backgroundColor:'green',
                     backgroundColor: [
                          'rgba(255, 99, 132, 0.6) ',
@@ -45,6 +47,8 @@ const Admin = () => {
      useEffect(() => axios.get("http://localhost:8000/api/admin/users")
                .then(({ data }) => {
                     setUsers(data);
+                    setLabel(data.map(user=>user.username));
+                    setChartData({ labels, ...chartData});
                }), []);
 
      return(
