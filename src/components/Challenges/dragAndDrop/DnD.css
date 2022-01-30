@@ -106,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1100px;
+  width: 900px;
   padding: 10px;
 }
 
@@ -121,9 +121,11 @@
 .submit-btn button {
   padding: 15px;
   font-size: large;
+  width: 100px;
   border-radius: 7px;
   border: black solid 1px;
-  background-color: rgb(255, 93, 255);
+  color: rgb(255, 255, 255);
+  background-color: rgb(105, 66, 209);
 }
 .hand-animation {
   border-radius: 20px;
@@ -148,7 +150,7 @@
 }
 .winVideo {
   margin-top: 15%;
-  margin-left: 25%;
+  margin-left: 30%;
   border: rgb(170, 170, 170) solid 2px;
   border-radius: 30px;
 }
@@ -174,4 +176,14 @@ h4 {
 }
 .wrong {
   color: tomato;
+}
+.closeBTN {
+  padding: 15px;
+  font-size: large;
+  width: 100px;
+  border-radius: 7px;
+  border: black solid 1px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(105, 66, 209);
+  margin-left: 50%;
 }

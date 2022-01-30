@@ -22,6 +22,7 @@ const Navbar = () => {
       <Link to="/">
         <span className="logo" onClick={() => window.location.reload()}>
           <img
+          className="logoPic"
             width="40"
             alt="kid center"
             src="https://media.discordapp.net/attachments/902266709568782436/934024200069472296/kidkod.png"
@@ -41,7 +42,11 @@ const Navbar = () => {
         </div>
       ) : (
         <Link to="/login">
-          <span className="border">Login</span>
+          <img
+            className="loginPic"
+            src="https://cdn.discordapp.com/attachments/902266709568782436/934254745533681664/Login-22-01-2022.png"
+            alt=""
+          />
         </Link>
       )}
     </div>

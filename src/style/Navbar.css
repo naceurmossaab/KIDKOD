@@ -30,21 +30,34 @@
   width: 100vw !important;
   z-index: 1000;
 }
-.navbar img {
+
+.logoPic {
   position: relative;
   margin-left: 0rem;
   margin-top: 5rem;
   height: 170px;
-  width : 170px;
+  width: 170px;
   animation-name: logo;
   animation-duration: 5s;
   animation-iteration-count: infinite;
 }
 @keyframes logo {
-  0%    {left:0px;   top:0px;}
-  50%   {left:0px;   top:0px;}
-  75%   {left:250px; top:0px;}
-  100%  {left:0px;   top:0px;}
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  50% {
+    left: 0px;
+    top: 0px;
+  }
+  75% {
+    left: 250px;
+    top: 0px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
 }
 
 .navbar span {
@@ -61,12 +74,16 @@
   transition: 0.5s ease-in-out;
 }
 
-.border {
+/* .border {
   border: 2px solid rgb(255, 0, 149);
+  background-color: rgb(255, 0, 149);
   border-radius: 25px 25px 25px 25px;
   padding: 0.2rem 1rem !important;
   transition: 0.05s ease-in-out;
-}
+  font-size: larger;
+  color: aliceblue;
+} */
+
 .border:hover {
   border: 2px solid rgb(62, 194, 255);
 }
@@ -75,4 +92,9 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+.loginPic {
+  height: 70px;
+  width: auto;
+  margin-top: 30px;
 }

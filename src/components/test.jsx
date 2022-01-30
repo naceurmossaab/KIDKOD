@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Challenges from "./Challenges/Challenges.jsx";
+import Game2 from "./Challenges/Game2.jsx";
 import * as THREE from "three";
 import gsap from "gsap";
 import * as dat from "dat.gui";
@@ -11,11 +12,14 @@ import { Sky } from "three/examples/jsm/objects/Sky.js";
 import { Link } from "react-router-dom";
 import "../style/test.css";
 import DnD from "./Challenges/dragAndDrop/DnD.jsx";
+import DnDEnglish from "./Challenges/English_challenge/DnD-eng.jsx";
 import axios from "axios";
+import DnDBasket from "./Challenges/dragAndDrop/dndBasket/BasketChallenge.jsx";
+import CubeTowerGame from "./CubeTowerGame"
+
 // import EngDnD from "./Challenges/English_challenge/DnD.jsx"
 // import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 // const gui = new dat.GUI();
-var level = "";
 const Vis = () => {
 	const { useRef, useEffect, useState, useMemo } = React;
 	const mount = useRef(null);
@@ -32,7 +36,10 @@ const Vis = () => {
 		setUser(null);
 	};
 	// const controls = useRef(null);
-	const [task, settask] = useState(true);
+	const [task, settask] = useState("zero");
+  const [level, setlevel] = useState(0);
+console.log(level);
+console.log(task);
 	function close() {
 		settask(true);
 		// console.log(task);
@@ -78,6 +85,13 @@ const Vis = () => {
 		let mixer9 = null;
 		let mixer10 = null;
 		let mixer11 = null;
+		let mixer12 = null;
+		let mixer13 = null;
+		let mixer14 = null;
+		let mixer15 = null;
+		let mixer16 = null;
+		let mixer17 = null;
+		let mixer18 = null;
 
 		// Models
 		//adding the old man
@@ -187,7 +201,7 @@ const Vis = () => {
 					}
 				});
 				object.position.set(20, 0, -177);
-				object.scale.set(0.02, 0.02, 0.02);
+				object.scale.set(0.015, 0.015, 0.015);
 				object.rotation.set(0, 5.5, 0);
 				scene.add(object);
 			}
@@ -284,10 +298,44 @@ const Vis = () => {
 			}
 		);
 		loader.load(
-			"/src/components/static/models/ARROW.fbx",
+			"/src/components/static/models/ARROWRED.fbx",
 			function (object) {
 				mixer11 = new THREE.AnimationMixer(object);
-				const action = mixer11.clipAction(object.animations[1]);
+				const action = mixer11.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(70, -0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 6, 0);
+				scene.add(object);
+				// const cubeFolder1 = gui.addFolder("position");
+				// cubeFolder1.add(object.position, "x");
+				// cubeFolder1.add(object.position, "y");
+				// cubeFolder1.add(object.position, "z");
+				// cubeFolder1.open();
+				// const cubeFolder = gui.addFolder("scale");
+				// cubeFolder.add(object.scale, "x");
+				// cubeFolder.add(object.scale, "y");
+				// cubeFolder.add(object.scale, "z");
+				// cubeFolder.open();
+				// const cubeFolder2 = gui.addFolder("rotation");
+				// cubeFolder2.add(object.rotation, "x");
+				// cubeFolder2.add(object.rotation, "y");
+				// cubeFolder2.add(object.rotation, "z");
+				// cubeFolder2.open();
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer12 = new THREE.AnimationMixer(object);
+				const action = mixer12.clipAction(object.animations[1]);
 				action.play();
 				console.log(object);
 				object.traverse(function (child) {
@@ -298,25 +346,128 @@ const Vis = () => {
 				});
 				object.position.x = 46;
 				object.position.z = -7.1;
-				object.position.y = -2;
-				object.scale.set(0.02, 0.02, 0.02);
+				object.position.y = -0.5;
+				object.scale.set(0.01, 0.01, 0.01);
 				object.rotation.set(0, 6, 0);
 				scene.add(object);
-				const cubeFolder1 = gui.addFolder("position");
-				cubeFolder1.add(object.position, "x");
-				cubeFolder1.add(object.position, "y");
-				cubeFolder1.add(object.position, "z");
-				cubeFolder1.open();
-				const cubeFolder = gui.addFolder("scale");
-				cubeFolder.add(object.scale, "x");
-				cubeFolder.add(object.scale, "y");
-				cubeFolder.add(object.scale, "z");
-				cubeFolder.open();
-				const cubeFolder2 = gui.addFolder("rotation");
-				cubeFolder2.add(object.rotation, "x");
-				cubeFolder2.add(object.rotation, "y");
-				cubeFolder2.add(object.rotation, "z");
-				cubeFolder2.open();
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer13 = new THREE.AnimationMixer(object);
+				const action = mixer13.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(5, 0.5, -111);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer14 = new THREE.AnimationMixer(object);
+				const action = mixer14.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-81, 0.5, -63);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+    
+			}
+		);
+    
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer15 = new THREE.AnimationMixer(object);
+				const action = mixer15.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(-116, 0.5, -55);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer16 = new THREE.AnimationMixer(object);
+				const action = mixer16.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(-134, 0.5, -88);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+    
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROW.fbx",
+			function (object) {
+				mixer17 = new THREE.AnimationMixer(object);
+				const action = mixer17.clipAction(object.animations[1]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+        object.position.set(-117, 0.9, -147);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 7, 0);
+				scene.add(object);
+  
+			}
+		);
+    loader.load(
+			"/src/components/static/models/ARROWRED.fbx",
+			function (object) {
+				mixer18 = new THREE.AnimationMixer(object);
+				const action = mixer18.clipAction(object.animations[0]);
+				action.play();
+				console.log(object);
+				object.traverse(function (child) {
+					if (child.isMesh) {
+						child.castShadow = true;
+						child.receiveShadow = true;
+					}
+				});
+				object.position.set(20, 0.7, -177);
+				object.scale.set(0.01, 0.01, 0.01);
+				object.rotation.set(0, 8, 0);
+				scene.add(object)
 			}
 		);
 		// function passmesh(mesh){
@@ -514,53 +665,53 @@ const Vis = () => {
 		//     },
 		// );
 		//grass
-		// const grass = new THREE.Group();
-		// scene.add(grass);
-		// for (let i = 0; i < 1000; i++) {
-		// 	gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
-		// 		const angle = Math.random() * Math.PI * 80;
-		// 		const radius = 3 + Math.random() * 100;
-		// 		gltf.scene.position.set(
-		// 			Math.sin(angle) * radius,
-		// 			0,
-		// 			Math.cos(angle) * radius
-		// 		);
-		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
-		// 		grass.add(gltf.scene);
-		// 	});
-		// }
-		// //flowers
-		// const flowers = new THREE.Group();
-		// scene.add(flowers);
-		// for (let i = 0; i < 1000; i++) {
-		// 	gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
-		// 		const angle = Math.random() * Math.PI * 80;
-		// 		const radius = 3 + Math.random() * 100;
-		// 		gltf.scene.position.set(
-		// 			Math.sin(angle) * radius,
-		// 			0,
-		// 			Math.cos(angle) * radius
-		// 		);
-		// 		gltf.scene.scale.set(0.5, 0.5, 0.5);
-		// 		grass.add(gltf.scene);
-		// 	});
-		// }
-		// //mushroms
-		// const mushroms = new THREE.Group();
-		// scene.add(mushroms);
-		// for (let i = 0; i < 300; i++) {
-		// 	gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
-		// 		const angle = Math.random() * Math.PI * 80;
-		// 		const radius = 3 + Math.random() * 100;
-		// 		gltf.scene.position.set(
-		// 			Math.sin(angle) * radius,
-		// 			0,
-		// 			Math.cos(angle) * radius
-		// 		);
-		// 		gltf.scene.scale.set(0.3, 0.3, 0.3);
-		// 		grass.add(gltf.scene);
-		// 	});
-		// }
+		const grass = new THREE.Group();
+		scene.add(grass);
+		for (let i = 0; i < 1000; i++) {
+			gltfLoader.load("/src/all models/grass.gltf", function (gltf) {
+				const angle = Math.random() * Math.PI * 80;
+				const radius = 3 + Math.random() * 100;
+				gltf.scene.position.set(
+					Math.sin(angle) * radius,
+					0,
+					Math.cos(angle) * radius
+				);
+				gltf.scene.scale.set(0.5, 0.5, 0.5);
+				grass.add(gltf.scene);
+			});
+		}
+		//flowers
+		const flowers = new THREE.Group();
+		scene.add(flowers);
+		for (let i = 0; i < 1000; i++) {
+			gltfLoader.load("/src/all models/flowers1.gltf", function (gltf) {
+				const angle = Math.random() * Math.PI * 80;
+				const radius = 3 + Math.random() * 100;
+				gltf.scene.position.set(
+					Math.sin(angle) * radius,
+					0,
+					Math.cos(angle) * radius
+				);
+				gltf.scene.scale.set(0.5, 0.5, 0.5);
+				grass.add(gltf.scene);
+			});
+		}
+		//mushroms
+		const mushroms = new THREE.Group();
+		scene.add(mushroms);
+		for (let i = 0; i < 300; i++) {
+			gltfLoader.load("/src/all models/mushrom.gltf", function (gltf) {
+				const angle = Math.random() * Math.PI * 80;
+				const radius = 3 + Math.random() * 100;
+				gltf.scene.position.set(
+					Math.sin(angle) * radius,
+					0,
+					Math.cos(angle) * radius
+				);
+				gltf.scene.scale.set(0.3, 0.3, 0.3);
+				grass.add(gltf.scene);
+			});
+		}
 
 		// trees
 		gltfLoader.load("/src/all models/trees1.gltf", function (gltf) {
@@ -753,7 +904,8 @@ const Vis = () => {
 				between(box.position.x, 38.39, 52.11) &&
 				between(box.position.z, -13.67, 0.92)
 			) {
-				level = "one";
+        console.log('hi');
+				setlevel(1);
 				const talk = new Audio(
 					"/src/components/static/Enregistrement.m4a"
 				);
@@ -767,8 +919,45 @@ const Vis = () => {
 					}, 6000);
 				}
 			}
+      if (
+				e.keyCode === 13 &&
+				between(box.position.x, 63.92, 73.72) &&
+				between(box.position.z, -57.65, -48.32)
+			) {
+				setlevel(2);
+				settask("two")}
+        if (
+          e.keyCode === 13 &&
+          between(box.position.x, 1.65, 13.12) &&
+          between(box.position.z, -133.43, -99.76)
+        ) {
+          setlevel(3);
+		settask("three")
+		}
+          if (
+            e.keyCode === 13 &&
+            between(box.position.x, -88.34, -78.16) &&
+            between(box.position.z, -70.44, -58.82)
+          ) {
+            setlevel(4);
+			settask("four")}
+            if (
+              e.keyCode === 13 &&
+              between(box.position.x, -121.52, -110.52) &&
+              between(box.position.z, -61.23, -51.97)
+            ) {
+              setlevel(5);
+			  settask("five")}
+              if (
+                e.keyCode === 13 &&
+                between(box.position.x, -138.05, -127.58) &&
+                between(box.position.z, -92.07, -80.76)
+              ) {
+                setlevel(6);
+				settask("six")}
 		};
-
+    //second level
+  
 		// Controls
 
 		// const horses = [];
@@ -1017,8 +1206,8 @@ const Vis = () => {
 				32
 			);
 			var material = new THREE.MeshPhongMaterial({
-				color: 0xd0901d,
-				emissive: 0xaa0000,
+				color: 0x292929,
+				// emissive: 0xaa0000,
 				side: THREE.DoubleSide,
 				flatShading: true,
 			});
@@ -1070,27 +1259,28 @@ const Vis = () => {
 			var keyup = e.type == "keyup";
 
 			var engineForce = 2000,
-				maxSteerVal = 0.6;
+				maxSteerVal = 0.5;
 			switch (e.keyCode) {
 				case 38: // forward
 					vehicle.applyEngineForce(keyup ? 0 : -engineForce, 2);
 					vehicle.applyEngineForce(keyup ? 0 : -engineForce, 3);
-					// if(musicStatus===false){
-					// 	var music=new Audio("/src/components/static/soundTruck.mp3")
+					if(musicStatus===false){
+						var music=new Audio("/src/components/static/soundTruck.mp3")
 
-					// 	music.play()
-					// 	music.Loop=true
-					// 	musicStatus=true
-					// 	if(musicStatus===true){
-					// 		setTimeout(()=>{musicStatus=false},2222222)
-					// 	}
-					// }
+						music.play()
+						music.Loop=true
+						musicStatus=true
+						if(musicStatus===true){
+							setTimeout(()=>{musicStatus=false},2222222)
+						}
+					}
 
 					break;
 
 				case 40: // backward
 					vehicle.applyEngineForce(keyup ? 0 : engineForce, 2);
 					vehicle.applyEngineForce(keyup ? 0 : engineForce, 3);
+        
 					break;
 
 				case 39: // right
@@ -1122,7 +1312,7 @@ const Vis = () => {
 		//  */
 		// third person camera
 		var camera, goal;
-		var test = 2; //camera disctance from the car
+		var test = 4; //camera disctance from the car
 		var temp = new THREE.Vector3();
 		camera = new THREE.PerspectiveCamera(
 			75,
@@ -1181,83 +1371,7 @@ const Vis = () => {
 			mesh.visible = false;
 			scene.remove(mesh);
 		};
-		createBox(
-			35.9,
-			3,
-			0.1,
-			{ x: 65, y: 0, z: -31 },
-			{ x: 3.1, y: -1.187, z: 3.1 }
-		);
-		createBox(
-			26.15,
-			3,
-			0.1,
-			{ x: 58.6, y: 0, z: -31 },
-			{ x: 3.1, y: -1.187, z: 3.1 }
-		);
-		createBox(
-			75.3,
-			3.5,
-			0.1,
-			{ x: 37.7, y: 0, z: -73.4 },
-			{ x: 3.1, y: 0.747, z: 3.169 }
-		);
-		createBox(
-			73.8,
-			3.5,
-			0.1,
-			{ x: 40.8, y: 0, z: -82.3 },
-			{ x: 3.053, y: 0.771, z: 3.2 }
-		);
-		createBox(
-			78.6,
-			3.5,
-			0.1,
-			{ x: -36.8, y: 0, z: -95.3 },
-			{ x: 3.203, y: -0.175, z: 3.159 }
-		);
-		createBox(
-			75,
-			3.5,
-			0.1,
-			{ x: -42.5, y: 0, z: -101.7 },
-			{ x: 3.2, y: -0.14, z: 3.161 }
-		);
-		createBox(
-			13.2,
-			6.45,
-			8.5,
-			{ x: 77.9, y: 0, z: -69 },
-			{ x: 3.1, y: -0.915, z: 3.1 }
-		); //house
-		createBox(
-			1,
-			3.5,
-			1.15,
-			{ x: 79.1, y: 0, z: -54.1 },
-			{ x: 3.1, y: -0.91, z: 3.1 }
-		); // medium tree
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: -0.2, y: 0, z: -109.6 },
-			{ x: 3.2, y: -0.719, z: 3.2 }
-		); //ruin piller
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: 8.2, y: 0, z: -116.9 },
-			{ x: 3.2, y: -0.72, z: 3.2 }
-		); //ruin piller
-		createBox(
-			3.8,
-			3.5,
-			3.6,
-			{ x: 8.2, y: 0, z: -116.9 },
-			{ x: 3.2, y: -0.72, z: 3.2 }
-		); //ruin piller
+	
 
 		// const createBoxPhysics=(width,height,depth,position,rotation)=>{
 		// 	const shape= new CANNON.Box(new CANNON.Vec3(width/2,height/2,depth/2))
@@ -1375,6 +1489,27 @@ const Vis = () => {
 			if (mixer11) {
 				mixer11.update(deltaTime);
 			}
+      if (mixer12) {
+				mixer12.update(deltaTime);
+			}
+      if (mixer13) {
+				mixer13.update(deltaTime);
+			}
+      if (mixer14) {
+				mixer14.update(deltaTime);
+			}
+      if (mixer15) {
+				mixer15.update(deltaTime);
+			}
+      if (mixer16) {
+				mixer16.update(deltaTime);
+			}
+      if (mixer17) {
+				mixer17.update(deltaTime);
+			}
+      if (mixer18) {
+				mixer18.update(deltaTime);
+			}
 			// console.log(box.position);
 			// Update controls
 			renderer.clear();
@@ -1394,13 +1529,41 @@ const Vis = () => {
 	}, []);
 
 	function quests() {
-		if (task === false)
+		if (task === "one")
 			return <DnD close={close} user={user} setUser={setUser} />;
+      if (task === "two")
+			return <Challenges close={close} user={user} setUser={setUser} />;
+      if (task === "three")
+			return <DnDEnglish close={close} user={user} setUser={setUser} />;
+      if (task === "four")
+      return < Game2 close={close} />
+      if (task === "five")
+      return < DnDBasket close={close} />
+      if (task === "six")
+      return < CubeTowerGame close={close} />
 	}
+  
 	document.onkeydown = function (e) {
-		if (e.keyCode === 13 && level === "one") settask(false);
-		level = "zero";
+		if (e.keyCode === 13 && level === 1) {settask("one");
+		setlevel(0);
+	}
+    if (e.keyCode === 13 && level === 2) {settask("two");
+	console.log(task);
+	console.log(level);
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 3) {settask("three");
+  console.log(task);
+	console.log(level);
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 4) {settask("four");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 5) {settask("five");
+	setlevel(0);}
+  if (e.keyCode === 13 && level === 6) {settask("six");
+	setlevel(0);}
 	};
+	
+
 	function changeImagevariable() {
 		setImage(2);
 	}
