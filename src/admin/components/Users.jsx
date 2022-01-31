@@ -60,7 +60,7 @@ const Users = (props) => {
                                                   (<tr key={i}>
                                                        {props.type.includes("username") || props.type.includes("all") ?
                                                        (<td className="user-label">
-                                                            <img src={user.loginpic||user.picture} alt="" />
+                                                            {/* <img src={user.loginpic||user.picture} alt="" /> */}
                                                             <span className="user-link label">{user.username}</span>
                                                             <span className="user-link user-subhead">member</span>
                                                        </td>):('')}

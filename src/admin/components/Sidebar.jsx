@@ -23,12 +23,12 @@ const Sidebar = (props) => {
                               <li className="header-menu">
                                    <span>General</span>
                               </li>
-                              <li className={props.active === 'dashboard' ? "sidebar-dropdown active" : "sidebar-dropdown"} onClick={(e) => props.view('dashboard')}>
+                              {/* <li className={props.active === 'dashboard' ? "sidebar-dropdown active" : "sidebar-dropdown"} onClick={(e) => props.view('dashboard')}>
                                    <a href="#">
                                         <i className="fa fa-tachometer" />
                                         <span>Dashboard</span>
                                    </a>
-                              </li>
+                              </li> */}
                               <li className={props.active === 'users' ? "sidebar-dropdown active" : "sidebar-dropdown"} onClick={(e) => props.view('users')}>
                                    <a href="#">
                                         <i className="fa fa-globe" />
@@ -48,9 +48,9 @@ const Sidebar = (props) => {
                                         <span>Charts</span>
                                    </a>
                               </li>
-                              <li className="header-menu">
+                              {/* <li className="header-menu">
                                    <span>Extra</span>
-                              </li>
+                              </li> */}
                          </ul>
                     </div>
                     {/* sidebar-menu  */}
